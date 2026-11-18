@@ -42,7 +42,8 @@ body.market-page{height:100dvh;display:grid;place-items:center;background:#32221
 .market-page .market-gift.selected{background:#ffe18c;border-color:#f6a61e;box-shadow:inset 0 0 0 1px #f6a61e}
 .market-page .market-actions{width:max-content;justify-self:center;padding:0 1.3cqw;font-size:2.4cqw}
 .market-page .market-actions button{font-size:2.4cqw;padding:.8cqw 1.5cqw}
-.market-page .market-notices{left:3%;bottom:1.4%;max-width:84%;font-size:2.1cqw;padding:.3cqw 1.2cqw}
-.market-page .market-notices p{font-size:2.1cqw}.market-page .market-notices ul{display:none}
+.market-page .market-notices{left:3%;bottom:1.1%;max-width:84%;font-size:2.1cqw;padding:.3cqw 1.2cqw}
+.market-page .market-notices p{font-size:2.1cqw}.market-page .market-notices ul{display:block}
 .market-page .market-toast{top:17%;left:3%;right:17%;transform:none;white-space:normal;font-size:3.1cqw;padding:1.5cqw}
 .admin-shell .music-player{margin:0;padding:24px}.admin-shell .music-player input[type=range]{max-width:260px}
+.shipment{position:absolute;top:12%;left:3%;max-width:80%;margin:0;padding:1.1cqw 2cqw;border-radius:2cqw;background:#6a3824e8;color:#fff0bc;font-size:2.65cqw;pointer-events:none}

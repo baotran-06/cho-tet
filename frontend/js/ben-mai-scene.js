@@ -18,7 +18,7 @@ export class BenMai extends Tavern {
     super(canvas,renderer);
     this.camera=new T.OrthographicCamera(-6,6,10,-10,.1,100);
     this.camera.position.set(9,20,24);
-    this.camera.lookAt(0,0,-.9);
+    this.camera.lookAt(0,0,1.35);
     const resize=this.resize;
     window.removeEventListener('resize',resize);
     this.resize=()=>{
@@ -298,22 +298,25 @@ export class BenMai extends Tavern {
     }
 
     const elapsed=now-order.departure;
-    const progress=T.MathUtils.clamp((elapsed-900)/(deliveryTime-2400),0,1);
+    const progress=T.MathUtils.clamp((elapsed-1850)/(deliveryTime-3400),0,1);
     const pickup=v(-1.65,stall.z);
     const route=[pickup,v(-.35,stall.z),v(1.3,stall.z-1.1),v(1.3,-4.6),quay];
-    const travel=this.alongPath(route,progress);
+    const previous=this.state.market.recent.find(item=>!item.show);
+    const parked=previous?quay:v(.8,6.8);
+    const approach=[parked,v(.95,parked.z),v(.95,stall.z),pickup];
+    const travel=elapsed<1250?this.alongPath(approach,elapsed/1250):this.alongPath(route,progress);
     this.cart.group.position.copy(travel.position);
     this.cart.group.rotation.y=travel.angle;
-    for(const wheel of this.cart.wheels) wheel.rotation.x=progress*27;
-    this.cart.pedals.rotation.x=-progress*27;
+    for(const wheel of this.cart.wheels) wheel.rotation.x=elapsed<1250?elapsed*.013:16+progress*27;
+    this.cart.pedals.rotation.x=-this.cart.wheels[0].rotation.x;
     this.courier.group.position.copy(this.cart.group.localToWorld(new T.Vector3(-.57,0,.43)));
     this.courier.group.rotation.y=travel.angle;
-    this.pose(this.courier,progress>0&&progress<1,true);
+    this.pose(this.courier,elapsed<1250||progress>0&&progress<1,elapsed>=1850&&progress<1);
     const bed=this.cart.group.localToWorld(new T.Vector3(0,.77,-.66));
     const boat=this.boat.localToWorld(new T.Vector3(.15,.19,.44));
     item.position.copy(bed);
-    if(elapsed<900) {
-      const phase=Math.max(0,elapsed/900);
+    if(elapsed<1850) {
+      const phase=T.MathUtils.clamp((elapsed-1250)/600,0,1);
       item.position.copy(counter).lerp(bed,phase);
       item.position.y+=Math.sin(phase*Math.PI)*.38;
     }
@@ -347,9 +350,10 @@ export class BenMai extends Tavern {
     }
     const courierBusy=active.some(order=>order.departure);
     if(!courierBusy) {
-      this.cart.group.position.set(.8,0,6.8);
-      this.cart.group.rotation.y=-.35;
-      this.courier.group.position.set(.15,0,6.85);
+      const delivered=market?.recent.some(order=>!order.show);
+      this.cart.group.position.copy(delivered?quay:v(.8,6.8));
+      this.cart.group.rotation.y=delivered?Math.PI/2:-.35;
+      this.courier.group.position.copy(this.cart.group.localToWorld(new T.Vector3(-.57,0,.43)));
       this.courier.group.rotation.y=.5;
       this.pose(this.courier);
     }

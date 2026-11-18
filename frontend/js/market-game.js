@@ -63,13 +63,17 @@ const client=new Client(next=>{
   $('market-total').textContent=market.total+' món đã giao';
   $('market-progress').max=market.target??marketConfig.milestones.at(-1);
   $('market-progress').value=market.total;
-  $('market-queue').textContent=market.active.length+' đang giao · '+market.pending+' đang chờ'+(market.unmapped?' · '+market.unmapped+' quà chưa khớp':'')+(market.dropped?' · '+market.dropped+' đơn quá tải':'');
+  const shipment=market.active.find(order=>order.departure);
+  $('shipment').textContent=shipment?'Xe đang chở '+marketConfig.products[shipment.product].name+' ×'+shipment.quantity:'';
+  $('shipment').hidden=!shipment;
+  $('market-queue').textContent=market.active.length+' đang xử lý · '+market.pending+' đang chờ'+(market.unmapped?' · '+market.unmapped+' quà chưa khớp':'')+(market.dropped?' · '+market.dropped+' đơn quá tải':'');
   $('welcome-demo').hidden=next.mode!=='DEMO';
-  const report=next.mode+':'+(market.recent[0]?.id??'');
+  const report=next.mode+':'+market.recent.map(order=>order.id).join('|');
   if(lastReport===report) return;
   lastReport=report;
   $('market-feed').replaceChildren();
-  for(const order of market.recent.slice(0,3)) {
+  const completed=market.recent.find(order=>!order.show);
+  for(const order of completed?[completed]:[]) {
     const product=marketConfig.products[order.product];
     const li=document.createElement('li');
     li.textContent=order.show?order.user+' · '+labels.get(order.product)?.effect:order.user+' đã gửi '+order.quantity+' '+product.name+' xuống ghe.';

@@ -46,7 +46,7 @@ try {
   assert.equal(await page.locator('.market-gift').count(),10);
   assert.equal(await page.locator('.market-gift img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>0)),true);
   assert.equal(await page.evaluate(()=>document.fonts.check('700 24px "Be Vietnam Pro"','BẾN MAI')),true);
-  assert.equal(await page.locator('.market-brand').innerText(),'Bến Mai');
+  assert.equal(await page.locator('.market-brand h1').textContent(),'Bến Mai');
   assert.ok(await page.evaluate(()=>__market.scene.buyers.filter(npc=>npc.group.visible).length>=8));
   await page.waitForFunction(()=>__market.scene.buyers.some(npc=>npc.group.visible&&npc.purchase.visible));
   const shoppers=await page.evaluate(()=>__market.scene.buyers.slice(0,2).map(npc=>npc.group.position.toArray()));

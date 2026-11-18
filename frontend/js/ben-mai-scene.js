@@ -17,13 +17,13 @@ export class BenMai extends Tavern {
   constructor(canvas, renderer=null) {
     super(canvas,renderer);
     this.camera=new T.OrthographicCamera(-6,6,10,-10,.1,100);
-    this.camera.position.set(14.0,12.7,25);
-    this.camera.lookAt(1.05,.30,3.6);
+    this.camera.position.set(11.8,12.7,26);
+    this.camera.lookAt(1.65,.30,2.8);
     const resize=this.resize;
     window.removeEventListener('resize',resize);
     this.resize=()=>{
       const width=Math.max(1,canvas.clientWidth),height=Math.max(1,canvas.clientHeight);
-      const horizontal=7.15;
+      const horizontal=7.4;
       const vertical=horizontal*height/width;
       Object.assign(this.camera,{left:-horizontal,right:horizontal,top:vertical*1.10,bottom:-vertical*.90});
       this.camera.updateProjectionMatrix();

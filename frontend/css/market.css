@@ -55,3 +55,8 @@ body.market-page,.admin-shell{font-family:"Be Vietnam Pro",Arial,sans-serif}
 .market-page .market-brand h1,.gift-board h2{font-family:"Be Vietnam Pro",Arial,sans-serif;font-weight:700;line-height:1.25}
 .market-page .market-brand h1{font-size:5.6cqw}
 .gift-board h2{font-size:3.6cqw}
+
+.game-music{position:absolute;z-index:6;left:3%;right:11%;bottom:10%;display:grid;gap:.5rem;padding:.85rem;background:#fff0d2;color:#6b241e;border:2px solid #edb957;border-radius:1rem;box-shadow:0 3px 12px #532c25aa;font-size:.875rem}
+.game-music[hidden],.game-music audio[hidden]{display:none}
+.game-music label{font-weight:700}
+.game-music input,.game-music select,.game-music audio{width:100%;min-width:0;max-width:100%;color:inherit}

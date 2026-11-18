@@ -26,6 +26,16 @@ try {
   await page.goto(origin);
   await page.waitForFunction(()=>window.__market?.scene && __market.state?.connection==='disconnected');
   assert.equal(await page.locator('#fatal').isHidden(),true);
+  await page.click('#game-music-toggle');
+  await page.setInputFiles('#game-music-files',{name:'Nhạc DEMO.wav',mimeType:'audio/wav',buffer:Buffer.from(melodyWav())});
+  assert.equal(await page.locator('#game-music-list option').textContent(),'Nhạc DEMO.wav');
+  await page.waitForFunction(()=>document.querySelector('#game-music-audio').readyState>=2);
+  await page.evaluate(()=>document.querySelector('#game-music-audio').play());
+  await page.waitForFunction(()=>document.querySelector('#game-music-audio').currentTime>0);
+  await page.evaluate(()=>document.querySelector('#game-music-audio').pause());
+  await page.click('#game-music-toggle');
+  assert.equal(await page.locator('#game-music').isHidden(),true);
+
   assert.equal(await page.evaluate(()=>__market.scene.vendors.length),4);
   assert.equal(await page.evaluate(()=>[...__market.scene.vendors,...__market.scene.buyers,__market.scene.courier].every(actor=>actor.customMarketNpc)),true);
   assert.equal(await page.locator('.market-gift').count(),10);

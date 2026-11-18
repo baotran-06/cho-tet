@@ -13,6 +13,12 @@ const stalls=[
 ];
 const boatPosition=[0,.06,6.8];
 const landing=stall=>v(Math.sign(stall.x)*2.35,stall.z+1.05);
+const bankLoops=[-1,1].map(side=>[
+  v(side*3.61,7.7),v(side*3.61,-3.9),v(side*7.9,-3.9),
+  v(side*7.9,7.7),v(side*3.61,7.7)
+]);
+const bankLoopSeconds=bankLoops[0].slice(1)
+  .reduce((distance,point,index)=>distance+point.distanceTo(bankLoops[0][index]),0)/1.65;
 
 export class BenMai extends Tavern {
   constructor(canvas, renderer=null, models=new Map()) {
@@ -466,9 +472,14 @@ export class BenMai extends Tavern {
     this.vendors.forEach(npc=>this.pose(npc));
     for(const [index,buyer] of this.buyers.entries()) {
       buyer.group.visible=index<3+(market?.level??0);
-      const p=((this.time*.040+index*.17)%1);
-      const stall=stalls[index%4],side=Math.sign(stall.x);
-      this.move(buyer,[v(side*4.0,8.4),v(side*4.1,stall.z+1.65),v(stall.x,stall.z+1.8),v(side*4,8.4)],p,index%2===1);
+      if(!buyer.group.visible) continue;
+      const progress=(this.time/bankLoopSeconds+.11+Math.floor(index/2)/3)%1;
+      const route=bankLoops[index%2];
+      const {position,angle}=this.alongPath(route,progress);
+      buyer.group.position.copy(position);
+      const turn=angle-buyer.group.rotation.y;
+      buyer.group.rotation.y+=Math.atan2(Math.sin(turn),Math.cos(turn))*.2;
+      this.pose(buyer,true);
     }
     const shipment=active.find(order=>order.departure);
     const recent=market?.recent.find(order=>!order.show);

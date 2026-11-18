@@ -41,8 +41,11 @@ try {
   assert.equal(await page.locator('.market-gift').count(),10);
   assert.equal(await page.locator('.market-gift img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>0)),true);
   assert.equal(await page.evaluate(()=>document.fonts.check('700 24px "Be Vietnam Pro"','BẾN MAI')),true);
-  const first=await page.evaluate(()=>__market.scene.buyers[0].group.position.toArray());
-  await page.waitForFunction(position=>JSON.stringify(__market.scene.buyers[0].group.position.toArray())!==JSON.stringify(position),first);
+  const shoppers=await page.evaluate(()=>__market.scene.buyers.slice(0,2).map(npc=>npc.group.position.toArray()));
+  assert.ok(shoppers[0][0]<-3 && shoppers[1][0]>3);
+  await page.waitForFunction(start=>__market.scene.buyers.slice(0,2).every((npc,index)=>
+    npc.group.visible && npc.group.position.distanceTo({x:start[index][0],y:start[index][1],z:start[index][2]})>.65
+    && Math.abs(npc.group.position.x)>3),shoppers);
   const gift=async(giftName,count=1)=>{
     const response=await page.request.post(origin+'/api/demo',{headers:{Origin:origin},data:{type:'gift',giftName,count}});
     assert.ok(response.ok());

@@ -17,8 +17,8 @@ export class BenMai extends Tavern {
   constructor(canvas, renderer=null) {
     super(canvas,renderer);
     this.camera=new T.OrthographicCamera(-6,6,10,-10,.1,100);
-    this.camera.position.set(9.1,16,25);
-    this.camera.lookAt(1.35,.45,2.7);
+    this.camera.position.set(9.8,16,25);
+    this.camera.lookAt(2.05,.45,2.7);
     const resize=this.resize;
     window.removeEventListener('resize',resize);
     this.resize=()=>{
@@ -31,15 +31,15 @@ export class BenMai extends Tavern {
     };
     this.resize();
     window.addEventListener('resize',this.resize);
-    this.scene.background.set(0x65cbd0);
+    this.scene.background.set(0x22b3a7);
     this.scene.fog=null;
     this.renderer.toneMapping=T.NeutralToneMapping;
-    this.renderer.toneMappingExposure=1.0;
+    this.renderer.toneMappingExposure=1.24;
     for(const light of this.scene.children) {
       if(light.isHemisphereLight) {
         light.color.set(0xfff5de);
         light.groundColor.set(0x70907c);
-        light.intensity=1.45;
+        light.intensity=1.68;
       }
       if(light.isDirectionalLight) {
         light.color.set(light.castShadow?0xffeed4:0xb3e8ff);

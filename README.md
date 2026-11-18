@@ -1,24 +1,21 @@
-# Chợ Tết Online
+# Bến Mai · Chợ Tết Online
 
-Chợ Tết 3D dùng với TikTok LIVE Studio. Chợ có sạp hoa, bánh, trái cây và đồ Tết quanh lối đi chính. NPC nền đi mua hàng ngay cả khi chưa có quà. Đơn từ quà được chuẩn bị tại sạp, đi theo người giao và xuất hiện ở điểm nhận hàng.
+Chợ 3D ven sông Nam Bộ dành cho khung hình TikTok LIVE dọc 9:16. Quà xuất hiện trên bảng chính dưới dạng hình, tên và hành động. Khi nhận quà, ô tương ứng sáng lên và hiện tên người tặng.
 
-## Chạy trên Windows
+## Mở trên Windows
 
-1. Giải nén ZIP nhánh `cho-tet-online` vào thư mục riêng. Dừng bản Xóm Online bằng `STOP-XOM.bat` nếu đang dùng cổng 3210.
-2. Nhấp đúp `START-XOM.bat`. Lần đầu cần Node.js 22 trở lên và Internet để cài thư viện.
-3. Mở màn hình chợ tại http://127.0.0.1:3210/ và điều khiển tại http://127.0.0.1:3210/admin.
-4. Thử trước bằng **Bật DEMO → Quà DEMO → Gửi quà**. Ví dụ số lượng 10 Hoa sẽ giao 10 chậu mai và mở mốc đầu tiên. NPC nền không cộng vào giao dịch TikTok.
-5. Khi phát thật, nhập tên kênh đang LIVE tại trang điều khiển. Chọn cửa sổ chợ làm nguồn hình trong LIVE Studio. Muốn có tiếng, mở **Âm thanh → Bắt đầu âm thanh** và chọn thu âm hệ thống hoặc ứng dụng phù hợp trong LIVE Studio.
-6. Nhấp đúp `STOP-XOM.bat` khi kết thúc.
+1. Giải nén toàn bộ. Nếu đang chạy bản cũ trên cổng 3210, tắt bằng **STOP-XOM.bat** trong thư mục cũ.
+2. Bấm **START-XOM.bat**. Lần đầu cần Node.js 22 trở lên và Internet để cài thư viện.
+3. Màn hình chợ mở tại http://127.0.0.1:3210/ và bảng điều khiển tại http://127.0.0.1:3210/admin.
+4. Trong **DEMO**, chọn một trong 10 quà rồi bấm gửi. Thử Hoa hồng số lượng 10 để xem một chuyến giao theo lô.
+5. Khi tài khoản đang phát TikTok LIVE, nhập tên người dùng và bấm **Kết nối**. Thêm cửa sổ Bến Mai làm nguồn hình trong LIVE Studio. Nếu dùng cửa sổ trình duyệt rộng, cắt mép ngoài để thu đúng khung dọc.
+6. Trong trang điều khiển, dùng **Thêm bài** để chọn MP3/WAV từ máy. Có chọn bài, phát/dừng, chuyển bài, lặp bài và âm lượng riêng. Giữ tab điều khiển mở, chọn nguồn thu âm trình duyệt hoặc âm thanh hệ thống trong LIVE Studio và kiểm tra đồng hồ âm thanh. Playlist file cá nhân chỉ tồn tại trong phiên hiện tại.
+7. Kết thúc bằng **STOP-XOM.bat**.
 
-## Quy đổi quà
+## Quà và đơn hàng
 
-Sửa `frontend/config/market.json` bằng Notepad hoặc trình soạn thảo rồi khởi động lại. Mỗi giá trị phải là một mã trong `products`. Mục `byId` ưu tiên hơn `byName`. Tên dùng chữ thường. Ví dụ `"byId": {"12345":"mai"}`, trong đó `12345` chỉ minh họa. Đối chiếu Gift ID và tên thực ở nhật ký sự kiện ở trang điều khiển. Quà không khớp được đếm riêng; lượt thả tim không tạo đơn, còn quà có tên Heart có thể tạo đơn.
+Bảy món mua được chuẩn bị song song ở các sạp. Một xe ba gác nhận từng lô và chở xuống bến ghe. Lì xì, thắp đèn và múa lân được chạy độc lập với hàng đợi giao hàng. Số lượng món đã giao được cộng sau khi hàng ra ghe. Ba mốc 10, 30 và 60 món tăng khách nền và kích hoạt pháo hoa.
 
-Quà chuỗi dùng số lượng từ sự kiện kết thúc chuỗi. Một chuyến giao đại diện cho cả lô; số món giao tăng theo số lượng thật trong lô. Từng sạp xử lý lần lượt, bốn sạp có thể giao song song. Khi hoàn tất giao hàng, người xem thấy tên tài khoản và món đã mua. Mốc mặc định 10/30/60 món mở thêm đèn lồng, tăng người mua nền và chạy pháo hoa. Đèn hội đặc biệt cũng kích hoạt lễ hội sau khi giao xong. Thống kê lưu trong phiên server và được đặt lại khi chuyển phiên hoặc khởi động lại.
+Đối chiếu Gift ID thật trong nhật ký từ phiên LIVE của bạn. Sửa quy đổi trong `frontend/config/market.json`, trong đó ID ưu tiên hơn tên. Các ID chưa xác định sẽ khớp bằng tên. Quà không khớp được thống kê riêng. Ảnh tĩnh dùng từ danh mục https://beetgames.com/pt-br/tiktok-gifts/vn/ để người xem nhận diện quà.
 
-Ghép quà thật và đầu ra LIVE Studio phải thử trên một buổi LIVE thực tế. Giới hạn của nguồn TikTok hiện tại gồm việc chưa có sự kiện người xem rời theo từng tài khoản. Chợ dùng dữ liệu DEMO chỉ khi đang bật DEMO.
-
-## Kiểm thử
-
-Dùng `npm ci`, `npm ci --prefix bridge`, `npm run check`, `npm test`, `npm run build`. Sau khi cài Chromium Playwright, chạy `node scripts/browser-check.mjs` để kiểm tra NPC nền, đơn DEMO qua server, giao hàng 3D và mốc phát triển. Workflow GitHub chạy kiểm thử nhánh Chợ Tết; deploy Pages chỉ chạy cho main.
+Chưa xác minh quà và thu âm từ một phiên LIVE của tài khoản người dùng. GitHub Pages chạy DEMO. Windows chạy cầu nối LIVE cục bộ.

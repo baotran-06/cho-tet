@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Chợ Tết Online</title><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/market.css"></head>
+<title>Bến Mai · Chợ Tết Online</title><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/market.css"></head>
 <body class="game-page market-page"><main id="game">
 <canvas id="world" aria-label="Chợ Tết Việt Nam 3D"></canvas>
 <header class="market-header">
-  <div class="market-brand"><span class="market-seal" aria-hidden="true">春</span><div><h1>Chợ Tết Online</h1><span id="mode-label">Đang mở chợ…</span></div></div>
+  <div class="market-brand"><span class="market-seal" aria-hidden="true">✿</span><div><h1>Bến Mai</h1><span id="mode-label">Đang mở chợ…</span></div></div>
   <div class="market-growth"><strong id="market-level">Chợ mới mở</strong><span id="market-total">0 món đã giao</span><progress id="market-progress" max="10" value="0" aria-label="Tiến độ phát triển khu chợ"></progress><small id="market-queue"></small></div>
 </header>
 <div class="market-notices"><p id="connection-label"></p><ul id="market-feed" aria-label="Đơn hàng đã giao"></ul></div>
 <div class="market-footer">
-  <div id="market-gifts" class="market-gifts" aria-label="Quà LIVE và vật phẩm tương ứng"></div>
-  <div class="market-actions"><button id="welcome-demo" hidden>Thử đơn DEMO</button><button id="fullscreen" aria-label="Toàn màn hình">⛶</button><a href="admin.html" target="_blank" rel="noopener">Điều khiển ↗</a><details><summary>Âm thanh</summary><section class="music-player" aria-label="Bộ trộn âm thanh"><h3>♫ Âm thanh chợ Tết</h3><button id="audio-start" class="primary">Bắt đầu âm thanh</button><p id="audio-status" role="status">Chưa phát · cần bấm để cho phép âm thanh</p><label><input id="music-enabled" type="checkbox" checked> Nhạc nền</label><div class="music-buttons"><button id="music-prev" aria-label="Bài trước">⏮</button><button id="music-play">Phát / Dừng</button><button id="music-next" aria-label="Bài tiếp">⏭</button></div><select id="music-list" aria-label="Danh sách bài hát"></select><div class="music-buttons"><label class="file-button">+ Thêm bài<input id="music-files" type="file" accept="audio/*" multiple hidden></label><button id="music-remove">Xóa bài</button></div><label>Nhạc <input id="music-volume" type="range" min="0" max="100" value="22"></label><label><input id="ambient-enabled" type="checkbox" checked> Âm thanh nền <input id="ambient-volume" type="range" min="0" max="100" value="55"></label><label><input id="sfx-enabled" type="checkbox" checked> Hiệu ứng <input id="sfx-volume" type="range" min="0" max="100" value="45"></label><button id="audio-test">Thử hiệu ứng âm thanh</button><small id="audio-meter">Chưa có tín hiệu</small></section></details></div>
+  <section class="gift-board"><h2>Quà tặng trong chợ</h2><div id="market-gifts" class="market-gifts"></div></section>
+  <div class="market-actions"><button id="welcome-demo" hidden>Thử đơn DEMO</button><button id="fullscreen" aria-label="Toàn màn hình">⛶</button><a href="admin.html" target="_blank" rel="noopener">Điều khiển ↗</a></div>
 </div>
 <div id="toast" class="market-toast" role="status" hidden></div><div id="fatal" class="fatal" hidden></div>
 </main><script type="module" src="js/market-game.js"></script></body></html>

@@ -2,10 +2,10 @@ import {World,demoEvent} from './core.js';
 export class Client {
   constructor(onState) {
     this.onState=onState;this.world=new World();this.remote=false;this.closed=false;this.retry=0;this.demoIndex=0;this.lastRemote=0;this.isLocal=false;
-    this.channel=new BroadcastChannel('cho-tet-online-demo-v1');this.leader=false;this.state=null;
+    this.channel=new BroadcastChannel('ben-mai-demo-v1');this.leader=false;this.state=null;
     this.channel.onmessage=({data})=>{if(this.remote)return;if(data.command&&this.leader){try{this.localCommand(data.path,data.body);}catch{}}if(data.state&&!this.leader){this.state=data.state;this.onState(this.state);}};
     // Web Locks elects one DEMO simulation across game and dashboard tabs.
-    if(navigator.locks)navigator.locks.request('cho-tet-demo-leader',{mode:'exclusive'},async()=>{if(this.closed)return;this.leader=true;await new Promise(r=>{this.release=r;});});else this.leader=true;
+    if(navigator.locks)navigator.locks.request('ben-mai-demo-leader',{mode:'exclusive'},async()=>{if(this.closed)return;this.leader=true;await new Promise(r=>{this.release=r;});});else this.leader=true;
     this.timer=setInterval(()=>{if(!this.remote&&this.holdLive&&this.state){this.onState({...this.state,connection:'disconnected',liveEvidence:{...this.state.liveEvidence,verified:false}});return;}if(!this.remote&&this.leader){this.world.tick();const s={...this.world.snapshot(),connection:this.world.mode==='LIVE'?'disconnected':'demo-local',logs:[]};this.state=s;this.onState(s);this.channel.postMessage({state:s});}},100);
     this.ready=this.probe();
   }

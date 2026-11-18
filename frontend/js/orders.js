@@ -1,9 +1,10 @@
 import config from '../config/market.json' with {type:'json'};
 
 export const marketConfig = config;
-export const orderDuration = 7800;
-export const pickupTime = 3300;
-export const handoffTime = 4400;
+export const preparationTime = 2400;
+export const deliveryTime = 8300;
+export const showTime = 5200;
+export const orderDuration = preparationTime + deliveryTime;
 
 export function giftProduct(event, rules = config) {
   const name = String(event.giftName ?? '').normalize('NFC').trim().toLowerCase();
@@ -19,6 +20,7 @@ export class MarketOrders {
     this.pending = [];
     this.active = [];
     this.recent = [];
+    this.notices = [];
     this.counts = {};
     this.total = 0;
     this.unmapped = 0;
@@ -36,36 +38,51 @@ export class MarketOrders {
       this.dropped++;
       return;
     }
-    this.pending.push({
+    const item = config.products[product];
+    const order = {
       id:event.id, user:event.user.name, product, source:event.source,
-      quantity:Math.max(1, Math.trunc(event.count)), stall:config.products[product].stall
-    });
+      quantity:Math.max(1, Math.trunc(event.count)), stall:item.stall, show:Boolean(item.show)
+    };
+    this.pending.push(order);
+    this.notices.unshift(order);
+    this.notices.length = Math.min(this.notices.length, 12);
   }
 
   tick(now) {
     this.active = this.active.filter(order => {
-      if (now < order.started + orderDuration) return true;
+      if (!order.end || now < order.end) return true;
       const previousLevel = this.level;
-      this.total += order.quantity;
-      this.counts[order.product] = (this.counts[order.product] ?? 0) + order.quantity;
+      if (!order.show) {
+        this.total += order.quantity;
+        this.counts[order.product] = (this.counts[order.product] ?? 0) + order.quantity;
+      }
       this.recent.unshift({...order, delivered:now});
       this.recent.length = Math.min(this.recent.length, 12);
-      if (this.level > previousLevel || config.products[order.product].celebrate) {
-        this.celebrationUntil = now + 5500;
-      }
+      if (this.level > previousLevel) this.celebrationUntil = now + 5500;
       return false;
     });
 
-    const busy = new Set(this.active.map(order => order.stall));
-    for (let index = 0; index < this.pending.length;) {
-      const order = this.pending[index];
-      if (busy.has(order.stall)) {
-        index++;
+    const busy = new Set(this.active.filter(order => !order.show && !order.departure).map(order => order.stall));
+    const shows = new Set(this.active.filter(order => order.show).map(order => order.product));
+    const waiting = [];
+    for (const order of this.pending) {
+      const slots = order.show ? shows : busy;
+      const slot = order.show ? order.product : order.stall;
+      if (slots.has(slot)) {
+        waiting.push(order);
         continue;
       }
-      this.pending.splice(index, 1);
-      this.active.push({...order, started:now});
-      busy.add(order.stall);
+      slots.add(slot);
+      this.active.push({...order, started:now, end:order.show?now+showTime:null});
+    }
+    this.pending = waiting;
+
+    if (!this.active.some(order => order.departure)) {
+      const next = this.active.filter(order => !order.show).find(order => now >= order.started + preparationTime);
+      if (next) {
+        next.departure = now;
+        next.end = now + deliveryTime;
+      }
     }
   }
 
@@ -75,7 +92,7 @@ export class MarketOrders {
 
   snapshot() {
     return {
-      active:this.active, recent:this.recent, total:this.total, counts:this.counts,
+      active:this.active, recent:this.recent, notices:this.notices, total:this.total, counts:this.counts,
       pending:this.pending.length, dropped:this.dropped, unmapped:this.unmapped,
       level:this.level, target:config.milestones[this.level] ?? null,
       celebrationUntil:this.celebrationUntil, rules:this.rules

@@ -1,8 +1,10 @@
+import {mountAudio} from './audio.js';
+import {marketConfig} from './orders.js';
 import {Client} from './client.js';
-const $=id=>document.getElementById(id);let state=null;let historyKey='';
+const $=id=>document.getElementById(id);let state=null;let historyKey='';let audio;let sounding=new Set();
 function error(message){$('error').textContent=message;$('error').hidden=false;}
 const statuses={connected:'Đã nhận sự kiện TikTok LIVE thật', 'awaiting-event':'Socket đã mở · đang chờ sự kiện TikTok thật',connecting:'Đang kết nối TikTok…',reconnecting:'Đang kết nối lại…',disconnected:'Đã ngắt / đang chờ kết nối',ended:'LIVE đã kết thúc',error:'Kết nối lỗi · xem nhật ký','demo-local':'DEMO trình duyệt · chưa có cầu nối'};
-const client=new Client(s=>{state=s;if(s.rememberedUsername&&!$('username').value)$('username').value=s.rememberedUsername;$('mode-chip').textContent=s.mode==='DEMO'?'DEMO · Dữ liệu mô phỏng':'LIVE · '+(s.liveEvidence?.verified?'Đã nhận sự kiện thật':'Chưa xác minh sự kiện thật');for(const key of ['total','inside'])$(key).textContent=s[key];$('waiting').textContent=s.market?.pending??0;$('total-note').textContent=s.totalCapped?'Đã đạt giới hạn ghi nhận 50.000 tài khoản':'Tài khoản duy nhất đã ghi nhận';$('tables').textContent=(s.market?.active.length??0)+' / 4';$('connection').textContent=(statuses[s.connection]||s.connection)+(s.liveEvidence?.verified?' · '+s.liveEvidence.receivedEvents+' sự kiện · gần nhất '+new Date(s.liveEvidence.lastEventAt).toLocaleTimeString('vi-VN'):'');if(s.liveEvidence?.lastError)$('connection').textContent+=' · '+s.liveEvidence.lastError.code+': '+s.liveEvidence.lastError.summary;$('sound-toggle').checked=s.sound;$('queue').textContent=`Hàng đợi: ${s.queue} · Đã bỏ do quá tải: ${s.dropped}`;const key=s.mode+':'+s.history[0]?.id;if(key!==historyKey){historyKey=key;renderEvents(s.history);}});
+const client=new Client(s=>{state=s;playMarketSounds(s);if(s.rememberedUsername&&!$('username').value)$('username').value=s.rememberedUsername;$('mode-chip').textContent=s.mode==='DEMO'?'DEMO · Dữ liệu mô phỏng':'LIVE · '+(s.liveEvidence?.verified?'Đã nhận sự kiện thật':'Chưa xác minh sự kiện thật');for(const key of ['total','inside'])$(key).textContent=s[key];$('waiting').textContent=s.market?.pending??0;$('total-note').textContent=s.totalCapped?'Đã đạt giới hạn ghi nhận 50.000 tài khoản':'Tài khoản duy nhất đã ghi nhận';$('tables').textContent=(s.market?.active.length??0)+' / 4';$('connection').textContent=(statuses[s.connection]||s.connection)+(s.liveEvidence?.verified?' · '+s.liveEvidence.receivedEvents+' sự kiện · gần nhất '+new Date(s.liveEvidence.lastEventAt).toLocaleTimeString('vi-VN'):'');if(s.liveEvidence?.lastError)$('connection').textContent+=' · '+s.liveEvidence.lastError.code+': '+s.liveEvidence.lastError.summary;$('sound-toggle').checked=s.sound;$('queue').textContent=`Hàng đợi: ${s.queue} · Đã bỏ do quá tải: ${s.dropped}`;const key=s.mode+':'+s.history[0]?.id;if(key!==historyKey){historyKey=key;renderEvents(s.history);}});
 client.ready.then(()=>{$('bridge-help').textContent=client.isLocal?'Cầu nối chạy tại '+location.origin+'. Mở màn hình game cùng địa chỉ để đồng bộ.':'Bạn đang mở trang tĩnh. DEMO chạy được ngay. LIVE: chạy START-XOM.bat trên Windows rồi dùng trang http://127.0.0.1:3210/admin.';});
 async function cmd(path,body={}){try{$('error').hidden=true;await client.command(path,body);return true;}catch(e){error(e.message);return false;}}
 $('connect-form').onsubmit=e=>{e.preventDefault();void cmd('connect',{username:$('username').value.trim(),remember:$('remember-live').checked});};
@@ -16,3 +18,28 @@ function renderEvents(events){$('events').replaceChildren();if(!events.length){c
   for(const e of events){const row=document.createElement('div');row.className='event-row';const icon=document.createElement('span');icon.className='event-icon';icon.textContent=actions[e.type]?.[0]||'•';const body=document.createElement('div');const title=document.createElement('strong');title.textContent=e.user.name;const sub=document.createElement('small');sub.textContent=(actions[e.type]?.[1]||e.type)+(e.type==='gift'?` · ${e.giftName||'không có tên'} ×${e.count} · ID ${e.giftId||'DEMO'}`:'');body.append(title,sub);const badge=document.createElement('span');badge.className='badge';badge.textContent=e.source;const time=document.createElement('time');time.textContent=new Date(e.at).toLocaleTimeString('vi-VN');row.append(icon,body,badge,time);$('events').append(row);}}
 $('logs-refresh').onclick=async()=>{if(!client.remote){error('Nhật ký cầu nối chỉ có tại trang điều khiển local.');return;}try{const data=await (await fetch('/api/state')).json();$('logs').replaceChildren();if(!data.logs.length){const p=document.createElement('p');p.className='empty';p.textContent='Chưa ghi nhận lỗi.';$('logs').append(p);}for(const log of data.logs){const p=document.createElement('p');p.className='log-entry';p.textContent=new Date(log.at).toLocaleTimeString('vi-VN')+' · '+log.message;$('logs').append(p);}}catch(e){error(e.message);}};
 window.addEventListener('pagehide',()=>client.close(),{once:true});
+
+for(const gift of marketConfig.guide) {
+  const option=document.createElement('option');
+  option.value=gift.gift;
+  option.textContent=gift.label+' · '+gift.effect;
+  option.selected=gift.product==='mai';
+  $('gift').append(option);
+}
+function playMarketSounds(state) {
+  audio?.update(state);
+  const active=state.market?.active??[];
+  for(const order of active) {
+    if(sounding.has(order.id)) continue;
+    if(order.product==='lion') audio?.lionDrum();
+    else if(order.product==='lixi'||order.product==='lights') audio?.effect('flowers');
+  }
+  sounding=new Set(active.map(order=>order.id));
+}
+mountAudio().then(player=>{
+  audio=player;
+  $('music-loop').onchange=e=>{player.media.loop=e.target.checked;};
+  $('sfx-enabled').onchange=e=>cmd('sound',{enabled:e.target.checked});
+  if(state) player.update(state);
+}).catch(()=>{$('audio-status').textContent='Không tải được trình phát nhạc.';});
+window.addEventListener('pagehide',()=>audio?.dispose(),{once:true});

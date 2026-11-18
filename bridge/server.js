@@ -15,7 +15,7 @@ export function createApp(options={}) {
   const bridge=new TikTokBridge(e=>world.enqueue(e),s=>{connection=s;},log,options.loader);
   const json=(res,status,obj)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(obj));};
   const frontend=resolve(fileURLToPath(new URL('frontend/',root)));
-  const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.woff2':'font/woff2','.mp3':'audio/mpeg','.wav':'audio/wav','.ogg':'audio/ogg'};
+  const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.woff2':'font/woff2','.mp3':'audio/mpeg','.wav':'audio/wav','.ogg':'audio/ogg'};
   const liveEvidence=()=>bridge.evidence();
   const connectLive=async username=>{
     if(!/^[a-zA-Z0-9_.]{1,40}$/.test(username))throw Error('Username không hợp lệ');
@@ -61,7 +61,7 @@ export function createApp(options={}) {
         else if(pathname==='/api/demo'){
           if(world.mode!=='DEMO'){json(res,409,{error:'LIVE không nhận sự kiện DEMO'});return;}
           if(body.action==='auto') {
-            clearInterval(auto);auto=null;if(body.enabled){auto=setInterval(()=>{const i=++demoIndex;world.enqueue(demoEvent('join',i));if(i%3===0)world.enqueue(demoEvent('gift',Math.max(1,i-1),'TikTok',i%12+1));},2000);auto.unref();}
+            clearInterval(auto);auto=null;if(body.enabled){auto=setInterval(()=>{const i=++demoIndex;world.enqueue(demoEvent('join',i));if(i%3===0)world.enqueue(demoEvent('gift',Math.max(1,i-1),'Rose',i%5+1));},2000);auto.unref();}
           } else {
             const amount=Math.max(1,Math.min(100,Number(body.amount)||1));
             const allowed=['join','leave','like','follow','gift'];const type=allowed.includes(body.type)?body.type:'join';

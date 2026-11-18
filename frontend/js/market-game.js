@@ -1,12 +1,11 @@
 import {Client} from './client.js';
-import {TetMarket} from './market-scene.js';
-import {mountAudio} from './audio.js';
+import {BenMai} from './ben-mai-scene.js';
 import {marketConfig} from './orders.js';
 
 const $=id=>document.getElementById(id);
-const demoGifts=['Rose','Heart','TikTok','Ice Cream','Lollipop','Galaxy'];
+const demoGifts=marketConfig.guide.map(gift=>gift.gift);
 const levelNames=['Chợ mới mở','Chợ rộn ràng','Chợ lên đèn','Hội xuân'];
-let scene, audio, state, lastReport, guideKey, toastTimer;
+let scene, state, lastReport, noticeId, toastTimer;
 const statuses={
   connected:'Đang nhận sự kiện TikTok LIVE', 'awaiting-event':'Chờ sự kiện LIVE thật',
   connecting:'Đang kết nối', reconnecting:'Đang kết nối lại', ended:'LIVE đã kết thúc',
@@ -20,33 +19,23 @@ function toast(message) {
   toastTimer=setTimeout(()=>{$('toast').hidden=true;},4000);
 }
 
-function renderGuide(rules) {
-  const key=JSON.stringify([rules.byId,rules.byName]);
-  if(key===guideKey) return;
-  guideKey=key;
-  const root=$('market-gifts');
-  root.replaceChildren();
-  const entries=new Map();
-  for(const name of demoGifts) {
-    const item=rules.byName[name.toLowerCase()];
-    if(item) entries.set(name,item);
-  }
-  for(const [name,item] of Object.entries(rules.byName)) {
-    if(!Object.keys(marketConfig.byName).includes(name)) entries.set(name,item);
-  }
-  for(const [id,item] of Object.entries(rules.byId)) entries.set('Quà #'+id,item);
-  for(const [name,item] of entries) {
-    const product=marketConfig.products[item];
-    if(!product) continue;
-    const cell=document.createElement('div');
-    cell.className='market-gift';
-    for(const [tag,label] of [['span',product.icon],['strong',name],['small',product.name]]) {
-      const el=document.createElement(tag);
-      el.textContent=label;
-      cell.append(el);
-    }
-    root.append(cell);
-  }
+const cards=new Map();
+const labels=new Map(marketConfig.guide.map(gift=>[gift.product,gift]));
+for(const gift of marketConfig.guide) {
+  const cell=document.createElement('div');
+  cell.className='market-gift';
+  const icon=document.createElement('img');
+  icon.src='./assets/gifts/'+gift.image+'.webp';
+  icon.alt='';
+  const description=document.createElement('div');
+  const name=document.createElement('span');
+  name.textContent=gift.label;
+  const effect=document.createElement('strong');
+  effect.textContent=gift.effect;
+  description.append(name,effect);
+  cell.append(icon,description);
+  $('market-gifts').append(cell);
+  cards.set(gift.product,cell);
 }
 
 const client=new Client(next=>{
@@ -54,8 +43,20 @@ const client=new Client(next=>{
   state=next;
   const market=next.market;
   scene?.update(next);
-  audio?.update(next);
-  renderGuide(market.rules);
+  const notice=market.notices[0];
+  if(notice && notice.id!==noticeId) {
+    noticeId=notice.id;
+    const gift=labels.get(notice.product);
+    if(gift) {
+      for(const card of cards.values()) card.classList.remove('selected');
+      cards.get(notice.product)?.classList.add('selected');
+      toast(notice.user+' tặng '+gift.label+' · '+gift.effect+(notice.quantity>1?' ×'+notice.quantity:''));
+    }
+  }
+  if(!notice && noticeId) {
+    noticeId=null;
+    for(const card of cards.values()) card.classList.remove('selected');
+  }
   $('mode-label').textContent=next.mode==='LIVE'?'TikTok LIVE':'DEMO · Mô phỏng';
   $('connection-label').textContent=next.mode==='DEMO'?statuses['demo-local']:(statuses[next.connection]??'Chờ kết nối');
   $('market-level').textContent=levelNames[market.level]??levelNames.at(-1);
@@ -66,20 +67,18 @@ const client=new Client(next=>{
   $('welcome-demo').hidden=next.mode!=='DEMO';
   const report=next.mode+':'+(market.recent[0]?.id??'');
   if(lastReport===report) return;
-  const first=market.recent[0];
-  if(lastReport&&first&&next.sound) audio?.effect(market.celebrationUntil>next.serverTime?'spotlight':'flowers');
   lastReport=report;
   $('market-feed').replaceChildren();
   for(const order of market.recent.slice(0,3)) {
     const product=marketConfig.products[order.product];
     const li=document.createElement('li');
-    li.textContent=product.icon+' '+order.user+' vừa mua '+order.quantity+' '+product.name+'.';
+    li.textContent=order.show?order.user+' · '+labels.get(order.product)?.effect:order.user+' đã gửi '+order.quantity+' '+product.name+' xuống ghe.';
     $('market-feed').append(li);
   }
 });
 client.ready.then(()=>{
 try {
-  scene=new TetMarket($('world'));
+  scene=new BenMai($('world'));
   if(state) scene.update(state);
 } catch (error) {
   $('fatal').hidden=false;
@@ -87,10 +86,6 @@ try {
 }
 
 });
-mountAudio().then(player=>{
-  audio=player;
-  if(state) player.update(state);
-}).catch(()=>toast('Không tải được cấu hình âm thanh.'));
 let demoIndex=0;
 $('welcome-demo').onclick=async()=>{
   try {
@@ -108,5 +103,5 @@ $('fullscreen').onclick=async()=>{
     toast('Trình duyệt chưa cho phép toàn màn hình.');
   }
 };
-window.addEventListener('pagehide',()=>{client.close();scene?.dispose();audio?.dispose();},{once:true});
-window.__market={get scene(){return scene;},get state(){return state;},get audio(){return audio;}};
+window.addEventListener('pagehide',()=>{client.close();scene?.dispose();},{once:true});
+window.__market={get scene(){return scene;},get state(){return state;}};

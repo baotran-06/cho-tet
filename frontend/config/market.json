@@ -1,27 +1,158 @@
 {
-  "byId": {},
-  "byName": {
-    "rose":"mai", "hoa":"mai", "hoa hồng":"mai",
-    "heart":"melon", "tim":"melon", "tiktok":"tet",
-    "ice cream":"chung", "kem":"chung",
-    "lollipop":"lixi", "kẹo mút":"lixi", "galaxy":"festival"
+  "byId": {
+    "5879": "lion",
+    "19443": "lights",
+    "5487": "lixi",
+    "14786": "melon",
+    "6064": "tet",
+    "5655": "mai",
+    "5269": "soda"
   },
-  "milestones":[10,30,60],
+  "byName": {
+    "doughnut": "lion",
+    "bravo!": "lights",
+    "shamrock": "pig",
+    "drip brewing": "pork",
+    "finger heart": "lixi",
+    "peach": "melon",
+    "okay": "mut",
+    "gg": "tet",
+    "rose": "mai",
+    "tiktok": "soda",
+    "bánh vòng": "lion",
+    "hoan hô": "lights",
+    "cỏ ba lá": "pig",
+    "cà phê pha phin": "pork",
+    "tim ngón tay": "lixi",
+    "quả đào": "melon",
+    "đồng ý": "mut",
+    "hoa hồng": "mai"
+  },
+  "milestones": [
+    10,
+    30,
+    60
+  ],
   "products": {
-    "mai":{"name":"chậu hoa mai","stall":0,"icon":"🌼"},
-    "dao":{"name":"chậu hoa đào","stall":0,"icon":"🌸"},
-    "cuc":{"name":"chậu hoa cúc","stall":0,"icon":"🌻"},
-    "vantho":{"name":"chậu vạn thọ","stall":0,"icon":"🏵️"},
-    "tet":{"name":"đòn bánh tét","stall":1,"icon":"🍃"},
-    "chung":{"name":"chiếc bánh chưng","stall":1,"icon":"🍙"},
-    "mut":{"name":"hộp mứt Tết","stall":1,"icon":"🍬"},
-    "melon":{"name":"quả dưa hấu","stall":2,"icon":"🍉"},
-    "buoi":{"name":"quả bưởi","stall":2,"icon":"🍊"},
-    "dua":{"name":"quả dừa","stall":2,"icon":"🥥"},
-    "mangcau":{"name":"quả mãng cầu","stall":2,"icon":"🍈"},
-    "lixi":{"name":"bao lì xì","stall":3,"icon":"🧧"},
-    "caudoi":{"name":"bộ câu đối đỏ","stall":3,"icon":"📜"},
-    "lantern":{"name":"chiếc đèn lồng","stall":3,"icon":"🏮"},
-    "festival":{"name":"đèn hội đặc biệt","stall":3,"icon":"🎆","celebrate":true}
-  }
+    "mai": {
+      "name": "chậu hoa mai",
+      "stall": 0,
+      "icon": "🌼"
+    },
+    "tet": {
+      "name": "đòn bánh tét",
+      "stall": 1,
+      "icon": "🍃"
+    },
+    "melon": {
+      "name": "quả dưa hấu",
+      "stall": 2,
+      "icon": "🍉"
+    },
+    "mut": {
+      "name": "hộp mứt Tết",
+      "stall": 1,
+      "icon": "🍬"
+    },
+    "lixi": {
+      "name": "bao lì xì",
+      "stall": 3,
+      "icon": "🧧",
+      "show": true
+    },
+    "pig": {
+      "name": "heo đất",
+      "stall": 3
+    },
+    "pork": {
+      "name": "phần thịt ba chỉ",
+      "stall": 1
+    },
+    "soda": {
+      "name": "chai nước ngọt",
+      "stall": 2
+    },
+    "lights": {
+      "name": "đèn lồng",
+      "stall": 3,
+      "show": true
+    },
+    "lion": {
+      "name": "múa lân",
+      "stall": 3,
+      "show": true
+    }
+  },
+  "guide": [
+    {
+      "gift": "Doughnut",
+      "label": "Bánh vòng",
+      "effect": "Múa lân",
+      "product": "lion",
+      "image": "doughnut"
+    },
+    {
+      "gift": "Bravo!",
+      "label": "Hoan hô",
+      "effect": "Thắp đèn lồng",
+      "product": "lights",
+      "image": "bravo"
+    },
+    {
+      "gift": "Shamrock",
+      "label": "Cỏ ba lá",
+      "effect": "Mua heo đất",
+      "product": "pig",
+      "image": "shamrock"
+    },
+    {
+      "gift": "Drip Brewing",
+      "label": "Cà phê pha phin",
+      "effect": "Mua thịt ba chỉ",
+      "product": "pork",
+      "image": "drip_brewing"
+    },
+    {
+      "gift": "Finger Heart",
+      "label": "Tim ngón tay",
+      "effect": "Được lì xì",
+      "product": "lixi",
+      "image": "finger_heart"
+    },
+    {
+      "gift": "Peach",
+      "label": "Quả đào",
+      "effect": "Mua dưa hấu",
+      "product": "melon",
+      "image": "peach"
+    },
+    {
+      "gift": "Okay",
+      "label": "Đồng ý",
+      "effect": "Mua mứt Tết",
+      "product": "mut",
+      "image": "okay"
+    },
+    {
+      "gift": "GG",
+      "label": "GG",
+      "effect": "Mua bánh tét",
+      "product": "tet",
+      "image": "gg"
+    },
+    {
+      "gift": "Rose",
+      "label": "Hoa hồng",
+      "effect": "Mua hoa mai",
+      "product": "mai",
+      "image": "rose"
+    },
+    {
+      "gift": "TikTok",
+      "label": "TikTok",
+      "effect": "Mua nước ngọt",
+      "product": "soda",
+      "image": "tiktok"
+    }
+  ]
 }

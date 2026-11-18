@@ -19,12 +19,6 @@ function toast(message) {
   clearTimeout(toastTimer);
   toastTimer=setTimeout(()=>{$('toast').hidden=true;},4000);
 }
-try {
-  scene=new TetMarket($('world'));
-} catch (error) {
-  $('fatal').hidden=false;
-  $('fatal').textContent='Không mở được cảnh 3D: '+error.message;
-}
 
 function renderGuide(rules) {
   const key=JSON.stringify([rules.byId,rules.byName]);
@@ -82,6 +76,16 @@ const client=new Client(next=>{
     li.textContent=product.icon+' '+order.user+' vừa mua '+order.quantity+' '+product.name+'.';
     $('market-feed').append(li);
   }
+});
+client.ready.then(()=>{
+try {
+  scene=new TetMarket($('world'));
+  if(state) scene.update(state);
+} catch (error) {
+  $('fatal').hidden=false;
+  $('fatal').textContent='Không mở được cảnh 3D: '+error.message;
+}
+
 });
 mountAudio().then(player=>{
   audio=player;

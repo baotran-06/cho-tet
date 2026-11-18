@@ -11,7 +11,7 @@ export class Client {
   }
   async probe(){
     if(location.hostname!=='127.0.0.1')return;
-    try{const response=await fetch('/api/state',{signal:AbortSignal.timeout(2500)});if(!response.ok||!response.headers.get('content-type')?.includes('application/json'))return;const s=await response.json();if(!Array.isArray(s.users)||!s.connection)return;this.isLocal=true;this.remote=true;this.state=s;this.onState(s);this.connect();}catch{}
+    try{const response=await fetch('/api/state',{signal:AbortSignal.timeout(12000)});if(!response.ok||!response.headers.get('content-type')?.includes('application/json'))return;const s=await response.json();if(!Array.isArray(s.users)||!s.connection)return;this.isLocal=true;this.remote=true;this.state=s;this.onState(s);this.connect();}catch{}
   }
   connect(){if(this.closed)return;const ws=new WebSocket(`ws://${location.host}/ws`);this.ws=ws;
     ws.onmessage=e=>{try{const s=JSON.parse(e.data);if(!Array.isArray(s.users))return;this.remote=true;this.holdLive=false;this.retry=0;this.lastRemote=Date.now();this.state=s;this.onState(s);}catch{}};

@@ -17,13 +17,13 @@ export class BenMai extends Tavern {
   constructor(canvas, renderer=null) {
     super(canvas,renderer);
     this.camera=new T.OrthographicCamera(-6,6,10,-10,.1,100);
-    this.camera.position.set(11.8,12.7,26);
-    this.camera.lookAt(1.65,.30,2.8);
+    this.camera.position.set(27,11.8,2.25);
+    this.camera.lookAt(2.8,.15,-.2);
     const resize=this.resize;
     window.removeEventListener('resize',resize);
     this.resize=()=>{
       const width=Math.max(1,canvas.clientWidth),height=Math.max(1,canvas.clientHeight);
-      const horizontal=7.4;
+      const horizontal=8.65;
       const vertical=horizontal*height/width;
       Object.assign(this.camera,{left:-horizontal,right:horizontal,top:vertical*1.10,bottom:-vertical*.90});
       this.camera.updateProjectionMatrix();
@@ -203,7 +203,7 @@ export class BenMai extends Tavern {
       this.box(0xd9915c,[3.34,.13,.84],[0,.84,.61],group);
       this.box(stall.trim,[3.16,.32,.044],[0,.68,1.02],group);
       const sign=this.sign(stall.name,2.56,.47,'#fff0bc','#'+stall.trim.toString(16).padStart(6,'0'),[.10,2.66,.72],group,142);
-      sign.rotation.y=-.52;
+      sign.rotation.y=-.12;
       for(let i=0;i<3;i++) {
         const x=-.94+i*.91;
         this.box(0xbc8045,[.64,.10,.54],[x,.94,.79],group);
@@ -226,10 +226,10 @@ export class BenMai extends Tavern {
       actor.group.rotation.y=1.05;
       return actor;
     });
-    this.maiTree(-.72,-7.35);
+    this.maiTree(-5.15,-.27);
     for(let i=0;i<12;i++) {
       const angle=i*Math.PI/6;
-      this.product('mai',[-.72+1.2*Math.sin(angle),0,-7.35+1.2*Math.cos(angle)],this.staticRoot,.44);
+      this.product('mai',[-5.15+.84*Math.sin(angle),0,-.27+.84*Math.cos(angle)],this.staticRoot,.44);
     }
     for(let i=0;i<12;i++) {
       const z=9-i*1.7;
@@ -237,7 +237,7 @@ export class BenMai extends Tavern {
       this.box(0x9e613c,[.13,.64,.13],[2.54,.34,z]);
       this.box(0xecb56e,[.13,.070,.13],[2.54,.59,z]);
     }
-    for(const x of [-1.7,-.45,.7]) this.lamps.push(this.lamp([x,2.55,-6.5],this.staticRoot,.9));
+    for(const z of [-1.3,-.27,.76]) this.lamps.push(this.lamp([-4.7,3.5,z],this.staticRoot,.78));
 
     for(let i=0;i<13;i++) this.box(0xb77245,[.23,.23,2.1],[2.5+i*.21,-.01,-5.4]);
     for(const x of [2.75,4.87]) for(const z of [-6.48,-4.34]) {

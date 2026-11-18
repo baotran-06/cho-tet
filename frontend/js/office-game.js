@@ -46,7 +46,7 @@ const client=new Client(next=>{
   $('mode').textContent=next.mode==='DEMO'?'DEMO · Mô phỏng':next.liveEvidence?.verified?'LIVE · Đã nhận sự kiện':'LIVE · Chờ sự kiện thật';
   nameplate('ceo',office.ceo);nameplate('secretary',office.secretary);
   const active=office.active;
-  if(active?.id!==activeId){
+  if((active?.id??null)!==activeId){
     activeId=active?.id??null;scene=active;
     $('camera').className=active?'scene-'+active.key:'';
     for(const actor of Object.values(actors)){actor.style.transform='';actor.style.opacity='';actor.classList.remove('talking');}

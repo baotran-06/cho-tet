@@ -17,13 +17,13 @@ export class BenMai extends Tavern {
   constructor(canvas, renderer=null) {
     super(canvas,renderer);
     this.camera=new T.OrthographicCamera(-6,6,10,-10,.1,100);
-    this.camera.position.set(9,20,24);
-    this.camera.lookAt(0,0,1.35);
+    this.camera.position.set(10.3,20,24);
+    this.camera.lookAt(1.3,0,1.35);
     const resize=this.resize;
     window.removeEventListener('resize',resize);
     this.resize=()=>{
       const width=Math.max(1,canvas.clientWidth),height=Math.max(1,canvas.clientHeight);
-      const horizontal=6.5;
+      const horizontal=7.0;
       const vertical=horizontal*height/width;
       Object.assign(this.camera,{left:-horizontal,right:horizontal,top:vertical*1.10,bottom:-vertical*.90});
       this.camera.updateProjectionMatrix();
@@ -33,6 +33,7 @@ export class BenMai extends Tavern {
     window.addEventListener('resize',this.resize);
     this.scene.background.set(0xa6ddde);
     this.scene.fog=null;
+    this.renderer.toneMappingExposure=1.14;
     this.jobs=new Map();
     this.buyers=Array.from({length:6},(_,index)=>this.person('buyer'+index,'',index));
     this.courier=this.person('courier','',2);
@@ -198,6 +199,10 @@ export class BenMai extends Tavern {
       this.cyl(0xe4c08a,.115,.073,[x,.45,z]);
     }
 
+    for(const x of [2.75,3.75,4.75]) {
+      this.box(wood,[.075,1.32,.075],[x,.67,-6.37]);
+      this.lamps.push(this.lamp([x,1.17,-6.28],this.staticRoot,.57));
+    }
     this.boat=this.group(boatPosition,this.scene);
     this.boat.rotation.y=.35;
     this.sphere(0x8f4d32,[.68,.21,1.58],[0,-.14,0],this.boat);
@@ -338,7 +343,7 @@ export class BenMai extends Tavern {
     const lights=active.find(order=>order.product==='lights');
     this.lamps.forEach(({lamp,shell},i)=>{
       lamp.rotation.z=Math.sin(this.time*1.8+i)*.13;
-      shell.material.emissiveIntensity=lights&&now>=lights.started+i*290?1.35:.13+(market?.level??0)*.07;
+      shell.material.emissiveIntensity=lights&&now>=lights.started+i*185?1.35:.13+(market?.level??0)*.07;
     });
     this.vendors.forEach(npc=>this.pose(npc));
     this.pose(this.receiver);

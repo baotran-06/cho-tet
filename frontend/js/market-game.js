@@ -64,7 +64,7 @@ const client=new Client(next=>{
   $('market-progress').max=market.target??marketConfig.milestones.at(-1);
   $('market-progress').value=market.total;
   const shipment=market.active.find(order=>order.departure);
-  $('shipment').textContent=shipment?'Xe đang chở '+marketConfig.products[shipment.product].name+' ×'+shipment.quantity:'';
+  $('shipment').textContent=shipment?'Ghe chở '+marketConfig.products[shipment.product].name+' ×'+shipment.quantity:'';
   $('shipment').hidden=!shipment;
   $('market-queue').textContent=market.active.length+' đang xử lý · '+market.pending+' đang chờ'+(market.unmapped?' · '+market.unmapped+' quà chưa khớp':'')+(market.dropped?' · '+market.dropped+' đơn quá tải':'');
   $('welcome-demo').hidden=next.mode!=='DEMO';

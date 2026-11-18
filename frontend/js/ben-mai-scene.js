@@ -5,25 +5,25 @@ import {deliveryTime} from './orders.js';
 const gold=0xffcc00, red=0xd61928, wood=0x99603b, leaf=0x398d34;
 const v=(x,z)=>new T.Vector3(x,0,z);
 const stalls=[
-  {x:-3.7,z:6,name:'HOA MAI',trim:0xb62039,stock:['mai','mai','mai']},
-  {x:-3.7,z:1.9,name:'BÁNH & MỨT',trim:0x2b6951,stock:['tet','mut','pork']},
-  {x:-3.7,z:-2.2,name:'TRÁI CÂY',trim:0x9f501b,stock:['melon','soda','melon']},
-  {x:-3.7,z:-6.3,name:'ĐỒ TẾT',trim:0x923650,stock:['pig','lixi','pig']}
+  {x:-6.6,z:4.9,name:'HOA MAI',trim:0xb62039,stock:['mai','mai','mai']},
+  {x:6.6,z:4.9,name:'BÁNH & MỨT',trim:0x2b6951,stock:['tet','mut','pork']},
+  {x:6.6,z:-2.2,name:'TRÁI CÂY',trim:0x9f501b,stock:['melon','soda','melon']},
+  {x:-6.6,z:-2.2,name:'ĐỒ TẾT',trim:0x923650,stock:['pig','lixi','pig']}
 ];
-const quay=v(3.35,-5.3);
-const boatPosition=[5.7,-.12,-5.2];
+const boatPosition=[0,.06,6.8];
+const landing=stall=>v(Math.sign(stall.x)*2.35,stall.z+1.05);
 
 export class BenMai extends Tavern {
   constructor(canvas, renderer=null) {
     super(canvas,renderer);
     this.camera=new T.OrthographicCamera(-6,6,10,-10,.1,100);
-    this.camera.position.set(27,5.5,-.15);
-    this.camera.lookAt(2.8,1.35,-.15);
+    this.camera.position.set(0,10.8,23);
+    this.camera.lookAt(0,.55,.5);
     const resize=this.resize;
     window.removeEventListener('resize',resize);
     this.resize=()=>{
       const width=Math.max(1,canvas.clientWidth),height=Math.max(1,canvas.clientHeight);
-      const horizontal=8.65;
+      const horizontal=10.8;
       const vertical=horizontal*height/width;
       Object.assign(this.camera,{left:-horizontal,right:horizontal,top:vertical*.91,bottom:-vertical*1.09});
       this.camera.updateProjectionMatrix();
@@ -31,7 +31,7 @@ export class BenMai extends Tavern {
     };
     this.resize();
     window.addEventListener('resize',this.resize);
-    this.scene.background.set(0x22b3a7);
+    this.scene.background.set(0x99d9f4);
     this.scene.fog=null;
     this.renderer.toneMapping=T.NeutralToneMapping;
     this.renderer.toneMappingExposure=1.24;
@@ -49,10 +49,16 @@ export class BenMai extends Tavern {
     this.jobs=new Map();
     this.buyers=Array.from({length:6},(_,index)=>this.person('buyer'+index,'',index));
     this.courier=this.person('courier','',2);
-    this.cart=this.tricycle();
-    this.receiver=this.person('receiver','',0);
-    this.receiver.group.position.set(3.45,0,-5.55);
-    this.receiver.group.rotation.y=-1.3;
+    this.rower=this.person('rower','',1);
+    this.boat.add(this.rower.group);
+    this.rower.group.position.set(0,.18,-1.04);
+    this.rower.group.rotation.y=.16;
+    this.rower.group.scale.setScalar(.79);
+    this.oar=this.group([.43,1.0,-.84],this.boat);
+    this.cyl(wood,.035,1.86,[0,-.24,0],this.oar);
+    this.box(0xc78c50,[.22,.43,.075],[0,-1.04,0],this.oar);
+    this.cargo=this.group([0,.20,.29],this.boat);
+    this.loaded=new Map();
     this.lion=this.makeLion();
     this.lion.visible=false;
   }
@@ -170,33 +176,30 @@ export class BenMai extends Tavern {
   }
 
   build() {
-    this.box(0x22b3a7,[31,.22,40],[5,-.45,0]);
-    this.box(0xb98762,[11,.52,28],[-2.85,-.27,-.8]);
-    for(let z=-12;z<=12;z++) for(let x=-8;x<3;x++) {
-      if(x===2) continue;
-      const color=[0xdb8c6b,0xe99c7c,0xce7b58,0xe59a7d][Math.abs(x*7+z*3)%4];
-      this.box(color,[.99,.06,.97],[x+.48,.014,z]);
-    }
-    this.box(0xc79770,[.44,.17,26],[2.5,.075,-.2]);
-    for(let i=0;i<29;i++) {
-      const x=3.2+(i%7)*.92,z=-12+i*.88;
-      this.box(i%2?0x8ed9c1:0x64cbbb,[.5+(i%4)*.22,.016,.05],[x,-.329,z]).rotation.y=.09;
-    }
-
-    for(let i=0;i<4;i++) {
-      const z=7-i*4.3, x=-6.65;
-      this.box(0xffe5bc,[2.5,2.7,3.55],[x,1.35,z]);
-      this.tiledRoof(x,2.85,z,2.95,3.85);
-      for(const offset of [-.92,.82]) {
-        this.box(0x526b49,[.08,1.1,.59],[x+1.26,1.65,z+offset]);
-        for(let q=0;q<7;q++) this.box(0x6f8256,[.09,.042,.57],[x+1.27,1.2+q*.135,z+offset]);
+    this.box(0x24adae,[58,.22,57],[0,-.45,-2]);
+    for(const side of [-1,1]) {
+      this.box(0xb48055,[8.8,.52,25],[side*7.3,-.27,-.8]);
+      this.box(0xddab75,[.30,.19,25],[side*2.97,.065,-.8]);
+      for(let z=-12;z<=11;z++) for(let col=0;col<8;col++) {
+        const color=[0xe89167,0xeaaa81,0xdb866b,0xe99a7a][Math.abs(col*7+z*3)%4];
+        this.box(color,[.98,.06,.97],[side*(3.50+col),.014,z]);
       }
+      for(let i=0;i<3;i++) {
+        const z=-8.8-i*2.7,x=side*(5.1+i*1.15);
+        this.box(0xffe2af,[3.3,2.9,2.35],[x,1.42,z]);
+        this.tiledRoof(x,3.04,z,3.58,2.74);
+        for(const offset of [-.86,.86]) this.box(0x5c8056,[.48,.94,.07],[x+offset,1.52,z+1.20]);
+      }
+    }
+    for(let i=0;i<38;i++) {
+      const x=Math.sin(i*7.1)*2.53,z=-18+i*.81;
+      this.box(i%2?0x92e0d0:0x5cc9c7,[.40+(i%4)*.18,.013,.061],[x,-.328,z]).rotation.y=.21;
     }
 
     this.lamps=[];
     this.vendors=stalls.map((stall,index)=>{
       const group=this.group([stall.x,0,stall.z]);
-      group.rotation.y=Math.PI/2;
+      group.rotation.y=-Math.sign(stall.x)*.20;
       for(const x of [-1.56,1.56]) for(const z of [-.86,.42]) this.box(wood,[.12,2.78,.13],[x,1.39,z],group);
       this.tiledRoof(0,2.90,-.44,3.5,1.63,group);
       this.box(wood,[3.19,.79,.72],[0,.40,.61],group);
@@ -220,35 +223,31 @@ export class BenMai extends Tavern {
       for(let strip=0;strip<7;strip++) {
         this.box(strip%2?0xf6cf7f:stall.trim,[.40,.12,.055],[-1.20+strip*.4,2.83,.42],group);
       }
-      this.lamps.push(this.lamp([stall.x+.7,2.07,stall.z+1.52]));
+      this.lamps.push(this.lamp([stall.x+Math.sign(stall.x)*.73,2.07,stall.z+1.25]));
       const actor=this.person('vendor'+index,'',index);
-      actor.group.position.set(stall.x+.02,0,stall.z+.38);
-      actor.group.rotation.y=Math.PI/2;
+      actor.group.position.set(stall.x+.32,0,stall.z+.15);
+      actor.group.rotation.y=-Math.sign(stall.x)*.11;
       return actor;
     });
-    this.maiTree(-5.15,-.27);
-    for(let i=0;i<12;i++) {
-      const angle=i*Math.PI/6;
-      this.product('mai',[-5.15+.84*Math.sin(angle),0,-.27+.84*Math.cos(angle)],this.staticRoot,.44);
+    this.maiTree(-8.8,-4.2);
+    this.maiTree(8.8,-4.6);
+    for(const stall of stalls) {
+      const dock=landing(stall);
+      const side=Math.sign(stall.x);
+      for(let i=0;i<7;i++) this.box(0xb77245,[.23,.23,1.53],[side*(1.91+i*.22),-.01,dock.z]);
+      for(const z of [dock.z-.72,dock.z+.72]) {
+        this.cyl(wood,.11,.80,[side*2.0,.14,z]);
+        this.cyl(0xf1c276,.12,.07,[side*2.0,.44,z]);
+      }
+      this.lamps.push(this.lamp([side*3.13,1.46,dock.z-.74],this.staticRoot,.65));
     }
-    for(let i=0;i<12;i++) {
-      const z=9-i*1.7;
-      if(z>-6.7&&z<-4.0) continue;
-      this.box(0x9e613c,[.13,.64,.13],[2.54,.34,z]);
-      this.box(0xecb56e,[.13,.070,.13],[2.54,.59,z]);
+    for(const x of [-3.35,3.35]) {
+      this.box(0xb54730,[.46,4.6,.57],[x,2.18,-10.35]);
+      this.lamps.push(this.lamp([x,3.45,-9.9],this.staticRoot,1.02));
     }
-    for(const z of [-1.3,-.27,.76]) this.lamps.push(this.lamp([-4.7,3.5,z],this.staticRoot,.78));
-
-    for(let i=0;i<13;i++) this.box(0xb77245,[.23,.23,2.1],[2.5+i*.21,-.01,-5.4]);
-    for(const x of [2.75,4.87]) for(const z of [-6.48,-4.34]) {
-      this.cyl(wood,.103,.92,[x,.10,z]);
-      this.cyl(0xe4c08a,.115,.073,[x,.45,z]);
-    }
-
-    for(const x of [2.75,3.75,4.75]) {
-      this.box(wood,[.075,1.32,.075],[x,.67,-6.37]);
-      this.lamps.push(this.lamp([x,1.17,-6.28],this.staticRoot,.57));
-    }
+    this.box(0xa53c2b,[7.2,.44,.67],[0,4.58,-10.35]);
+    this.tiledRoof(0,5.05,-10.3,7.65,1.26);
+    this.sign('CHỢ TẾT BẾN MAI',4.75,.79,'#ffedab','#a9272c',[0,4.16,-9.93],this.staticRoot,139);
     this.boat=this.group(boatPosition,this.scene);
     this.boat.rotation.y=.35;
     this.sphere(0x8f4d32,[.68,.21,1.58],[0,-.14,0],this.boat);
@@ -256,9 +255,9 @@ export class BenMai extends Tavern {
     for(let i=0;i<10;i++) this.box(0xe1a86c,[.88-Math.abs(i-4.5)*.075,.045,.15],[0,.11,-.74+i*.16],this.boat);
     for(const x of [-.32,.32]) this.box(0xb7753c,[.17,.21,.87],[x,.42,-.63],this.boat).rotation.z=-x;
     this.box(0xe5b574,[.71,.095,.95],[0,.67,-.63],this.boat);
-    this.product('mai',[0,.17,.9],this.boat,.67);
 
-    for(const [x,z] of [[2.4,-10.4],[2.2,8.5],[-7,-9.7],[6,-11.7]]) {
+
+    for(const [x,z] of [[-9.4,6.3],[9.35,6.4],[-9,-7.4],[8.9,-7.6]]) {
       const trunk=this.cyl(0xa16d47,.18,3.55,[x,1.7,z]);
       trunk.rotation.z=.17;
       for(let i=0;i<7;i++) {
@@ -268,52 +267,15 @@ export class BenMai extends Tavern {
         frond.rotation.x=.28;
       }
     }
-    for(let i=0;i<10;i++) this.product('mai',[i%2?-5.2:2.15,0,9-i*2],this.staticRoot,.85);
-    // Floating water plants and low flowering pots balance the open river edge.
-    for(let i=0;i<13;i++) {
-      const x=2.9+(i%3)*.32;
-      const z=8.4-i*1.56;
-      if(z>-7&&z<-3.6) continue;
-      for(let j=0;j<3;j++) this.sphere(j%2?0x79b841:0x41994a,[.16,.055,.22],[x+j*.14,-.29,z+j*.18]);
+    for(let i=0;i<14;i++) {
+      const side=i%2===0?-1:1,z=7.6-Math.floor(i/2)*2.02;
+      this.product('mai',[side*3.54,0,z-.66],this.staticRoot,.83);
+      for(let j=0;j<3;j++) this.sphere(j%2?0x79b841:0x41994a,[.15,.055,.22],[side*(2.76-j*.15),-.29,z+j*.18]);
     }
-    for(const [x,z] of [[1.85,5.95],[1.95,-8.6],[-2.1,8.3]]) {
-      const pot=this.group([x,0,z]);
-      this.cyl(0xbd6250,.28,.31,[0,.158,0],pot);
-      for(let i=0;i<8;i++) {
-        const a=i*2.399;
-        this.sphere(i%3===0?0xffc900:0xf33749,[.115,.094,.11],[Math.sin(a)*.2,.37+(i%3)*.10,Math.cos(a)*.18],pot);
-        this.sphere(leaf,[.12,.035,.07],[Math.sin(a)*.23,.34,Math.cos(a)*.22],pot);
-      }
-    }
-  }
-
-  tricycle() {
-    const group=this.group([.8,0,6.8],this.scene);
-    const wheels=[];
-    for(const [x,z] of [[0,.85],[-.52,-.64],[.52,-.64]]) {
-      const wheel=this.group([x,.325,z],group);
-      this.mesh('torus',0x3c3730,[.31,.31,.22],[0,0,0],wheel).rotation.y=Math.PI/2;
-      for(let i=0;i<8;i++) this.box(0xe1c49b,[.025,.55,.017],[0,0,0],wheel).rotation.x=i*Math.PI/8;
-      wheels.push(wheel);
-    }
-    this.box(0x8e533b,[.13,.16,1.43],[0,.44,.13],group);
-    this.box(wood,[1.13,.13,1.03],[0,.62,-.62],group);
-    for(const x of [-.54,.54]) for(let i=0;i<3;i++) this.box(wood,[.065,.083,1.02],[x,.72+i*.09,-.62],group);
-    for(const z of [-1.11,-.11]) this.box(wood,[1.13,.20,.07],[0,.78,z],group);
-    this.cyl(0xa87454,.045,.77,[0,.69,.65],group).rotation.x=-.19;
-    this.box(0x694733,[.51,.055,.055],[0,1.03,.58],group);
-    this.cyl(0x7a5844,.045,.57,[0,.63,.11],group);
-    this.box(0x714632,[.27,.09,.23],[0,.93,.11],group);
-    const pedals=this.group([0,.47,.08],group);
-    for(const direction of [-1,1]) {
-      this.box(0x73594c,[.047,.20,.045],[direction*.12,direction*.10,0],pedals);
-      this.box(0x514340,[.15,.055,.085],[direction*.18,direction*.18,0],pedals);
-    }
-    return {group,wheels,pedals};
   }
 
   makeLion() {
-    const g=this.group([.33,0,-2.6],this.scene);
+    const g=this.group([-4.7,0,-.7],this.scene);
     this.sphere(red,[.38,.38,.77],[0,.59,-.44],g);
     this.sphere(gold,[.44,.43,.36],[0,1,.25],g);
     this.sphere(red,[.42,.19,.33],[0,.83,.48],g);
@@ -356,43 +318,52 @@ export class BenMai extends Tavern {
       this.jobs.set(order.id,item);
     }
     const vendor=this.vendors[order.stall];
-    const counter=new T.Vector3(stall.x+.93,1.02,stall.z);
+    const side=Math.sign(stall.x);
+    const counter=new T.Vector3(stall.x,1.04,stall.z+.96);
     if(!order.departure) {
       item.position.copy(counter);
       item.position.y+=Math.sin(this.time*5)*.055;
       vendor.arms[0].rotation.x=-.92+Math.sin(this.time*5)*.4;
       return;
     }
+    const dock=landing(stall);
+    const elapsed=Math.max(0,now-order.departure);
+    const approachTime=2800,loadTime=1100;
+    const t=T.MathUtils.clamp(elapsed/approachTime,0,1);
+    const berth=v(side*1.35,dock.z);
+    const past=this.state.market.recent.find(order=>!order.show);
+    const start=v(0,past?-7.5:6.8);
+    const wayIn=[start,v(0,dock.z+.7),berth];
+    const wayOut=[berth,v(0,dock.z-1.1),v(0,-7.5)];
+    const outgoing=T.MathUtils.clamp((elapsed-approachTime-loadTime)/(deliveryTime-approachTime-loadTime),0,1);
+    if(elapsed<approachTime) this.sail(wayIn,t,true);
+    else if(outgoing>0) this.sail(wayOut,outgoing,true);
+    else this.sail(wayIn,1,false);
+    this.courier.group.visible=outgoing===0;
+    const walkStart=v(counter.x,counter.z);
+    this.move(this.courier,[walkStart,v(side*3.3,dock.z),dock],t,true);
+    const hand=this.courier.group.localToWorld(new T.Vector3(0,1.01,.43));
+    const deck=this.boat.localToWorld(new T.Vector3(.12,.21,.38));
+    const loading=T.MathUtils.clamp((elapsed-approachTime)/loadTime,0,1);
+    item.position.copy(hand).lerp(deck,loading);
+    item.position.y+=Math.sin(loading*Math.PI)*.54;
+    if(loading>=1) item.rotation.y=this.boat.rotation.y;
+    if(!this.loaded.has(order.id)&&loading>=1) {
+      const load=this.product(order.product,[.12,.01,.09],this.cargo,.82);
+      this.loaded.set(order.id,load);
+      item.visible=false;
+    }
+  }
 
-    const elapsed=now-order.departure;
-    const progress=T.MathUtils.clamp((elapsed-1850)/(deliveryTime-3400),0,1);
-    const pickup=v(-1.65,stall.z);
-    const route=[pickup,v(-.35,stall.z),v(1.3,stall.z-1.1),v(1.3,-4.6),quay];
-    const previous=this.state.market.recent.find(item=>!item.show);
-    const parked=previous?quay:v(.8,6.8);
-    const approach=[parked,v(.95,parked.z),v(.95,stall.z),pickup];
-    const travel=elapsed<1250?this.alongPath(approach,elapsed/1250):this.alongPath(route,progress);
-    this.cart.group.position.copy(travel.position);
-    this.cart.group.rotation.y=travel.angle;
-    for(const wheel of this.cart.wheels) wheel.rotation.x=elapsed<1250?elapsed*.013:16+progress*27;
-    this.cart.pedals.rotation.x=-this.cart.wheels[0].rotation.x;
-    this.courier.group.position.copy(this.cart.group.localToWorld(new T.Vector3(-.57,0,.43)));
-    this.courier.group.rotation.y=travel.angle;
-    this.pose(this.courier,elapsed<1250||progress>0&&progress<1,elapsed>=1850&&progress<1);
-    const bed=this.cart.group.localToWorld(new T.Vector3(0,.77,-.66));
-    const boat=this.boat.localToWorld(new T.Vector3(.15,.19,.44));
-    item.position.copy(bed);
-    if(elapsed<1850) {
-      const phase=T.MathUtils.clamp((elapsed-1250)/600,0,1);
-      item.position.copy(counter).lerp(bed,phase);
-      item.position.y+=Math.sin(phase*Math.PI)*.38;
-    }
-    if(progress>=1) {
-      const phase=T.MathUtils.clamp((elapsed-deliveryTime+1500)/1250,0,1);
-      item.position.lerp(boat,phase);
-      item.position.y+=Math.sin(phase*Math.PI)*.94;
-      this.receiver.arms[1].rotation.x=-1.25;
-    }
+  sail(route,progress,paddling) {
+    const {position,angle}=this.alongPath(route,progress);
+    this.boat.position.set(position.x,boatPosition[1]+Math.sin(this.time*2.4)*.057,position.z);
+    this.boat.rotation.set(0,angle,Math.sin(this.time*2.8)*.055);
+    const stroke=paddling?Math.sin(this.time*7):0;
+    this.oar.rotation.set(.28+stroke*.65,stroke*.31,-.58+stroke*.2);
+    this.pose(this.rower);
+    this.rower.arms[1].rotation.x=-1.05+stroke*.48;
+    this.rower.arms[1].rotation.z=-.31;
   }
 
   frame() {
@@ -400,29 +371,30 @@ export class BenMai extends Tavern {
     const now=this.state?this.state.serverTime+Math.min(250,performance.now()-this.clockAt):0;
     const market=this.state?.market;
     const active=market?.active??[];
-    this.boat.position.y=boatPosition[1]+Math.sin(this.time*2.1)*.07;
-    this.boat.rotation.z=Math.sin(this.time*1.6)*.046;
+
     const lights=active.find(order=>order.product==='lights');
     this.lamps.forEach(({lamp,shell},i)=>{
       lamp.rotation.z=Math.sin(this.time*1.8+i)*.13;
       shell.material.emissiveIntensity=lights&&now>=lights.started+i*185?1.35:.13+(market?.level??0)*.07;
     });
     this.vendors.forEach(npc=>this.pose(npc));
-    this.pose(this.receiver);
     for(const [index,buyer] of this.buyers.entries()) {
       buyer.group.visible=index<3+(market?.level??0);
       const p=((this.time*.040+index*.17)%1);
-      const route=[v(.1,9),v(-1.25,stalls[index%4].z+.65),v(1.55,stalls[index%4].z+.6),v(.1,9)];
-      this.move(buyer,route,p,index%2===1);
+      const stall=stalls[index%4],side=Math.sign(stall.x);
+      this.move(buyer,[v(side*4.0,8.4),v(side*4.1,stall.z+1.65),v(stall.x,stall.z+1.8),v(side*4,8.4)],p,index%2===1);
     }
-    const courierBusy=active.some(order=>order.departure);
-    if(!courierBusy) {
-      const delivered=market?.recent.some(order=>!order.show);
-      this.cart.group.position.copy(delivered?quay:v(.8,6.8));
-      this.cart.group.rotation.y=delivered?Math.PI/2:-.35;
-      this.courier.group.position.copy(this.cart.group.localToWorld(new T.Vector3(-.57,0,.43)));
-      this.courier.group.rotation.y=.5;
-      this.pose(this.courier);
+    const shipment=active.find(order=>order.departure);
+    const recent=market?.recent.find(order=>!order.show);
+    if(!shipment) {
+      const z=recent?-7.5:6.8+Math.sin(this.time*.5)*.66;
+      this.sail([v(0,z+1),v(0,z)],1,!recent);
+      this.courier.group.visible=false;
+    }
+    for(const [id,load] of this.loaded) {
+      if(id===shipment?.id||(!shipment&&id===recent?.id)) continue;
+      this.cargo.remove(load);
+      this.loaded.delete(id);
     }
     const visible=new Set();
     for(const order of active) {
@@ -433,7 +405,7 @@ export class BenMai extends Tavern {
         visible.add(order.id);
         let envelope=this.jobs.get(order.id);
         if(!envelope) {
-          envelope=this.product('lixi',[-2.25,1.22,-6.3],this.scene,1.35);
+          envelope=this.product('lixi',[stalls[3].x,1.22,stalls[3].z+1.4],this.scene,1.35);
           this.jobs.set(order.id,envelope);
         }
         envelope.position.y=1.35+Math.sin(this.time*6)*.15;
@@ -442,12 +414,12 @@ export class BenMai extends Tavern {
       }
     }
     for(const [id,item] of this.jobs) if(!visible.has(id)) {
-      this.scene.remove(item);
+      item.removeFromParent();
       this.jobs.delete(id);
     }
     this.lion.visible=active.some(order=>order.product==='lion');
     if(this.lion.visible) {
-      this.lion.position.x=.10+Math.sin(this.time*3)*.8;
+      this.lion.position.x=-4.7+Math.sin(this.time*3)*.8;
       this.lion.position.y=Math.abs(Math.sin(this.time*8))*.46;
       this.lion.rotation.y=Math.sin(this.time*4)*.65;
     }

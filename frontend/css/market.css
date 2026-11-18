@@ -47,3 +47,26 @@ body.market-page{height:100dvh;display:grid;place-items:center;background:#32221
 .market-page .market-toast{top:17%;left:3%;right:17%;transform:none;white-space:normal;font-size:3.1cqw;padding:1.5cqw}
 .admin-shell .music-player{margin:0;padding:24px}.admin-shell .music-player input[type=range]{max-width:260px}
 .shipment{position:absolute;top:12%;left:3%;max-width:80%;margin:0;padding:1.1cqw 2cqw;border-radius:2cqw;background:#6a3824e8;color:#fff0bc;font-size:2.65cqw;pointer-events:none}
+
+/* Wide river view leaves the water route and both rows of stalls in frame. */
+.market-page #game{width:min(100vw,177.777dvh);aspect-ratio:16/9}
+.market-page .market-header{padding:1.4cqw}
+.market-page .market-brand{padding:.54cqw 1.15cqw;gap:.8cqw}
+.market-page .market-seal,.market-page .market-brand h1{font-size:2.6cqw}
+.market-page .market-brand span:last-child,.market-page .market-growth{font-size:1.08cqw}
+.market-page .market-growth{padding:.65cqw .95cqw;min-width:13cqw}
+.market-page .market-growth small{font-size:.88cqw}
+.market-page .market-footer{left:auto;right:1.4%;bottom:2%;width:61%;gap:.5cqw}
+.gift-board{padding:.48cqw .65cqw;border-radius:1.1cqw;background:#f9e5bfea}
+.gift-board h2{font-size:1.32cqw;padding:.38cqw;margin-bottom:.48cqw;border-radius:.6cqw}
+.market-page .market-gifts{grid-template-columns:repeat(5,minmax(0,1fr));gap:.37cqw}
+.market-page .market-gift{padding:.36cqw;gap:.23cqw;min-height:2.76cqw;border-radius:.52cqw}
+.market-gift img{width:2.05cqw;height:2.05cqw}
+.market-page .market-gift span{font-size:.75cqw}
+.market-page .market-gift strong{font-size:.89cqw;margin-top:.10cqw}
+.market-page .market-actions,.market-page .market-actions button{font-size:.9cqw}
+.market-page .market-actions button{padding:.24cqw .45cqw}
+.market-page .market-notices{left:1.4%;bottom:2%;max-width:34%;padding:.2cqw .6cqw}
+.market-page .market-notices p,.market-page .market-notices li{font-size:.99cqw}
+.market-page .market-toast{top:19%;left:1.4%;right:auto;max-width:35%;font-size:1.05cqw;padding:.55cqw .8cqw}
+.shipment{top:13%;left:1.4%;font-size:1.05cqw;padding:.5cqw .8cqw}

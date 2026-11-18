@@ -12,7 +12,7 @@ const origin='http://127.0.0.1:'+app.server.address().port;
 let browser;
 try {
   browser=await chromium.launch({executablePath:process.env.XOM_TEST_CHROMIUM,args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-  const page=await browser.newPage({viewport:{width:540,height:960}});
+  const page=await browser.newPage({viewport:{width:1280,height:720}});
   const errors=[];
   page.on('pageerror',error=>{errors.push(error.message);console.error(error.stack);});
   await page.goto(origin+'/admin');
@@ -45,18 +45,20 @@ try {
   await gift('Bravo!');
   await gift('Finger Heart');
   await page.waitForFunction(()=>__market.scene.lion.visible && __market.state.market.active.length===4);
-  const start=await page.evaluate(()=>__market.scene.cart.group.position.toArray());
+  assert.equal(await page.evaluate(()=>__market.scene.vendors.filter(v=>v.group.position.x<0).length),2);
+  const start=await page.evaluate(()=>__market.scene.boat.position.toArray());
   clock+=2100;
-  await page.waitForFunction(position=>JSON.stringify(__market.scene.cart.group.position.toArray())!==JSON.stringify(position),start);
+  await page.waitForFunction(position=>JSON.stringify(__market.scene.boat.position.toArray())!==JSON.stringify(position),start);
   await page.waitForFunction(()=>__market.scene.lamps.every(lamp=>lamp.shell.material.emissiveIntensity>1));
+  await page.waitForFunction(()=>__market.scene.cargo.children.length===1);
   await mkdir('artifacts',{recursive:true});
-  await page.screenshot({path:'artifacts/ben-mai-9x16.png'});
+  await page.screenshot({path:'artifacts/ben-mai-cho-noi.png'});
   clock+=4600;
   await page.waitForFunction(()=>__market.state.market.total===10 && __market.scene.jobs.size===0);
   assert.match(await page.locator('#market-feed').textContent(),/chậu hoa mai/);
   assert.equal(await page.evaluate(()=>__market.state.market.level),1);
   assert.deepEqual(errors,[]);
-  console.log('Verified 3D portrait market, gift artwork, parallel delivery/effects, and local music playback.');
+  console.log('Verified 3D floating market, gift artwork, parallel delivery/effects, and local music playback.');
 } finally {
   await browser?.close();
   await app.close();

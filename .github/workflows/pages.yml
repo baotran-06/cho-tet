@@ -1,14 +1,14 @@
 name: Test and deploy GitHub Pages
 on:
   push:
-    branches: [main]
+    branches: [main, cho-tet-online]
   workflow_dispatch:
 permissions:
   contents: read
   pages: write
   id-token: write
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 jobs:
   test-build:
@@ -48,6 +48,7 @@ jobs:
       - name: Execute START and STOP BAT on Windows
         run: node --test tests/windows-launcher.test.js
   deploy:
+    if: github.ref == 'refs/heads/main'
     needs: [test-build, windows-launcher]
     environment:
       name: github-pages

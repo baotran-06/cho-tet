@@ -61,7 +61,7 @@ export function createApp(options={}) {
         else if(pathname==='/api/demo'){
           if(world.mode!=='DEMO'){json(res,409,{error:'LIVE không nhận sự kiện DEMO'});return;}
           if(body.action==='auto') {
-            clearInterval(auto);auto=null;if(body.enabled){auto=setInterval(()=>{const i=++demoIndex;world.enqueue(demoEvent('join',i));if(i%3===0)world.enqueue(demoEvent('gift',Math.max(1,i-1),'Beer',i%12+1));},2000);auto.unref();}
+            clearInterval(auto);auto=null;if(body.enabled){auto=setInterval(()=>{const i=++demoIndex;world.enqueue(demoEvent('join',i));if(i%3===0)world.enqueue(demoEvent('gift',Math.max(1,i-1),'TikTok',i%12+1));},2000);auto.unref();}
           } else {
             const amount=Math.max(1,Math.min(100,Number(body.amount)||1));
             const allowed=['join','leave','like','follow','gift'];const type=allowed.includes(body.type)?body.type:'join';

@@ -1,0 +1,21 @@
+.market-page{background:#712521;color:#fff3d5;--gold:#ffcb64}
+.market-page #world{width:100%;height:100%}
+.market-header{position:absolute;inset:0 0 auto;display:flex;justify-content:space-between;gap:12px;padding:clamp(12px,2vw,28px);pointer-events:none}
+.market-brand,.market-growth,.market-notices,.market-gifts,.market-actions,.market-toast{border:1px solid #ffcb6480;background:#522119e8;border-radius:15px;box-shadow:0 4px 18px #41190840}
+.market-brand{display:flex;gap:12px;align-items:center;padding:9px 16px}
+.market-seal{display:grid;place-items:center;flex:none;width:47px;height:47px;background:#af2d26;border:1px solid #ffbf5a;border-radius:12px;color:#ffdc83;font:bold 28px Georgia}
+.market-brand h1{font-family:Georgia,serif;font-size:clamp(17px,2.3vw,34px);line-height:1.1;margin:0 0 4px;color:#ffdf9b}
+.market-brand span:last-child,.market-growth small{font-size:12px;color:#ffdeb5}
+.market-growth{min-width:min(30vw,255px);display:grid;gap:4px;padding:10px 14px;font-size:13px}
+.market-growth strong{color:#ffcd64}.market-growth progress{height:9px;width:100%;accent-color:#ffc44c}
+.market-notices{position:absolute;left:clamp(10px,2vw,28px);bottom:132px;max-width:min(45vw,430px);padding:7px 12px;pointer-events:none;font-size:clamp(11px,1.25vw,16px)}
+.market-notices p{margin:3px 0;color:#ffcf80;font-size:12px}.market-notices ul{padding:0;list-style:none;margin:0}.market-notices li{overflow-wrap:anywhere;padding:4px 0}
+.market-footer{position:absolute;bottom:12px;left:clamp(10px,2vw,28px);right:clamp(10px,2vw,28px);display:grid;justify-items:center;gap:7px;pointer-events:none}
+.market-gifts{display:flex;align-items:stretch;max-width:100%;overflow:auto;pointer-events:auto}
+.market-gift{min-width:95px;text-align:center;padding:5px 10px;border-right:1px solid #ffcb6440;font-size:12px;display:grid;gap:1px}
+.market-gift:last-child{border:0}.market-gift span{font-size:24px}.market-gift small{color:#ffd086}
+.market-actions{display:flex;gap:10px;align-items:center;padding:2px 8px;pointer-events:auto;font-size:12px}.market-actions button{padding:5px 8px}
+.market-actions details>summary{cursor:pointer;padding:7px 4px}
+.market-actions .music-player{position:absolute;bottom:38px;right:0;margin:0;padding:10px 15px;background:#522119fa;border:1px solid #ffcb6480;border-radius:12px;max-height:65vh;overflow:auto;width:min(270px,90vw);z-index:5}
+.market-toast{position:absolute;top:102px;left:50%;transform:translateX(-50%);padding:8px 14px;white-space:nowrap;color:#ffdc83}
+@media(max-width:650px){.market-brand{padding:6px;gap:5px}.market-seal{width:30px;height:33px;font-size:20px}.market-growth{padding:6px;min-width:28%;font-size:11px}.market-notices{bottom:116px;max-width:70vw}.market-gift{min-width:74px;font-size:10px;padding:3px 4px}.market-gift span{font-size:19px}.market-toast{top:85px;font-size:12px}}

@@ -1,111 +1,24 @@
-# XÓM ONLINE LIVE
+# Chợ Tết Online
 
-- Game / DEMO: https://baotran-06.github.io/xom-online-live/
-- Điều khiển DEMO: https://baotran-06.github.io/xom-online-live/admin.html
-- Workflow đã thành công: https://github.com/baotran-06/xom-online-live/actions/runs/43174970548
+Chợ Tết 3D dùng với TikTok LIVE Studio. Chợ có sạp hoa, bánh, trái cây và đồ Tết quanh lối đi chính. NPC nền đi mua hàng ngay cả khi chưa có quà. Đơn từ quà được chuẩn bị tại sạp, đi theo người giao và xuất hiện ở điểm nhận hàng.
 
-Quán nhậu Việt Nam 3D tương tác với TikTok LIVE. Frontend Three.js/WebGL thật, mô hình và âm thanh được tạo bằng mã; Node.js bridge riêng; bảng điều khiển tách màn hình game. Không yêu cầu người xem đăng ký tài khoản game.
+## Chạy trên Windows
 
-**Tình trạng bàn giao:** 49 file mã nguồn đã có trong repository public baotran-06/xom-online-live. GitHub Actions đã kiểm thử và build thành công trên Node 22; GitHub Pages đã triển khai thành công và URL công khai đã mở kiểm tra. DEMO trên Pages tạo 12 khách, đồng bộ sang bảng điều khiển với 3 bàn đang dùng. Chưa kiểm chứng hình ảnh WebGL/GPU, TikTok LIVE thật, Windows/OBS và soak nhiều giờ. Xem [báo cáo kiểm thử](docs/TEST-REPORT.md).
+1. Giải nén ZIP nhánh `cho-tet-online` vào thư mục riêng. Dừng bản Xóm Online bằng `STOP-XOM.bat` nếu đang dùng cổng 3210.
+2. Nhấp đúp `START-XOM.bat`. Lần đầu cần Node.js 22 trở lên và Internet để cài thư viện.
+3. Mở màn hình chợ tại http://127.0.0.1:3210/ và điều khiển tại http://127.0.0.1:3210/admin.
+4. Thử trước bằng **Bật DEMO → Quà DEMO → Gửi quà**. Ví dụ số lượng 10 Hoa sẽ giao 10 chậu mai và mở mốc đầu tiên. NPC nền không cộng vào giao dịch TikTok.
+5. Khi phát thật, nhập tên kênh đang LIVE tại trang điều khiển. Chọn cửa sổ chợ làm nguồn hình trong LIVE Studio. Muốn có tiếng, mở **Âm thanh → Bắt đầu âm thanh** và chọn thu âm hệ thống hoặc ứng dụng phù hợp trong LIVE Studio.
+6. Nhấp đúp `STOP-XOM.bat` khi kết thúc.
 
-## Khởi chạy nhanh trên Windows
+## Quy đổi quà
 
-**Đã thực thi START/STOP bằng cmd.exe trên Windows, Node 22.23.4:** tự cài root/bridge khi trống, kiểm tra HTTP/WebSocket/frontend, chống mở trùng, dừng đúng phiên; sai thư mục/cổng bận được chặn. [Xem workflow đã qua kiểm thử](https://github.com/baotran-06/xom-online-live/actions/runs/43174970548). CI không mở cửa sổ trình duyệt đồ họa và chưa kiểm chứng TikTok LIVE của tài khoản người dùng.
+Sửa `frontend/config/market.json` bằng Notepad hoặc trình soạn thảo rồi khởi động lại. Mỗi giá trị phải là một mã trong `products`. Mục `byId` ưu tiên hơn `byName`. Tên dùng chữ thường. Ví dụ `"byId": {"12345":"mai"}`, trong đó `12345` chỉ minh họa. Đối chiếu Gift ID và tên thực ở nhật ký sự kiện ở trang điều khiển. Quà không khớp được đếm riêng; lượt thả tim không tạo đơn, còn quà có tên Heart có thể tạo đơn.
 
-1. Cài **Node.js 22 LTS hoặc mới hơn**.
-2. Giải nén vào thư mục mới; chạy **START-XOM.bat**.
-3. START đợi server/WebSocket sẵn sàng rồi tự mở **hai tab**: quản trị `http://127.0.0.1:3210/admin` và game `http://127.0.0.1:3210/`.
-4. Local khởi động ở LIVE đang chờ, không có khách giả. Nếu muốn thử DEMO, chủ động bật DEMO trên admin trước.
-5. START tự cài cả adapter TikTok nếu cần. Lần đầu nhập username và bật nhớ tự kết nối cho các lần sau. Chỉ báo LIVE đã xác minh sau sự kiện nguồn thật. Không nhập mật khẩu/token TikTok.
-6. Dừng bằng **STOP-XOM.bat** trong cùng thư mục; không dùng taskkill toàn bộ Node. Xem [hướng dẫn tải và dùng hai BAT](docs/WINDOWS-OBS.md).
+Quà chuỗi dùng số lượng từ sự kiện kết thúc chuỗi. Một chuyến giao đại diện cho cả lô; số món giao tăng theo số lượng thật trong lô. Từng sạp xử lý lần lượt, bốn sạp có thể giao song song. Khi hoàn tất giao hàng, người xem thấy tên tài khoản và món đã mua. Mốc mặc định 10/30/60 món mở thêm đèn lồng, tăng người mua nền và chạy pháo hoa. Đèn hội đặc biệt cũng kích hoạt lễ hội sau khi giao xong. Thống kê lưu trong phiên server và được đặt lại khi chuyển phiên hoặc khởi động lại.
 
-Hoặc terminal:
-
-```bash
-npm ci
-npm run build
-npm start
-# Cửa sổ terminal khác, cài adapter TikTok tùy chọn:
-npm ci --prefix bridge
-```
-
-Tắt bằng STOP-XOM.bat (hoặc Ctrl+C). Game/Admin local phải cùng origin. Không mở HTML bằng file://.
-
-## Có gì trong dự án
-
-- Quán 3D, quầy bia, tủ lạnh, sân khấu/micro/loa, đèn dây, cây, poster, gạch lát, 7 bàn 4 ghế, đồ ăn/ly/chai.
-- Nhân vật hình khối hoạt hình, tóc/màu áo đa dạng; tên trên đầu; đi, ngồi, vẫy, nâng ly, nhận hoa và hiệu ứng tập thể.
-- Join/member hoặc tương tác có user ID tạo một nhân vật, chống trùng theo tài khoản; tự cấp ghế, hàng chờ FIFO, TTL hoạt động.
-- Cấu hình quà theo ID/tên, xử lý streak cuối, dedupe có giới hạn, thông báo tên và âm thanh Web Audio.
-- Bridge chỉ đọc TikTok; kết nối/ngắt/reconnect backoff, dừng khi streamEnd; websocket heartbeat và ngắt client quá chậm.
-- DEMO browser độc lập; đồng bộ nhiều tab qua BroadcastChannel/Web Locks. API LIVE từ chối sự kiện DEMO.
-- Giới hạn 28 avatar, 80 chờ, queue 2.000, xử lý 30 event/100 ms, history 80, log lỗi 60, dedupe 10.000. Vật tĩnh dùng InstancedMesh; geometry/material chia sẻ và dispose texture tên.
-- Không có DB: dữ liệu phiên nằm trong RAM, đóng tiến trình là xóa.
-
-## TikTok: điều đã xác minh và chưa xác minh
-
-Bản sửa chẩn đoán mới giữ lại loại lỗi, route và HTTP đã lọc thay vì che mọi lỗi thành một câu chung; mã lỗi hiển thị ngay trên admin và log local. Đã chống log trùng, giữ giới hạn retry khi socket chưa có dữ liệu, tôn trọng thời gian429, và không để lỗi danh mục quà tùy chọn chặn luồng kết nối. Đây không phải tuyên bố đã sửa mọi lỗi nguồn TikTok hoặc đã kiểm chứng LIVE trên laptop người dùng.
-
-Đã kiểm tra tài liệu chính thức TikTok về webhook; danh sách công khai không xác lập general-purpose LIVE gift/member feed. Adapter dùng **tiktok-live-connector 2.5.0**, dự án không chính thức, kết nối public LIVE theo username, có thể phụ thuộc dịch vụ ký Euler Stream. Đã cài package, import API và kiểm tra schema protobuf v3 thực tế. Đây **không phải** kiểm chứng LIVE thành công.
-
-- Chưa có username đang phát LIVE để thử end-to-end. Chưa xác minh quà thật, viewer leave, reconnect với mạng TikTok thật.
-- `member` không được bảo đảm cho mọi người xem/phòng/vùng; người xem im lặng có thể không xuất hiện. Không có snapshot tất cả viewer.
-- Không đăng ký leave event chưa được xác nhận; hết 10 phút không hoạt động sẽ nhường ghế. Đây là TTL, không phải biết chắc viewer rời LIVE.
-- Khi nguồn thiếu message ID/group ID, không thể cam kết exactly-once tuyệt đối. Replay sau cửa sổ cache 15 phút cũng không được bảo đảm chống lặp.
-- Dịch vụ ký có thể thay đổi, rate-limit, cần tài khoản/quyền hoặc có phí. Bản này không phụ thuộc máy chủ trả phí do dự án vận hành, nhưng không bảo đảm nhà cung cấp nguồn sẽ miễn phí/khả dụng mãi.
-- Chuyển LIVE/DEMO xóa phiên; khởi động lại adapter giữ chế độ hiện tại, không tự chuyển sang DEMO; không tự thêm viewer/quà giả trong LIVE. Trạng thái awaiting-event chỉ xác nhận socket nguồn; connected/“Đã nhận sự kiện TikTok LIVE thật” chỉ được đặt sau khi adapter nhận sự kiện nguồn hợp lệ.
-
-Tham khảo [nguồn & giấy phép](docs/SOURCES.md), [kiến trúc](docs/ARCHITECTURE.md), [bảo mật](docs/SECURITY.md).
-
-## Cấu hình
-
-- `config/gifts.json`: `byId` ưu tiên hơn `byName`; action: wave, flowers, cheers, spotlight. Thay ID bằng ID ghi nhận từ LIVE thật. Quà không rõ tên/ID dùng defaultAction. `groupThreshold` theo repeatCount của một quà/streak cuối.
-- `config/game-settings.json`: TTL, queue, capacity. Bố trí 7×4 ghế là cố định trong `frontend/js/scene.js`; chỉ hạ maxVisible nếu máy yếu. Tăng số bàn cần sửa cả mesh/layout.
-- Khởi động lại tiến trình sau khi sửa config; nút Khởi động lại cầu nối chỉ reset adapter và phiên, không đọc lại file config.
-- Âm thanh mặc định tắt. Nhấn Âm thanh trong game một lần để browser cho phép rồi bật công tắc ở admin.
-
-## GitHub và GitHub Pages
-
-Dự án này độc lập, không dùng thư mục hoặc repo cũ. Workflow `.github/workflows/pages.yml` cài phụ thuộc, kiểm thử, build `dist` và deploy Pages. Pages chỉ phục vụ **frontend tĩnh/DEMO**, không chạy Node.js. Khi LIVE thật, dùng frontend do bridge local phục vụ để không gặp mixed-content HTTPS→ws://local.
-
-Repository đích: `baotran-06/xom-online-live`; Source Pages là GitHub Actions. Workflow hiện có `.github/workflows/pages.yml` đã triển khai thành công, không tạo workflow trùng lặp. Deployment xác nhận URL https://baotran-06.github.io/xom-online-live/ . Trang game và admin đều mở được; DEMO tạo 12 khách và đồng bộ 3 bàn. Các tài nguyên đã được xuất bản; WebGL chưa tạo được context trong môi trường kiểm thử nên chưa xác nhận phần ảnh 3D trên GPU.
-
-**Không dùng helper tạo repo cho repository hiện tại đã tồn tại.** Helper bên dưới chỉ dành cho khởi tạo một repo mới và sẽ từ chối ghi đè. Để cập nhật dự án này, push vào `main`; workflow hiện có sẽ tự chạy.
-
-Nếu đã cài GitHub CLI, đăng nhập bằng `gh auth login` trên máy của bạn (không đưa token vào mã), có thể chạy `npm run publish:github` từ checkout đã có commit. Script từ chối nếu repo cùng tên tồn tại, chỉ tạo repo mới và không chạm các repo khác. Script cần quyền tạo repo, push workflow và Pages administration; nếu thiếu quyền phải xử lý trên GitHub. Không dùng tài khoản hoặc token chia sẻ công khai.
+Ghép quà thật và đầu ra LIVE Studio phải thử trên một buổi LIVE thực tế. Giới hạn của nguồn TikTok hiện tại gồm việc chưa có sự kiện người xem rời theo từng tài khoản. Chợ dùng dữ liệu DEMO chỉ khi đang bật DEMO.
 
 ## Kiểm thử
 
-```bash
-npm ci
-npm ci --prefix bridge
-npm run build
-npm run check
-npm test
-```
-
-Tests gồm core, adapter/schema thật, HTTP/WebSocket end-to-end, nguồn DEMO/LIVE, race disconnect và scene construction bằng renderer stub. Test stub không chứng minh GPU render được. Môi trường trình duyệt xây dựng hiện báo WebGL context không khả dụng; cần kiểm tra hình ảnh/FPS và soak 2–4 giờ trên Windows thật. Không có tuyên bố đã chạy ổn định nhiều giờ.
-
-## OBS / TikTok LIVE Studio
-
-Xem [hướng dẫn Windows và đưa game lên sóng](docs/WINDOWS-OBS.md). OBS Browser Source: URL game local, 1920×1080, 30 FPS; điều khiển bằng tab admin riêng. LIVE Studio có thể dùng Link source hoặc Window Capture tùy phiên bản/quyền tài khoản.
-
-## Cấu trúc
-
-- `frontend/`: game, admin, CSS, JS, assets/vendor, tài liệu models/sounds.
-- `bridge/`: HTTP/API, WebSocket, TikTok adapter, cấu hình server, package-lock riêng.
-- `config/`: quà và giới hạn thế giới.
-- `tests/`: test tự động.
-- `scripts/`: check, build và xuất bản GitHub bằng gh trên máy đã đăng nhập.
-- `docs/`: kiến trúc, bảo mật, Windows/OBS, nguồn và báo cáo.
-- `START-XOM.bat`, `STOP-XOM.bat`: khởi chạy/dừng Windows; `scripts/launcher.mjs` quản lý lifecycle và health. `INSTALL-TIKTOK.bat` giữ tương thích nhưng không còn bắt buộc.
-
-## Giấy phép
-
-AGPL-3.0-only cho bản phân phối dự án để phù hợp connector TikTok hiện tại. Three.js/ws theo MIT, thông báo bản quyền Three.js trong assets/vendor. Giữ mã nguồn và thông báo giấy phép khi phân phối. Tài sản đồ họa/âm thanh do mã dự án tạo, không lấy ảnh/avatar/nhạc có bản quyền bên ngoài. Không được TikTok bảo trợ.
-
-### Bản nâng cấp màn hình người xem và âm thanh
-
-Bảng hướng dẫn cố định bên phải, bảng tên Unicode có nền và xếp tầng, playlist nhạc gốc cùng bộ trộn nhạc/không khí/hiệu ứng độc lập. Bấm **Bắt đầu âm thanh** ở màn hình game để cấp quyền phát. Âm thanh quán dùng bản thu nhà hàng Việt Nam CC0 đóng gói sẵn; tăng giảm mượt theo khách. DEMO có nút **Khách #1 rời quán** với hoạt ảnh đứng dậy, đi ra và dọn bảng tên.
-
-Xem [hướng dẫn cập nhật, âm thanh và giới hạn nguồn LIVE](docs/VIEWER-AUDIO.md). Nguồn connector hiện chưa có sự kiện rời từng ID; game không tự xóa khách LIVE vì im lặng. Âm thanh trình duyệt và thu âm TikTok LIVE Studio là hai bước kiểm chứng riêng; chưa xác nhận đường âm thanh trên laptop người dùng.
+Dùng `npm ci`, `npm ci --prefix bridge`, `npm run check`, `npm test`, `npm run build`. Sau khi cài Chromium Playwright, chạy `node scripts/browser-check.mjs` để kiểm tra NPC nền, đơn DEMO qua server, giao hàng 3D và mốc phát triển. Workflow GitHub chạy kiểm thử nhánh Chợ Tết; deploy Pages chỉ chạy cho main.

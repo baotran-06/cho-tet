@@ -1,0 +1,27 @@
+{
+  "byId": {},
+  "byName": {
+    "rose":"mai", "hoa":"mai", "hoa hồng":"mai",
+    "heart":"melon", "tim":"melon", "tiktok":"tet",
+    "ice cream":"chung", "kem":"chung",
+    "lollipop":"lixi", "kẹo mút":"lixi", "galaxy":"festival"
+  },
+  "milestones":[10,30,60],
+  "products": {
+    "mai":{"name":"chậu hoa mai","stall":0,"icon":"🌼"},
+    "dao":{"name":"chậu hoa đào","stall":0,"icon":"🌸"},
+    "cuc":{"name":"chậu hoa cúc","stall":0,"icon":"🌻"},
+    "vantho":{"name":"chậu vạn thọ","stall":0,"icon":"🏵️"},
+    "tet":{"name":"đòn bánh tét","stall":1,"icon":"🍃"},
+    "chung":{"name":"chiếc bánh chưng","stall":1,"icon":"🍙"},
+    "mut":{"name":"hộp mứt Tết","stall":1,"icon":"🍬"},
+    "melon":{"name":"quả dưa hấu","stall":2,"icon":"🍉"},
+    "buoi":{"name":"quả bưởi","stall":2,"icon":"🍊"},
+    "dua":{"name":"quả dừa","stall":2,"icon":"🥥"},
+    "mangcau":{"name":"quả mãng cầu","stall":2,"icon":"🍈"},
+    "lixi":{"name":"bao lì xì","stall":3,"icon":"🧧"},
+    "caudoi":{"name":"bộ câu đối đỏ","stall":3,"icon":"📜"},
+    "lantern":{"name":"chiếc đèn lồng","stall":3,"icon":"🏮"},
+    "festival":{"name":"đèn hội đặc biệt","stall":3,"icon":"🎆","celebrate":true}
+  }
+}

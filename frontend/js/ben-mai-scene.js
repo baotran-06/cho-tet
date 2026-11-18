@@ -5,10 +5,10 @@ import {deliveryTime} from './orders.js';
 const gold=0xffcc00, red=0xd61928, wood=0x99603b, leaf=0x398d34;
 const v=(x,z)=>new T.Vector3(x,0,z);
 const stalls=[
-  {x:-3.7,z:6,name:'HOA MAI',stock:['mai','mai','mai']},
-  {x:-3.7,z:1.9,name:'BÁNH & MỨT',stock:['tet','mut','pork']},
-  {x:-3.7,z:-2.2,name:'TRÁI CÂY',stock:['melon','soda','melon']},
-  {x:-3.7,z:-6.3,name:'ĐỒ TẾT',stock:['pig','lixi','pig']}
+  {x:-3.7,z:6,name:'HOA MAI',trim:0xb62039,stock:['mai','mai','mai']},
+  {x:-3.7,z:1.9,name:'BÁNH & MỨT',trim:0x2b6951,stock:['tet','mut','pork']},
+  {x:-3.7,z:-2.2,name:'TRÁI CÂY',trim:0x9f501b,stock:['melon','soda','melon']},
+  {x:-3.7,z:-6.3,name:'ĐỒ TẾT',trim:0x923650,stock:['pig','lixi','pig']}
 ];
 const quay=v(3.35,-5.3);
 const boatPosition=[5.7,-.12,-5.2];
@@ -17,13 +17,13 @@ export class BenMai extends Tavern {
   constructor(canvas, renderer=null) {
     super(canvas,renderer);
     this.camera=new T.OrthographicCamera(-6,6,10,-10,.1,100);
-    this.camera.position.set(9.8,16,25);
-    this.camera.lookAt(2.05,.45,2.7);
+    this.camera.position.set(14.0,12.7,25);
+    this.camera.lookAt(1.05,.30,3.6);
     const resize=this.resize;
     window.removeEventListener('resize',resize);
     this.resize=()=>{
       const width=Math.max(1,canvas.clientWidth),height=Math.max(1,canvas.clientHeight);
-      const horizontal=6.75;
+      const horizontal=7.15;
       const vertical=horizontal*height/width;
       Object.assign(this.camera,{left:-horizontal,right:horizontal,top:vertical*1.10,bottom:-vertical*.90});
       this.camera.updateProjectionMatrix();
@@ -197,27 +197,33 @@ export class BenMai extends Tavern {
     this.vendors=stalls.map((stall,index)=>{
       const group=this.group([stall.x,0,stall.z]);
       group.rotation.y=Math.PI/2;
-      for(const x of [-1.56,1.56]) for(const z of [-.76,.76]) this.box(wood,[.14,2.55,.15],[x,1.275,z],group);
-      this.tiledRoof(0,2.68,0,3.5,2.12,group);
+      for(const x of [-1.56,1.56]) for(const z of [-.86,.42]) this.box(wood,[.12,2.78,.13],[x,1.39,z],group);
+      this.tiledRoof(0,2.90,-.44,3.5,1.63,group);
       this.box(wood,[3.19,.79,.72],[0,.40,.61],group);
       this.box(0xd9915c,[3.34,.13,.84],[0,.84,.61],group);
-      this.box(red,[3.16,.32,.044],[0,.68,1.02],group);
-      this.sign(stall.name,2.3,.36,'#ffe5a1','#a32832',[0,2.24,1.08],group,120);
+      this.box(stall.trim,[3.16,.32,.044],[0,.68,1.02],group);
+      const sign=this.sign(stall.name,2.56,.47,'#fff0bc','#'+stall.trim.toString(16).padStart(6,'0'),[.10,2.66,.72],group,142);
+      sign.rotation.y=-.52;
       for(let i=0;i<3;i++) {
-        this.product(stall.stock[i],[-.98+i*.97,.915,.67],group,.85);
-        this.product(stall.stock[i],[-.98+i*.97,0,1.43],group,.86);
+        const x=-.94+i*.91;
+        this.box(0xbc8045,[.64,.10,.54],[x,.94,.79],group);
+        this.product(stall.stock[i],[x,1.00,.82],group,1.0);
+        if(i!==1) {
+          this.box(0xa56736,[.61,.21,.55],[x,.13,1.37],group);
+          this.product(stall.stock[i],[x,.25,1.37],group,.82);
+        }
       }
       for(const x of [-1.48,1.48]) {
         this.box(red,[.21,.71,.043],[x,1.68,.92],group);
         for(let line=0;line<4;line++) this.box(gold,[.095,.023,.013],[x,1.46+line*.145,.95],group);
       }
       for(let strip=0;strip<7;strip++) {
-        this.box(strip%2?0xf05246:red,[.40,.22,.055],[-1.20+strip*.4,2.45,1.03],group);
+        this.box(strip%2?0xf6cf7f:stall.trim,[.40,.12,.055],[-1.20+strip*.4,2.83,.42],group);
       }
       this.lamps.push(this.lamp([stall.x+.7,2.07,stall.z+1.52]));
       const actor=this.person('vendor'+index,'',index);
-      actor.group.position.set(stall.x-.1,0,stall.z);
-      actor.group.rotation.y=Math.PI/2;
+      actor.group.position.set(stall.x+.02,0,stall.z+.38);
+      actor.group.rotation.y=1.05;
       return actor;
     });
     this.maiTree(-.72,-7.35);

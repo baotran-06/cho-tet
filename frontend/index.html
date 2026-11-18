@@ -1,25 +1,38 @@
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Bến Mai · Chợ Tết Online</title><link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/market.css"></head>
-<body class="game-page market-page"><main id="game">
-<canvas id="world" aria-label="Chợ Tết Việt Nam 3D"></canvas>
-<header class="market-header">
-  <div class="market-brand"><span class="market-seal" aria-hidden="true">✿</span><h1>Bến Mai</h1></div>
-  <div class="market-growth"><strong id="market-level">Chợ mới mở</strong><span id="market-total">0 món đã giao</span><progress id="market-progress" max="10" value="0" aria-label="Tiến độ phát triển khu chợ"></progress><small id="market-queue"></small></div>
-</header>
-<div class="market-notices"><p id="connection-label"></p><ul id="market-feed" aria-label="Đơn hàng đã giao"></ul></div>
-<div class="market-footer">
-  <section class="gift-board"><h2>Quà tặng trong chợ</h2><div id="market-gifts" class="market-gifts"></div></section>
-  <div class="market-actions"><button id="welcome-demo" hidden>Thử đơn DEMO</button><button id="fullscreen" aria-label="Toàn màn hình">⛶</button><a href="admin.html" target="_blank" rel="noopener">Điều khiển ↗</a><button id="game-music-toggle" type="button" aria-expanded="false" aria-controls="game-music">♫ Nhạc</button></div>
-</div>
-<section id="game-music" class="game-music" aria-label="Nhạc nền" hidden>
-  <label for="game-music-files">Thêm nhạc từ máy</label>
-  <input id="game-music-files" type="file" accept=".mp3,.wav,audio/mpeg,audio/wav" multiple>
-  <select id="game-music-list" aria-label="Chọn bài nhạc" disabled></select>
-  <audio id="game-music-audio" aria-label="Trình phát nhạc nền" controls preload="metadata" hidden></audio>
-  <label for="game-music-volume">Âm lượng nhạc <output id="game-music-volume-value" for="game-music-volume">35%</output></label>
-  <input id="game-music-volume" type="range" min="0" max="100" value="35">
-  <small id="game-music-status" role="status">Chọn file MP3 hoặc WAV rồi bấm phát.</small>
-</section>
-<p id="shipment" class="shipment" hidden></p><div id="toast" class="market-toast" role="status" hidden></div><div id="fatal" class="fatal" hidden></div>
-</main><script type="module" src="js/market-game.js"></script><script type="module" src="js/market-music.js"></script></body></html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Văn phòng Tổng tài</title><link rel="stylesheet" href="css/office.css"></head>
+<body>
+<main id="frame" aria-label="Văn phòng Tổng tài">
+  <div id="camera">
+    <img class="office-background" src="assets/office/office.webp" alt="">
+    <div id="wedding-set" aria-hidden="true"><div class="arch">✿<span>♥</span>✿</div><div class="aisle"></div></div>
+    <div id="bedroom-set"><div class="door-panels"></div><span>Đêm tân hôn</span></div>
+    <div class="actor ceo" id="ceo">
+      <div class="nameplate"><strong id="ceo-name">Tổng tài</strong><span>Tổng tài</span></div>
+      <img id="ceo-image" src="assets/office/ceo-seated.webp" alt="Tổng tài">
+      <span class="talk-mouth"></span>
+    </div>
+    <div class="actor secretary" id="secretary">
+      <div class="nameplate"><strong id="secretary-name">Thư ký</strong><span>Thư ký</span></div>
+      <img id="secretary-image" src="assets/office/secretary.webp" alt="Thư ký">
+      <span class="talk-mouth"></span>
+    </div>
+    <div class="actor lieu" id="lieu">
+      <div class="nameplate"><strong id="lieu-name">Liễu Như Yên</strong><span>Liễu Như Yên</span></div>
+      <img src="assets/office/lieu.webp" alt="Liễu Như Yên">
+      <span class="talk-mouth"></span>
+    </div>
+    <div class="desk-front"></div>
+    <div id="particles" aria-hidden="true"></div>
+    <div id="impact" aria-hidden="true"></div>
+    <div id="ring-exchange" aria-hidden="true">💍</div>
+  </div>
+  <header><span class="heading-line"></span><h1>VĂN PHÒNG TỔNG TÀI</h1><span class="heading-line"></span></header>
+  <div id="gift-notice" role="status" hidden></div>
+  <div id="subtitle" aria-live="polite" hidden><strong id="speaker"></strong><span id="spoken"></span></div>
+  <section id="gift-board" aria-label="Quà và hiệu ứng"><div id="gifts"></div></section>
+  <div class="controls"><span id="mode">Đang tải…</span><button id="audio-start">Bật âm thanh</button><a href="admin.html" target="_blank" rel="noopener">Điều khiển ↗</a><button id="fullscreen" aria-label="Toàn màn hình">⛶</button></div>
+  <div id="error" role="alert" hidden></div>
+</main>
+<script type="module" src="js/office-game.js"></script>
+</body></html>

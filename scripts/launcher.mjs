@@ -14,7 +14,7 @@ export function checkedPort(value){const p=Number(value??3210);if(!Number.isInte
 export async function probe(origin,expected={}) {
   const response=await fetch(origin+'/api/health',{signal:AbortSignal.timeout(2500)});if(!response.ok)throw Error('HTTP health '+response.status);
   const health=await response.json();if(health.service!=='xom-online-live'||health.ready!==true||health.protocol!==1)throw Error('Cong dang duoc ung dung khac su dung.');
-  for(const key of ['instanceId','projectId'])if(expected[key]&&health[key]!==expected[key])throw Error('Day la phien Xom khac. Khong can thiep.');
+  for(const key of ['instanceId','projectId'])if(expected[key]&&health[key]!==expected[key])throw Error('Day la phien Tong Tai khac. Khong can thiep.');
   await new Promise((resolve,reject)=>{const socket=new WebSocket(origin.replace('http:','ws:')+'/ws');const timer=setTimeout(()=>{socket.close();reject(Error('WebSocket timeout'));},3000);
     const finish=(error)=>{clearTimeout(timer);socket.close();error?reject(error):resolve();};
     socket.addEventListener('error',()=>finish(Error('WebSocket khong san sang')),{once:true});socket.addEventListener('message',e=>{try{const s=JSON.parse(e.data);if(!Array.isArray(s.users))throw Error();finish();}catch{finish(Error('WebSocket payload khong hop le'));}},{once:true});
@@ -48,7 +48,7 @@ function logger(root){const path=join(root,'.runtime','logs','latest.log');if(ex
 // Bounded logs, no provider payloads or management tokens.
 import {statSync} from 'node:fs';
 function requireSize(path){return statSync(path).size;}
-async function acquire(root,instanceId){const path=join(root,'.runtime','start.lock');for(let i=0;i<2;i++){try{const f=await open(path,'wx',0o600);await f.writeFile(JSON.stringify({pid:process.pid,instanceId}));await f.close();return;}catch(e){if(e.code!=='EEXIST')throw e;const lock=await readJSON(path);if(lock&&alive(lock.pid))throw Error('Xom dang khoi dong hoac da chay. Hay doi, hoac dung STOP-XOM.bat trong thu muc nay.');try{const age=Date.now()-(await stat(path)).mtimeMs;if(!lock&&age<5000)throw Error('Xom vua bat dau khoi dong; hay doi vai giay.');await unlink(path);}catch(e){if(e.code!=='ENOENT')throw e;}}}throw Error('Khong tao duoc khoa khoi dong.');}
+async function acquire(root,instanceId){const path=join(root,'.runtime','start.lock');for(let i=0;i<2;i++){try{const f=await open(path,'wx',0o600);await f.writeFile(JSON.stringify({pid:process.pid,instanceId}));await f.close();return;}catch(e){if(e.code!=='EEXIST')throw e;const lock=await readJSON(path);if(lock&&alive(lock.pid))throw Error('Tong Tai dang khoi dong hoac da chay. Hay doi, hoac dung STOP-TONG-TAI.bat trong thu muc nay.');try{const age=Date.now()-(await stat(path)).mtimeMs;if(!lock&&age<5000)throw Error('Tong Tai vua bat dau khoi dong; hay doi vai giay.');await unlink(path);}catch(e){if(e.code!=='ENOENT')throw e;}}}throw Error('Khong tao duoc khoa khoi dong.');}
 async function removeOwned(path,instanceId){const data=await readJSON(path);if(data?.instanceId===instanceId)await unlink(path).catch(()=>{});}
 export function dashboardUrls(origin){return [origin+'/admin',origin+'/'];}
 async function launchUrl(url){
@@ -63,13 +63,13 @@ export async function openDashboard(origin,{disabled=process.env.XOM_NO_BROWSER=
 export async function startSystem({root=projectRoot,port=3210,browser=openDashboard,install=runNpm}={}){
  port=checkedPort(port);const origin='http://127.0.0.1:'+port;const runtime=join(root,'.runtime');await mkdir(join(runtime,'logs'),{recursive:true,mode:0o700});
  const projectId=projectIdentity(root);const old=await readJSON(join(runtime,'control.json'));
- if(old&&old.projectId===projectId){try{await probe(origin,old);console.log('[OK] Xom da chay. Khong tao server trung.');await browser(origin);return null;}catch{}}
+ if(old&&old.projectId===projectId){try{await probe(origin,old);console.log('[OK] Tong Tai da chay. Khong tao server trung.');await browser(origin);return null;}catch{}}
  await portFree(port);const instanceId=randomUUID();await acquire(root,instanceId);if(old)await removeOwned(join(runtime,'control.json'),old.instanceId);const log=logger(root);let app=null;let closing=false;let monitor;
  const cleanup=async()=>{clearInterval(monitor);for(const name of ['control.json','start.lock','stop-request.json'])await removeOwned(join(runtime,name),instanceId);};
- const shutdown=async()=>{if(closing)return;closing=true;log('[STOP] Dang ngat TikTok, dong WebSocket va HTTP...');if(app)await app.close();await cleanup();log('[STOP] Da dung Xom an toan.');};
+ const shutdown=async()=>{if(closing)return;closing=true;log('[STOP] Dang ngat TikTok, dong WebSocket va HTTP...');if(app)await app.close();await cleanup();log('[STOP] Da dung Tong Tai an toan.');};
  const pendingStop=async()=>{const req=await readJSON(join(runtime,'stop-request.json'));if(req?.instanceId===instanceId){log('[STOP] Da nhan yeu cau dung trong luc khoi dong.');await cleanup();return true;}return false;};
  try{
-  log('[START] XOM ONLINE LIVE - Node '+process.versions.node);await ensureDependencies(root,log,install);if(await pendingStop())return null;
+  log('[START] VAN PHONG TONG TAI - Node '+process.versions.node);await ensureDependencies(root,log,install);if(await pendingStop())return null;
   await run(process.execPath,[join(root,'scripts','build.mjs')],root,log);if(await pendingStop())return null;
   const {createApp}=await import(pathToFileURL(join(root,'bridge','server.js')).href);
   const preferences=await readJSON(join(runtime,'preferences.json'))||{};
@@ -87,7 +87,7 @@ export async function startSystem({root=projectRoot,port=3210,browser=openDashbo
 }
 export async function stopSystem({root=projectRoot,timeoutMs=120000}={}){
  const runtime=join(root,'.runtime');const record=await readJSON(join(runtime,'control.json'));const lock=await readJSON(join(runtime,'start.lock'));const projectId=projectIdentity(root);
- if(!record){if(lock&&alive(lock.pid)){await writeFile(join(runtime,'stop-request.json'),JSON.stringify({instanceId:lock.instanceId}),{mode:0o600});console.log('[STOP] Dang setup. Se dung sau buoc cai dat/build hien tai...');const until=Date.now()+timeoutMs;while(Date.now()<until){if(!await readJSON(join(runtime,'start.lock')))return;await delay(500);}throw Error('Da gui yeu cau dung; buoc cai dat chua ket thuc. Xem cua so START, khong tat Node khac.');}console.log('[OK] Khong co dich vu Xom dang chay trong thu muc nay.');return;}
+ if(!record){if(lock&&alive(lock.pid)){await writeFile(join(runtime,'stop-request.json'),JSON.stringify({instanceId:lock.instanceId}),{mode:0o600});console.log('[STOP] Dang setup. Se dung sau buoc cai dat/build hien tai...');const until=Date.now()+timeoutMs;while(Date.now()<until){if(!await readJSON(join(runtime,'start.lock')))return;await delay(500);}throw Error('Da gui yeu cau dung; buoc cai dat chua ket thuc. Xem cua so START, khong tat Node khac.');}console.log('[OK] Khong co dich vu Tong Tai dang chay trong thu muc nay.');return;}
  if(record.projectId!==projectId)throw Error('Thong tin phien khong khop thu muc. Khong dung tien trinh khac.');
  const origin='http://127.0.0.1:'+checkedPort(record.port);
  let health;try{const r=await fetch(origin+'/api/health',{signal:AbortSignal.timeout(2000)});health=await r.json();}catch{if(alive(record.pid))throw Error('Server khong phan hoi; khong force-kill PID de tranh tat nham. Xem cua so START.');for(const name of ['control.json','start.lock','stop-request.json'])await removeOwned(join(runtime,name),record.instanceId);console.log('[OK] Phien cu da dung; da don thong tin tam.');return;}

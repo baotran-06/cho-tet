@@ -1,6 +1,6 @@
 import http from 'node:http';
-import {readFile} from 'node:fs/promises';
-import {existsSync} from 'node:fs';
+import {readFile,writeFile,mkdir,unlink} from 'node:fs/promises';
+import {existsSync,readFileSync} from 'node:fs';
 import {resolve,sep,extname,join as joinPath} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {randomBytes,timingSafeEqual} from 'node:crypto';
@@ -10,6 +10,10 @@ import {attachWebSocket} from './websocket.js';
 import {TikTokBridge} from './tiktok.js';
 export function createApp(options={}) {
   const world=new World(settings,gifts);if(options.initialMode)world.reset(options.initialMode);const logs=[];let connection='disconnected';let demoIndex=0;let auto=null;let busy=false;
+  const musicDirectory=resolve(fileURLToPath(new URL('.runtime/music/',root)));
+  try{world.office.tracks=JSON.parse(readFileSync(joinPath(musicDirectory,'playlist.json'),'utf8')).filter(track=>/^[a-f0-9]{32}$/.test(track.id)&&existsSync(joinPath(musicDirectory,track.id+'.audio'))).slice(0,50);}catch{}
+  let musicBusy=false;
+  const savePlaylist=async()=>{await mkdir(musicDirectory,{recursive:true});await writeFile(joinPath(musicDirectory,'playlist.json'),JSON.stringify(world.office.tracks));};
   const controlToken=randomBytes(32).toString('hex');
   const log=message=>{try{options.onLog?.(message);}catch{}logs.unshift({at:Date.now(),message});logs.length=Math.min(logs.length,60);};
   const bridge=new TikTokBridge(e=>world.enqueue(e),s=>{connection=s;},log,options.loader);
@@ -39,9 +43,35 @@ export function createApp(options={}) {
         res.once('finish',()=>setImmediate(()=>options.onShutdown?.()));json(res,202,{ok:true,stopping:true});return;
       }
       if(req.method==='GET'&&pathname==='/api/state'){json(res,200,{...world.snapshot(),connection,liveEvidence:liveEvidence(),rememberedUsername:options.rememberedUsername||bridge.target||'',logs});return;}
+      if(req.method==='GET'&&pathname.startsWith('/api/music/')){
+        const id=pathname.split('/').at(-1);
+        const track=world.office.tracks.find(track=>track.id===id);
+        if(!track){json(res,404,{error:'Không tìm thấy bài'});return;}
+        try{const file=await readFile(joinPath(musicDirectory,id+'.audio'));res.writeHead(200,{'Content-Type':track.type,'Content-Length':file.length,'Cache-Control':'private, max-age=600'});res.end(file);}catch{json(res,404,{error:'File nhạc không còn tồn tại'});}return;
+      }
       const cookie=(req.headers.cookie||'').split(';').map(x=>x.trim()).find(x=>x.startsWith('xom_control='))?.slice(12)||'';
       const expected=`http://${req.headers.host}`;
       if(req.method!=='POST'||req.headers.origin!==expected||!/^[a-f0-9]{64}$/.test(cookie)||!timingSafeEqual(Buffer.from(cookie),Buffer.from(controlToken))){json(res,403,{error:'Mở bảng điều khiển từ máy này; yêu cầu bị từ chối.'});return;}
+      if(pathname==='/api/music'){
+        if(musicBusy){json(res,409,{error:'Đang lưu bài khác. Thử lại sau.'});return;}
+        if(!['audio/mpeg','audio/wav','audio/x-wav'].includes(req.headers['content-type'])){json(res,415,{error:'Chọn file MP3 hoặc WAV'});return;}
+        if(world.office.tracks.length>=50){json(res,409,{error:'Tối đa 50 bài. Xóa bớt rồi thêm.'});return;}
+        musicBusy=true;
+        const id=randomBytes(16).toString('hex');
+        try{
+          const chunks=[];let size=0;
+          for await(const chunk of req){size+=chunk.length;if(size>30*1024*1024){json(res,413,{error:'Mỗi bài tối đa 30 MB'});return;}chunks.push(chunk);}
+          if(!size){json(res,400,{error:'File trống'});return;}
+          let name;try{name=decodeURIComponent(req.headers['x-track-name']||'Bài của bạn').slice(0,120);}catch{name='Bài của bạn';}
+          await mkdir(musicDirectory,{recursive:true});
+          await writeFile(joinPath(musicDirectory,id+'.audio'),Buffer.concat(chunks));
+          world.office.tracks.push({id,name,type:req.headers['content-type']});
+          await savePlaylist();
+          json(res,201,{ok:true,id});
+        }catch{world.office.tracks=world.office.tracks.filter(track=>track.id!==id);await unlink(joinPath(musicDirectory,id+'.audio')).catch(()=>{});json(res,500,{error:'Không lưu được file nhạc'});}
+        finally{musicBusy=false;}
+        return;
+      }
       if(req.headers['content-type']!=='application/json'){json(res,415,{error:'Cần application/json'});return;}
       let body='';try{for await(const chunk of req){body+=chunk;if(body.length>4096){json(res,413,{error:'Yêu cầu quá lớn'});return;}}body=JSON.parse(body||'{}');}catch{json(res,400,{error:'JSON không hợp lệ'});return;}
       if(busy&&!['/api/disconnect','/api/restart'].includes(pathname)){json(res,409,{error:'Đang chuyển kết nối, chờ giây lát'});return;}
@@ -56,6 +86,28 @@ export function createApp(options={}) {
         else if(pathname==='/api/mode') {
           if(!['DEMO','LIVE'].includes(body.mode)){json(res,400,{error:'Chế độ không hợp lệ'});return;}
           busy=true;await bridge.stop();clearInterval(auto);auto=null;world.reset(body.mode);busy=false;
+         } else if(pathname==='/api/office-skip'){
+          if(world.mode!=='DEMO'){json(res,409,{error:'Chỉ kết thúc cảnh thử ở DEMO'});return;}
+          world.office.finish(world.now());
+        } else if(pathname==='/api/music-remove'){
+          const track=world.office.tracks.find(track=>track.id===body.id);
+          if(!track){json(res,404,{error:'Bài không tồn tại'});return;}
+          if(musicBusy){json(res,409,{error:'Đang lưu nhạc'});return;}
+          musicBusy=true;
+          try{world.office.tracks=world.office.tracks.filter(track=>track.id!==body.id);
+          if(world.office.audio.trackId===body.id)world.office.audio.trackId=null;
+          await savePlaylist();await unlink(joinPath(musicDirectory,body.id+'.audio')).catch(()=>{});
+          }finally{musicBusy=false;}
+        } else if(pathname==='/api/office-audio'){
+          const audio=world.office.audio;
+          for(const key of ['musicVolume','voiceVolume','sfxVolume'])if(Object.hasOwn(body,key)){if(!Number.isFinite(body[key])||body[key]<0||body[key]>1){json(res,400,{error:'Âm lượng phải trong 0–100%'});return;}}
+          for(const key of ['musicVolume','voiceVolume','sfxVolume'])if(Object.hasOwn(body,key))audio[key]=body[key];
+          for(const key of ['musicEnabled','voiceEnabled','sfxEnabled','paused'])if(Object.hasOwn(body,key))audio[key]=body[key]===true;
+          if(Object.hasOwn(body,'trackId'))audio.trackId=world.office.tracks.some(track=>track.id===body.trackId)?body.trackId:null;
+        } else if(pathname==='/api/office-rules'){
+          const rules=body.rules;
+          if(!rules||typeof rules!=='object'||Array.isArray(rules)||Object.keys(rules).length>100||Object.entries(rules).some(([id,key])=>!/^\d{1,25}$/.test(id)||!['fire','wedding','bedroom','lieu','replaceCeo','replaceSecretary','claimCeo','claimSecretary','kiss'].includes(key))){json(res,400,{error:'Gift ID hoặc hành động không hợp lệ'});return;}
+          world.office.rules={...rules};
         } else if(pathname==='/api/restart'){busy=true;await bridge.stop();clearInterval(auto);auto=null;world.reset(world.mode);logs.length=0;busy=false;}
         else if(pathname==='/api/sound')world.sound=Boolean(body.enabled);
         else if(pathname==='/api/demo'){
@@ -65,7 +117,7 @@ export function createApp(options={}) {
           } else {
             const amount=Math.max(1,Math.min(100,Number(body.amount)||1));
             const allowed=['join','leave','like','follow','gift'];const type=allowed.includes(body.type)?body.type:'join';
-            for(let i=0;i<amount;i++)world.enqueue(demoEvent(type,type==='join'?++demoIndex:Math.max(1,Math.min(demoIndex,Number(body.viewer)||1)),String(body.giftName||'Rose'),Number(body.count)||1));
+            for(let i=0;i<amount;i++){const event=demoEvent(type,type==='join'?++demoIndex:Math.max(1,Math.min(demoIndex,Number(body.viewer)||1)),String(body.giftName||'Rose'),Number(body.count)||1);if(body.name)event.user.name=String(body.name).slice(0,40);world.enqueue(event);}
           }
         }else {json(res,404,{error:'Không tìm thấy lệnh'});return;}
         json(res,200,{ok:true});
@@ -76,7 +128,7 @@ export function createApp(options={}) {
     const path=resolve(frontend,page);if(!path.startsWith(frontend+sep)){res.writeHead(403);res.end();return;}
     try {
       const data=await readFile(path);
-      if(page==='admin.html')res.setHeader('Set-Cookie',`xom_control=${controlToken}; HttpOnly; SameSite=Strict; Path=/api; Max-Age=43200`);
+      if(page==='admin.html'||page==='index.html')res.setHeader('Set-Cookie',`xom_control=${controlToken}; HttpOnly; SameSite=Strict; Path=/api; Max-Age=43200`);
       res.writeHead(200,{'Content-Type':mime[extname(path)]||'application/octet-stream','Cache-Control':'no-cache'});res.end(req.method==='HEAD'?undefined:data);
     }catch{res.writeHead(404);res.end('Không tìm thấy tài nguyên');}
   });
@@ -87,7 +139,7 @@ export function createApp(options={}) {
   return {server,world,bridge,connectLive,close:()=>closePromise??=(async()=>{clearInterval(tick);clearInterval(auto);try{await bridge.stop();}finally{sockets.close();server.closeAllConnections();await new Promise(r=>server.close(()=>r()));}})()};
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
-  const app=createApp({initialMode:'LIVE'});app.server.listen(port,host,()=>console.log(`XÓM ONLINE LIVE\nGame: http://${host}:${port}/\nĐiều khiển: http://${host}:${port}/admin`));
+  const app=createApp({initialMode:'LIVE'});app.server.listen(port,host,()=>console.log(`VĂN PHÒNG TỔNG TÀI\nGame: http://${host}:${port}/\nĐiều khiển: http://${host}:${port}/admin`));
   app.server.on('error',e=>{console.error(e.code==='EADDRINUSE'?'Cổng đang bận. Đóng cửa sổ cầu nối cũ hoặc đặt PORT khác.':'Không khởi chạy được cầu nối.');process.exitCode=1;});
   for(const sig of ['SIGINT','SIGTERM'])process.once(sig,async()=>{await app.close();process.exit(0);});
 }

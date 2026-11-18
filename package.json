@@ -1,8 +1,8 @@
 {
-  "name": "xom-online-live",
-  "version": "1.0.0",
+  "name": "van-phong-tong-tai",
+  "version": "2.0.0",
   "private": true,
-  "description": "Quán nhậu 3D tương tác cho TikTok LIVE, chạy local trên Windows",
+  "description": "Văn phòng Tổng tài · game tương tác TikTok LIVE và DEMO trên Windows",
   "type": "module",
   "engines": {
     "node": ">=22"

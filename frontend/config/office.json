@@ -1,0 +1,17 @@
+{
+  "roleDurationMs":180000,
+  "bedroomDurationMs":180000,
+  "queueLimit":120,
+  "byId":{"5655":"kiss","5879":"bedroom","5487":"claimSecretary"},
+  "guide":[
+    {"key":"fire","gift":"Paper Crane","label":"Hạc giấy","effect":"Đuổi thư ký","icon":"crane"},
+    {"key":"wedding","gift":"Bouquet Flower","label":"Bó hoa","effect":"Kết hôn","icon":"bouquet"},
+    {"key":"bedroom","gift":"Doughnut","label":"Donut","effect":"Động phòng","icon":"doughnut"},
+    {"key":"lieu","gift":"Bravo!","label":"Hoan hô","effect":"Liễu Như Yên","icon":"bravo"},
+    {"key":"replaceCeo","gift":"Shamrock","label":"Cỏ bốn lá","effect":"Đổi tổng tài","icon":"shamrock"},
+    {"key":"replaceSecretary","gift":"Lucky Pig","label":"Heo may mắn","effect":"Đổi thư ký","icon":"pig"},
+    {"key":"claimCeo","gift":"Okay","label":"Đồng ý","effect":"Làm tổng tài","icon":"okay"},
+    {"key":"claimSecretary","gift":"Finger Heart","label":"Tim ngón tay","effect":"Làm thư ký","icon":"finger_heart"},
+    {"key":"kiss","gift":"Rose","label":"Hoa hồng","effect":"Hôn má","icon":"rose"}
+  ]
+}

@@ -1,0 +1,16 @@
+VĂN PHÒNG TỔNG TÀI – THU RIÊNG GAME
+
+1. Chạy START-TONG-TAI.bat.
+2. OBS: Thiết đặt > Video > Canvas và đầu ra: 1080x1920, 30 FPS.
+3. Nguồn > + > Trình duyệt.
+   URL: http://127.0.0.1:3210/
+   Rộng: 1080. Cao: 1920.
+   Bật “Điều khiển âm thanh qua OBS” nếu muốn định tuyến tiếng riêng.
+4. Chuột phải nguồn > Tương tác > bấm Bật âm thanh.
+5. Nếu bật Chế độ Studio, bấm Chuyển cảnh sang Chương trình.
+6. Bắt đầu máy quay ảo.
+7. LIVE Studio > Thêm nguồn > Camera > OBS Virtual Camera.
+8. Camera ảo chỉ chuyển hình. Cấu hình nguồn âm thanh nhận đầu ra của OBS
+   (thiết bị âm thanh ảo nếu cần), rồi kiểm tra bằng đoạn ghi thử có lời thoại.
+9. Trước khi phát thật, mở ứng dụng khác và kiểm tra khung camera vẫn chỉ có game.
+10. Phát LIVE, nhập username trong Điều khiển và bấm Kết nối.

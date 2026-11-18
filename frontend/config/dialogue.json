@@ -1,0 +1,51 @@
+{
+ "kiss":[
+  [["ceo","Đứng yên. Đây là phúc lợi công ty."],["secretary","Dạ, có tính thuế thu nhập không sếp?"]],
+  [["ceo","Tôi cho phép em nghỉ ba giây."],["secretary","Để em chấm công trước đã."]],
+  [["ceo","Em có biết em vừa làm gì không?"],["secretary","Em mới in hai mặt, tiết kiệm giấy cho công ty."]],
+  [["ceo","Lại đây. Tôi có chuyện muốn nói."],["secretary","Chuyện tăng lương hả sếp?"]]
+ ],
+ "wedding":[
+  [["ceo","Từ hôm nay, em được ký thay tôi."],["secretary","Giấy kết hôn hay lệnh chuyển tiền ạ?"]],
+  [["ceo","Tôi muốn giữ em lại cả đời."],["secretary","Vậy hợp đồng có bảo hiểm không anh?"]],
+  [["ceo","Chiếc nhẫn này, chỉ dành cho em."],["secretary","Em giữ hóa đơn để quyết toán nha."]],
+  [["ceo","Gọi tôi là chồng."],["secretary","Dạ sếp. À, dạ chồng."]]
+ ],
+ "bedroom":[
+  [["ceo","Tối nay, chúng ta có chuyện cần giải quyết."],["secretary","Anh mà lôi báo cáo quý ra là em về đó."]],
+  [["ceo","Cửa đã đóng. Em không thể trốn nữa."],["secretary","Em chỉ muốn biết mật khẩu Wi Fi thôi."]],
+  [["ceo","Đêm nay, tôi dành hết thời gian cho em."],["secretary","Vậy anh cất điện thoại công việc đi."]],
+  [["ceo","Cuối cùng cũng chỉ còn hai chúng ta."],["secretary","Mong kế toán đừng gọi vào lúc này."]]
+ ],
+ "lieu":[
+  [["lieu","Anh từng nói chiếc ghế bên cạnh chỉ dành cho em!"],["secretary","Chị bình tĩnh, ghế này mua theo cặp."]],
+  [["lieu","Cô nghĩ cô là ai mà đứng ở đây?"],["secretary","Dạ, người biết mật khẩu máy in."]],
+  [["lieu","Anh thay đổi rồi. Ngày xưa anh đâu như vậy."],["secretary","Dạ, nay anh cập nhật phần mềm rồi chị."]],
+  [["lieu","Tôi bỏ cuộc họp để đến tìm anh đó!"],["secretary","Chị có đặt lịch với em chưa?"]]
+ ],
+ "fire":[[["ceo","Cô bị sa thải."]]],
+ "replaceCeo":[
+  [["ceo","Ai đang giữ mật khẩu Wi Fi?"]],
+  [["ceo","Từ hôm nay, công ty này do tôi quản lý."]],
+  [["ceo","Tôi đã trở lại. Máy lạnh vẫn chưa sửa à?"]],
+  [["ceo","Họp khẩn. Ai lấy cục sạc của tôi?"]]
+ ],
+ "replaceSecretary":[
+  [["secretary","Em mới đến. Mong công ty trả lương đúng ngày."]],
+  [["secretary","Dạ sếp, hồ sơ và đơn xin tăng lương của em đây."]],
+  [["secretary","Em biết pha cà phê, nhưng em không biết chịu đựng."]],
+  [["secretary","Ngày đầu nhận việc, xin đừng giao em quản lý tình cũ."]]
+ ],
+ "claimCeo":[
+  [["ceo","Từ giờ, tôi là tổng tài ở đây."]],
+  [["ceo","Cuộc họp bắt đầu. Ai chưa ăn cơm thì ăn trước."]],
+  [["ceo","Tôi đến để giải quyết mọi chuyện. Trừ lỗi máy in."]],
+  [["ceo","Gọi tôi là sếp. Nhưng đừng gọi lúc tôi ngủ."]]
+ ],
+ "claimSecretary":[
+  [["secretary","Thư ký mới xin chào. Anh ký đơn tăng lương trước nha."]],
+  [["secretary","Em nhận việc, chứ em chưa nhận tăng ca đâu nha."]],
+  [["secretary","Sếp cần gì cứ nói. Ngoài giờ thì nhắn mai em trả lời."]],
+  [["secretary","Em có mặt rồi. Cà phê của sếp ít đường đúng không?"]]
+ ]
+}

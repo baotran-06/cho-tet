@@ -68,5 +68,5 @@ body.market-page{height:100dvh;display:grid;place-items:center;background:#32221
 .market-page .market-actions button{padding:.24cqw .45cqw}
 .market-page .market-notices{left:1.4%;bottom:2%;max-width:34%;padding:.2cqw .6cqw}
 .market-page .market-notices p,.market-page .market-notices li{font-size:.99cqw}
-.market-page .market-toast{top:19%;left:1.4%;right:auto;max-width:35%;font-size:1.05cqw;padding:.55cqw .8cqw}
-.shipment{top:13%;left:1.4%;font-size:1.05cqw;padding:.5cqw .8cqw}
+.market-page .market-toast{top:auto;bottom:8%;left:1.4%;right:auto;max-width:34%;font-size:1.05cqw;padding:.55cqw .8cqw}
+.shipment{top:auto;bottom:13%;left:1.4%;font-size:1.05cqw;padding:.5cqw .8cqw}

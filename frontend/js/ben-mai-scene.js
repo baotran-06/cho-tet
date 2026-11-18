@@ -17,15 +17,15 @@ export class BenMai extends Tavern {
   constructor(canvas, renderer=null) {
     super(canvas,renderer);
     this.camera=new T.OrthographicCamera(-6,6,10,-10,.1,100);
-    this.camera.position.set(27,11.8,2.25);
-    this.camera.lookAt(2.8,.15,-.2);
+    this.camera.position.set(27,5.5,-.15);
+    this.camera.lookAt(2.8,1.35,-.15);
     const resize=this.resize;
     window.removeEventListener('resize',resize);
     this.resize=()=>{
       const width=Math.max(1,canvas.clientWidth),height=Math.max(1,canvas.clientHeight);
       const horizontal=8.65;
       const vertical=horizontal*height/width;
-      Object.assign(this.camera,{left:-horizontal,right:horizontal,top:vertical*1.10,bottom:-vertical*.90});
+      Object.assign(this.camera,{left:-horizontal,right:horizontal,top:vertical*.91,bottom:-vertical*1.09});
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(width,height,false);
     };
@@ -202,8 +202,8 @@ export class BenMai extends Tavern {
       this.box(wood,[3.19,.79,.72],[0,.40,.61],group);
       this.box(0xd9915c,[3.34,.13,.84],[0,.84,.61],group);
       this.box(stall.trim,[3.16,.32,.044],[0,.68,1.02],group);
-      const sign=this.sign(stall.name,2.56,.47,'#fff0bc','#'+stall.trim.toString(16).padStart(6,'0'),[.10,2.66,.72],group,142);
-      sign.rotation.y=-.12;
+      this.sign(stall.name,2.56,.47,'#fff0bc','#'+stall.trim.toString(16).padStart(6,'0'),[.10,2.66,.72],group,142);
+
       for(let i=0;i<3;i++) {
         const x=-.94+i*.91;
         this.box(0xbc8045,[.64,.10,.54],[x,.94,.79],group);
@@ -223,7 +223,7 @@ export class BenMai extends Tavern {
       this.lamps.push(this.lamp([stall.x+.7,2.07,stall.z+1.52]));
       const actor=this.person('vendor'+index,'',index);
       actor.group.position.set(stall.x+.02,0,stall.z+.38);
-      actor.group.rotation.y=1.05;
+      actor.group.rotation.y=Math.PI/2;
       return actor;
     });
     this.maiTree(-5.15,-.27);

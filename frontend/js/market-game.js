@@ -1,3 +1,4 @@
+import {loadMarketNpcs} from './market-npc.js';
 import {Client} from './client.js';
 import {BenMai} from './ben-mai-scene.js';
 import {marketConfig} from './orders.js';
@@ -83,7 +84,11 @@ const client=new Client(next=>{
 client.ready.then(async()=>{
 await document.fonts.load('700 24px "Be Vietnam Pro"','BẾN MAI · ĐỒ TẾT · BÁNH VÀ MỨT').catch(()=>{});
 try {
-  scene=new BenMai($('world'));
+  const models=await loadMarketNpcs().catch(error=>{
+    console.warn('Dùng NPC mặc định:',error);
+    return new Map();
+  });
+  scene=new BenMai($('world'),null,models);
   if(state) scene.update(state);
 } catch (error) {
   $('fatal').hidden=false;

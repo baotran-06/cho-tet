@@ -1,6 +1,7 @@
 import * as T from '../assets/vendor/three.module.js';
 import {Tavern} from './scene.js';
 import {deliveryTime} from './orders.js';
+import {applyMarketNpc} from './market-npc.js';
 
 const gold=0xffcc00, red=0xd61928, wood=0x99603b, leaf=0x398d34;
 const v=(x,z)=>new T.Vector3(x,0,z);
@@ -14,7 +15,7 @@ const boatPosition=[0,.06,6.8];
 const landing=stall=>v(Math.sign(stall.x)*2.35,stall.z+1.05);
 
 export class BenMai extends Tavern {
-  constructor(canvas, renderer=null) {
+  constructor(canvas, renderer=null, models=new Map()) {
     super(canvas,renderer);
     this.camera=new T.OrthographicCamera(-6,6,10,-10,.1,100);
     this.camera.position.set(0,17,24);
@@ -48,7 +49,11 @@ export class BenMai extends Tavern {
     }
     this.jobs=new Map();
     this.buyers=Array.from({length:6},(_,index)=>this.person('buyer'+index,'',index));
+    this.buyers.forEach(actor=>applyMarketNpc(actor,models.get('shopper')));
+    this.vendors.forEach((actor,index)=>applyMarketNpc(actor,models.get(index%2?'scarf-vendor':'flower-vendor')));
     this.courier=this.person('courier','',2);
+    applyMarketNpc(this.courier,models.get('courier'));
+    if(this.courier.parcel) this.courier.parcel.visible=false;
     this.rower=this.person('rower','',1);
     this.boat.add(this.rower.group);
     this.rower.group.position.set(0,.18,-1.04);
@@ -387,7 +392,7 @@ export class BenMai extends Tavern {
     for(let i=0;i<2;i++) {
       const swing=Math.sin(phase+i*Math.PI);
       actor.legs[i].leg.rotation.x=walking?swing*.47:0;
-      actor.arms[i].rotation.x=carry?-1.26:walking?-swing*.39:Math.sin(this.time*3+i)*.12;
+      actor.arms[i].rotation.x=actor===this.courier&&actor.customMarketNpc?0:carry?-1.26:walking?-swing*.39:Math.sin(this.time*3+i)*.12;
     }
   }
 

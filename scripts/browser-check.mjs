@@ -27,6 +27,7 @@ try {
   await page.waitForFunction(()=>window.__market?.scene && __market.state?.connection==='disconnected');
   assert.equal(await page.locator('#fatal').isHidden(),true);
   assert.equal(await page.evaluate(()=>__market.scene.vendors.length),4);
+  assert.equal(await page.evaluate(()=>[...__market.scene.vendors,...__market.scene.buyers,__market.scene.courier].every(actor=>actor.customMarketNpc)),true);
   assert.equal(await page.locator('.market-gift').count(),10);
   assert.equal(await page.locator('.market-gift img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>0)),true);
   assert.equal(await page.evaluate(()=>document.fonts.check('700 24px "Be Vietnam Pro"','BẾN MAI')),true);

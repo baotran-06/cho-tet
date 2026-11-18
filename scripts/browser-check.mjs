@@ -10,12 +10,13 @@ const origin='http://127.0.0.1:'+app.server.address().port;
 let browser;
 try {
  browser=await chromium.launch({executablePath:process.env.XOM_TEST_CHROMIUM,args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--autoplay-policy=no-user-gesture-required']});
- const page=await browser.newPage({viewport:{width:540,height:960}});
+ const context=await browser.newContext({viewport:{width:540,height:960}});
+ const page=await context.newPage();
  const errors=[];
  page.on('pageerror',e=>errors.push(e.message));
  await page.goto(origin+'/admin');
  await page.click('#demo-mode');
- const game=await page.context().newPage();
+ const game=await context.newPage();
  game.on('pageerror',e=>errors.push(e.message));
  await game.goto(origin+'/');
  await game.waitForFunction(()=>window.__office?.state?.office);
@@ -90,7 +91,7 @@ try {
  await game.close();
  await page.route('**/api/state',route=>route.fulfill({status:404,body:''}));
  await page.goto(origin+'/admin');
- const staticGame=await page.context().newPage();
+ const staticGame=await context.newPage();
  await staticGame.route('**/api/state',route=>route.fulfill({status:404,body:''}));
  await staticGame.goto(origin+'/');
  await staticGame.waitForFunction(()=>__office?.state?.mode==='DEMO');

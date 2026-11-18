@@ -2,7 +2,7 @@ import * as T from '../assets/vendor/three.module.js';
 import {Tavern} from './scene.js';
 import {deliveryTime} from './orders.js';
 
-const gold=0xffc83c, red=0xc92732, wood=0xa05b37, leaf=0x508a3e;
+const gold=0xffcc00, red=0xd61928, wood=0x99603b, leaf=0x398d34;
 const v=(x,z)=>new T.Vector3(x,0,z);
 const stalls=[
   {x:-3.7,z:6,name:'HOA MAI',stock:['mai','mai','mai']},
@@ -17,13 +17,13 @@ export class BenMai extends Tavern {
   constructor(canvas, renderer=null) {
     super(canvas,renderer);
     this.camera=new T.OrthographicCamera(-6,6,10,-10,.1,100);
-    this.camera.position.set(10.3,20,24);
-    this.camera.lookAt(1.3,0,1.35);
+    this.camera.position.set(9.1,16,25);
+    this.camera.lookAt(1.35,.45,2.7);
     const resize=this.resize;
     window.removeEventListener('resize',resize);
     this.resize=()=>{
       const width=Math.max(1,canvas.clientWidth),height=Math.max(1,canvas.clientHeight);
-      const horizontal=7.0;
+      const horizontal=6.75;
       const vertical=horizontal*height/width;
       Object.assign(this.camera,{left:-horizontal,right:horizontal,top:vertical*1.10,bottom:-vertical*.90});
       this.camera.updateProjectionMatrix();
@@ -31,9 +31,21 @@ export class BenMai extends Tavern {
     };
     this.resize();
     window.addEventListener('resize',this.resize);
-    this.scene.background.set(0xa6ddde);
+    this.scene.background.set(0x65cbd0);
     this.scene.fog=null;
-    this.renderer.toneMappingExposure=1.14;
+    this.renderer.toneMapping=T.NeutralToneMapping;
+    this.renderer.toneMappingExposure=1.0;
+    for(const light of this.scene.children) {
+      if(light.isHemisphereLight) {
+        light.color.set(0xfff5de);
+        light.groundColor.set(0x70907c);
+        light.intensity=1.45;
+      }
+      if(light.isDirectionalLight) {
+        light.color.set(light.castShadow?0xffeed4:0xb3e8ff);
+        light.intensity=light.castShadow?2.25:.57;
+      }
+    }
     this.jobs=new Map();
     this.buyers=Array.from({length:6},(_,index)=>this.person('buyer'+index,'',index));
     this.courier=this.person('courier','',2);
@@ -48,15 +60,23 @@ export class BenMai extends Tavern {
   person(id,name,variant) {
     const actor=this.createAvatar({id,name,seat:variant});
     actor.label.visible=Boolean(name);
+    const head=this.group([0,1.71,0],actor.body);
+    for(const part of [...actor.body.children]) {
+      if(part===head||!part.isMesh||part.position.y<1.53) continue;
+      part.position.y-=1.71;
+      head.add(part);
+    }
+    head.scale.set(1.32,1.30,1.36);
+    actor.group.scale.setScalar(1.10);
     const clothes=[0xb62f3d,0x56436d,0x285a96,0xf29264,0x48784e];
     const color=clothes[variant%clothes.length];
     const long=variant%3===0;
     this.box(color,[.53,long?.87:.56,.38],[0,long?.88:1.06,.01],actor.body);
     for(let i=0;i<3;i++) this.sphere(gold,[.026,.026,.02],[.035,1.29-i*.13,.209],actor.body);
     if(!long) {
-      this.sphere(0x303638,[.34,.12,.28],[0,1.94,0],actor.body);
+      this.sphere(0x303638,[.40,.12,.335],[0,2.01,0],actor.body);
       for(let row=0;row<2;row++) for(let x=-3;x<=3;x++) {
-        if((row+x)%2===0) this.box(0xf9eddb,[.067,.046,.02],[x*.077,1.93+row*.046,.263-Math.abs(x)*.012],actor.body);
+        if((row+x)%2===0) this.box(0xf9eddb,[.067,.046,.02],[x*.097,1.99+row*.046,.32-Math.abs(x)*.012],actor.body);
       }
     } else {
       for(const x of [-.12,.13]) this.sphere(gold,[.068,.047,.018],[x,.72,.21],actor.body);
@@ -143,18 +163,18 @@ export class BenMai extends Tavern {
   tiledRoof(x,y,z,width,depth,parent=this.staticRoot) {
     const count=Math.ceil(width/.25);
     for(let i=0;i<count;i++) for(const side of [-1,1]) {
-      const tile=this.cyl(0xbe5939+(i%3)*0x060500,.14,depth*.59,[x-width/2+i*.25,y,z+side*depth*.25],parent);
+      const tile=this.cyl(0xd45730+(i%3)*0x060400,.14,depth*.59,[x-width/2+i*.25,y,z+side*depth*.25],parent);
       tile.rotation.x=Math.PI/2+side*.25;
     }
     this.box(0xcf7749,[width+.15,.15,.17],[x,y+.16,z],parent);
   }
 
   build() {
-    this.box(0x43b7a5,[31,.22,40],[5,-.45,0]);
+    this.box(0x22b3a7,[31,.22,40],[5,-.45,0]);
     this.box(0xb98762,[11,.52,28],[-2.85,-.27,-.8]);
     for(let z=-12;z<=12;z++) for(let x=-8;x<3;x++) {
       if(x===2) continue;
-      const color=[0xe8a581,0xeab290,0xd99b76,0xe6ac85][Math.abs(x*7+z*3)%4];
+      const color=[0xdb8c6b,0xe99c7c,0xce7b58,0xe59a7d][Math.abs(x*7+z*3)%4];
       this.box(color,[.99,.06,.97],[x+.48,.014,z]);
     }
     this.box(0xc79770,[.44,.17,26],[2.5,.075,-.2]);
@@ -182,8 +202,18 @@ export class BenMai extends Tavern {
       this.box(wood,[3.19,.79,.72],[0,.40,.61],group);
       this.box(0xd9915c,[3.34,.13,.84],[0,.84,.61],group);
       this.box(red,[3.16,.32,.044],[0,.68,1.02],group);
-      this.sign(stall.name,2.3,.36,'#ffe5a1','#a32832',[0,2.23,1.02],group,120);
-      for(let i=0;i<3;i++) this.product(stall.stock[i],[-.98+i*.97,.915,.60],group,.75);
+      this.sign(stall.name,2.3,.36,'#ffe5a1','#a32832',[0,2.24,1.08],group,120);
+      for(let i=0;i<3;i++) {
+        this.product(stall.stock[i],[-.98+i*.97,.915,.67],group,.85);
+        this.product(stall.stock[i],[-.98+i*.97,0,1.43],group,.86);
+      }
+      for(const x of [-1.48,1.48]) {
+        this.box(red,[.21,.71,.043],[x,1.68,.92],group);
+        for(let line=0;line<4;line++) this.box(gold,[.095,.023,.013],[x,1.46+line*.145,.95],group);
+      }
+      for(let strip=0;strip<7;strip++) {
+        this.box(strip%2?0xf05246:red,[.40,.22,.055],[-1.20+strip*.4,2.45,1.03],group);
+      }
       this.lamps.push(this.lamp([stall.x+.7,2.07,stall.z+1.52]));
       const actor=this.person('vendor'+index,'',index);
       actor.group.position.set(stall.x-.1,0,stall.z);
@@ -191,6 +221,16 @@ export class BenMai extends Tavern {
       return actor;
     });
     this.maiTree(-.72,-7.35);
+    for(let i=0;i<12;i++) {
+      const angle=i*Math.PI/6;
+      this.product('mai',[-.72+1.2*Math.sin(angle),0,-7.35+1.2*Math.cos(angle)],this.staticRoot,.44);
+    }
+    for(let i=0;i<12;i++) {
+      const z=9-i*1.7;
+      if(z>-6.7&&z<-4.0) continue;
+      this.box(0x9e613c,[.13,.64,.13],[2.54,.34,z]);
+      this.box(0xecb56e,[.13,.070,.13],[2.54,.59,z]);
+    }
     for(const x of [-1.7,-.45,.7]) this.lamps.push(this.lamp([x,2.55,-6.5],this.staticRoot,.9));
 
     for(let i=0;i<13;i++) this.box(0xb77245,[.23,.23,2.1],[2.5+i*.21,-.01,-5.4]);
@@ -223,6 +263,22 @@ export class BenMai extends Tavern {
       }
     }
     for(let i=0;i<10;i++) this.product('mai',[i%2?-5.2:2.15,0,9-i*2],this.staticRoot,.85);
+    // Floating water plants and low flowering pots balance the open river edge.
+    for(let i=0;i<13;i++) {
+      const x=2.9+(i%3)*.32;
+      const z=8.4-i*1.56;
+      if(z>-7&&z<-3.6) continue;
+      for(let j=0;j<3;j++) this.sphere(j%2?0x79b841:0x41994a,[.16,.055,.22],[x+j*.14,-.29,z+j*.18]);
+    }
+    for(const [x,z] of [[1.85,5.95],[1.95,-8.6],[-2.1,8.3]]) {
+      const pot=this.group([x,0,z]);
+      this.cyl(0xbd6250,.28,.31,[0,.158,0],pot);
+      for(let i=0;i<8;i++) {
+        const a=i*2.399;
+        this.sphere(i%3===0?0xffc900:0xf33749,[.115,.094,.11],[Math.sin(a)*.2,.37+(i%3)*.10,Math.cos(a)*.18],pot);
+        this.sphere(leaf,[.12,.035,.07],[Math.sin(a)*.23,.34,Math.cos(a)*.22],pot);
+      }
+    }
   }
 
   tricycle() {

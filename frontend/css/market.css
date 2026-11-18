@@ -60,3 +60,6 @@ body.market-page,.admin-shell{font-family:"Be Vietnam Pro",Arial,sans-serif}
 .game-music[hidden],.game-music audio[hidden]{display:none}
 .game-music label{font-weight:700}
 .game-music input,.game-music select,.game-music audio{width:100%;min-width:0;max-width:100%;color:inherit}
+
+body.market-page:fullscreen{width:100vw;height:100dvh;display:grid;place-items:center;overflow:hidden}
+body.market-page:fullscreen #game{width:min(100vw,56.25dvh);height:min(100dvh,177.7778vw)}

@@ -107,7 +107,7 @@ $('welcome-demo').onclick=async()=>{
 $('fullscreen').onclick=async()=>{
   try {
     if(document.fullscreenElement) await document.exitFullscreen();
-    else await $('game').requestFullscreen();
+    else await document.body.requestFullscreen();
   } catch {
     toast('Trình duyệt chưa cho phép toàn màn hình.');
   }

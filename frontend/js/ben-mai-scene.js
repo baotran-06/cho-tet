@@ -66,44 +66,108 @@ export class BenMai extends Tavern {
   person(id,name,variant) {
     const actor=this.createAvatar({id,name,seat:variant});
     actor.label.visible=Boolean(name);
-    const head=this.group([0,1.71,0],actor.body);
-    for(const part of [...actor.body.children]) {
-      if(part===head||!part.isMesh||part.position.y<1.53) continue;
-      part.position.y-=1.71;
-      head.add(part);
+    const vendor=id.startsWith('vendor');
+    const elder=id==='buyer5';
+    const hat=id==='courier'||id==='rower';
+    const scarf=vendor&&variant%2===1;
+    const updo=(vendor&&!scarf)||elder;
+    const hair=elder?0xb1a19f:0x38231f;
+    const skin=elder?0xf1ba99:0xffc39e;
+    const color=elder?0x8c4da0:hat?0xbe251d:vendor?(scarf?0xe49a23:0xbe251d):0xeab546;
+
+    for(const mesh of [...actor.body.children]) {
+      if(mesh.isMesh) mesh.removeFromParent();
     }
-    head.scale.set(1.49,1.38,1.40);
-    this.sphere(0xf5b990,[.058,.051,.045],[0,-.059,.251],head);
+    const head=this.group([0,1.72,0],actor.body);
+    this.cyl(skin,.10,.25,[0,1.40,0],actor.body);
+    this.sphere(hair,[.433,.412,.364],[0,.08,-.093],head);
+    this.sphere(skin,[.365,.348,.323],[0,-.027,.074],head);
     for(const side of [-1,1]) {
-      this.sphere(0xf0a27f,[.068,.077,.060],[side*.263,-.025,.015],head);
-      this.sphere(0xef877b,[.055,.025,.018],[side*.147,-.072,.232],head);
-      this.sphere(0x342528,[.032,.046,.025],[side*.087,.004,.236],head);
-      this.sphere(0xfff6df,[.011,.013,.007],[side*.087+.004,.021,.258],head);
-    }
-    this.sphere(0x733735,[.061,.031,.02],[0,-.139,.222],head);
-    this.sphere(0xf49b91,[.035,.010,.010],[0,-.15,.239],head);
-    actor.group.scale.setScalar(1.10);
-    const clothes=[0xb62f3d,0x56436d,0x285a96,0xf29264,0x48784e];
-    const color=clothes[variant%clothes.length];
-    const long=variant%3===0;
-    const originalTorso=actor.body.children.find(part=>part.isMesh&&part.position.y===1.02);
-    if(originalTorso) originalTorso.visible=false;
-    this.sphere(color,[.31,.42,.23],[0,1.04,.01],actor.body);
-    if(long) for(const side of [-1,1]) this.sphere(color,[.154,.28,.17],[side*.142,.78,.012],actor.body);
-    for(const arm of actor.arms) {
-      const sleeve=arm.children.find(part=>part.isMesh);
-      if(sleeve) sleeve.material=this.material(color);
-    }
-    for(const {shin} of actor.legs) this.sphere(0x533935,[.122,.070,.191],[0,-.323,.065],shin);
-    for(let i=0;i<3;i++) this.sphere(gold,[.026,.026,.02],[.035,1.29-i*.13,.209],actor.body);
-    if(!long) {
-      this.sphere(0x303638,[.43,.12,.35],[0,2.07,0],actor.body);
-      for(let row=0;row<2;row++) for(let x=-3;x<=3;x++) {
-        if((row+x)%2===0) this.box(0xf9eddb,[.067,.046,.02],[x*.097,2.05+row*.046,.34-Math.abs(x)*.012],actor.body);
+      this.sphere(skin,[.077,.102,.075],[side*.353,-.064,.077],head);
+      this.sphere(0xe68d78,[.041,.061,.035],[side*.379,-.058,.119],head);
+      this.sphere(0xf09887,[.085,.043,.023],[side*.218,-.107,.326],head);
+      this.sphere(0x632f23,[.091,.115,.031],[side*.136,.038,.373],head);
+      this.sphere(0xfff5dd,[.077,.097,.034],[side*.136,.027,.397],head);
+      this.sphere(0x49291e,[.057,.084,.036],[side*.128,.033,.423],head);
+      this.sphere(0x211517,[.039,.063,.024],[side*.128,.039,.448],head);
+      this.sphere(0xffffff,[.020,.024,.009],[side*.128-.018,.065,.468],head);
+      const brow=this.sphere(hair,[.081,.022,.025],[side*.145,.174,.342],head);
+      brow.rotation.z=side*-.16;
+      if(updo||!hat&&!scarf) {
+        const lock=this.sphere(hair,[.096,.221,.132],[side*.328,-.004,.105],head);
+        lock.rotation.z=side*-.19;
       }
-    } else {
-      for(const x of [-.12,.13]) this.sphere(gold,[.068,.047,.018],[x,.72,.21],actor.body);
     }
+    this.sphere(skin,[.059,.051,.047],[0,-.080,.397],head);
+    this.sphere(0x782c28,[.096,.056,.023],[0,-.173,.342],head);
+    this.sphere(0xffefe1,[.064,.013,.014],[0,-.149,.361],head);
+    this.sphere(0xf18d80,[.054,.018,.014],[0,-.195,.359],head);
+    for(let i=0;i<5;i++) {
+      const x=(i-2)*.131;
+      const lock=this.sphere(hair,[.123,.198,.109],[x,.246+Math.abs(x)*.09,.238-Math.abs(x)*.27],head);
+      lock.rotation.z=.41-i*.22;
+    }
+    if(updo) {
+      this.sphere(hair,[.224,.185,.182],[-.085,.411,-.163],head);
+      this.sphere(elder?0xddd0cb:0x54312a,[.159,.077,.148],[-.098,.514,-.137],head);
+    }
+    if(elder) {
+      for(const side of [-1,1]) this.mesh('torus',0x623c30,[.125,.124,.055],[side*.136,.028,.442],head);
+      this.box(0x623c30,[.05,.025,.023],[0,.047,.458],head);
+    } else if(hat) {
+      this.mesh('cone',0xe5ac60,[1.12,.36,.98],[0,.461,-.048],head);
+      this.mesh('torus',0xfac77a,[.56,.49,.040],[0,.29,-.048],head).rotation.x=-Math.PI/2;
+    } else if(scarf) {
+      for(let row=0;row<2;row++) for(let tile=0;tile<11;tile++) {
+        const angle=(tile-5)*.25;
+        const patch=this.box((tile+row)%2?0x30292a:0xffefdc,[.102,.052,.039],
+          [Math.sin(angle)*.408,.263+row*.051,Math.cos(angle)*.352],head);
+        patch.rotation.y=angle;
+      }
+    } else if(updo) {
+      const bloom=this.group([-.325,.315,.236],head);
+      for(let i=0;i<5;i++) {
+        const angle=i*2*Math.PI/5;
+        this.sphere(0xed4426,[.060,.060,.031],[Math.cos(angle)*.074,Math.sin(angle)*.074,0],bloom);
+      }
+      this.sphere(gold,[.044,.044,.031],[0,0,.031],bloom);
+    } else {
+      this.sphere(0xe79c27,[.403,.045,.326],[0,.332,-.017],head).rotation.z=.16;
+    }
+
+    this.sphere(color,[.275,.343,.193],[0,1.112,.006],actor.body);
+    for(const side of [-1,1]) {
+      const panel=this.sphere(color,[.156,.248,.17],[side*.122,.855,.021],actor.body);
+      panel.rotation.z=side*.13;
+    }
+    this.sphere(color,[.132,.077,.118],[0,1.389,.024],actor.body);
+    this.box(0xd88931,[.017,.48,.016],[.009,1.085,.204],actor.body);
+    for(let i=0;i<4;i++) this.sphere(0xffd579,[.033,.027,.022],[.053,1.316-i*.111,.208],actor.body);
+    for(const side of [-1,1]) {
+      this.sphere(0xffbe5b,[.054,.026,.022],[side*.143,.882,.179],actor.body).rotation.z=side*.48;
+      this.sphere(0xffe698,[.032,.020,.020],[side*.179,.930,.17],actor.body);
+    }
+    for(const arm of actor.arms) {
+      for(const mesh of arm.children.filter(part=>part.isMesh)) mesh.removeFromParent();
+      this.sphere(color,[.118,.226,.119],[0,-.177,0],arm);
+      this.sphere(color,[.093,.132,.097],[0,-.332,.006],arm);
+      this.sphere(skin,[.086,.104,.081],[0,-.474,.016],arm);
+    }
+    for(const {leg,shin} of actor.legs) {
+      for(const part of leg.children.filter(child=>child.isMesh)) part.removeFromParent();
+      shin.clear();
+      this.sphere(0x3e2d2b,[.127,.249,.137],[0,-.174,0],leg);
+      this.sphere(0x3e2d2b,[.122,.19,.129],[0,-.139,0],shin);
+      this.sphere(0x573329,[.126,.070,.181],[0,-.32,.072],shin);
+      this.sphere(skin,[.090,.040,.118],[0,-.279,.088],shin);
+    }
+    const basket=elder?this.group([0,-.52,.079],actor.arms[1]):null;
+    if(basket) {
+      this.mesh('torus',0xc07b40,[.174,.187,.038],[0,-.094,0],basket);
+      this.cyl(0xb5773c,.191,.222,[0,-.294,0],basket);
+      this.cyl(0xe8b470,.204,.042,[0,-.197,0],basket);
+    }
+    actor.group.scale.setScalar(1.16);
     return actor;
   }
 

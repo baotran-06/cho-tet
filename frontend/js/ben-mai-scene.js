@@ -5,10 +5,10 @@ import {deliveryTime} from './orders.js';
 const gold=0xffcc00, red=0xd61928, wood=0x99603b, leaf=0x398d34;
 const v=(x,z)=>new T.Vector3(x,0,z);
 const stalls=[
-  {x:-6.6,z:4.9,name:'HOA MAI',trim:0xb62039,stock:['mai','mai','mai']},
-  {x:6.6,z:4.9,name:'BÁNH & MỨT',trim:0x2b6951,stock:['tet','mut','pork']},
-  {x:6.6,z:-2.2,name:'TRÁI CÂY',trim:0x9f501b,stock:['melon','soda','melon']},
-  {x:-6.6,z:-2.2,name:'ĐỒ TẾT',trim:0x923650,stock:['pig','lixi','pig']}
+  {x:-5.6,z:4.9,name:'HOA MAI',trim:0xb62039,stock:['mai','mai','mai']},
+  {x:5.6,z:4.9,name:'BÁNH & MỨT',trim:0x2b6951,stock:['tet','mut','pork']},
+  {x:5.6,z:-2.2,name:'TRÁI CÂY',trim:0x9f501b,stock:['melon','soda','melon']},
+  {x:-5.6,z:-2.2,name:'ĐỒ TẾT',trim:0x923650,stock:['pig','lixi','pig']}
 ];
 const boatPosition=[0,.06,6.8];
 const landing=stall=>v(Math.sign(stall.x)*2.35,stall.z+1.05);
@@ -17,15 +17,15 @@ export class BenMai extends Tavern {
   constructor(canvas, renderer=null) {
     super(canvas,renderer);
     this.camera=new T.OrthographicCamera(-6,6,10,-10,.1,100);
-    this.camera.position.set(0,10.8,23);
-    this.camera.lookAt(0,.55,.5);
+    this.camera.position.set(0,17,24);
+    this.camera.lookAt(0,.6,1.3);
     const resize=this.resize;
     window.removeEventListener('resize',resize);
     this.resize=()=>{
       const width=Math.max(1,canvas.clientWidth),height=Math.max(1,canvas.clientHeight);
-      const horizontal=10.8;
+      const horizontal=8.65;
       const vertical=horizontal*height/width;
-      Object.assign(this.camera,{left:-horizontal,right:horizontal,top:vertical*.91,bottom:-vertical*1.09});
+      Object.assign(this.camera,{left:-horizontal,right:horizontal,top:vertical*.78,bottom:-vertical*1.22});
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(width,height,false);
     };
@@ -72,17 +72,34 @@ export class BenMai extends Tavern {
       part.position.y-=1.71;
       head.add(part);
     }
-    head.scale.set(1.32,1.30,1.36);
+    head.scale.set(1.49,1.38,1.40);
+    this.sphere(0xf5b990,[.058,.051,.045],[0,-.059,.251],head);
+    for(const side of [-1,1]) {
+      this.sphere(0xf0a27f,[.068,.077,.060],[side*.263,-.025,.015],head);
+      this.sphere(0xef877b,[.055,.025,.018],[side*.147,-.072,.232],head);
+      this.sphere(0x342528,[.032,.046,.025],[side*.087,.004,.236],head);
+      this.sphere(0xfff6df,[.011,.013,.007],[side*.087+.004,.021,.258],head);
+    }
+    this.sphere(0x733735,[.061,.031,.02],[0,-.139,.222],head);
+    this.sphere(0xf49b91,[.035,.010,.010],[0,-.15,.239],head);
     actor.group.scale.setScalar(1.10);
     const clothes=[0xb62f3d,0x56436d,0x285a96,0xf29264,0x48784e];
     const color=clothes[variant%clothes.length];
     const long=variant%3===0;
-    this.box(color,[.53,long?.87:.56,.38],[0,long?.88:1.06,.01],actor.body);
+    const originalTorso=actor.body.children.find(part=>part.isMesh&&part.position.y===1.02);
+    if(originalTorso) originalTorso.visible=false;
+    this.sphere(color,[.31,.42,.23],[0,1.04,.01],actor.body);
+    if(long) for(const side of [-1,1]) this.sphere(color,[.154,.28,.17],[side*.142,.78,.012],actor.body);
+    for(const arm of actor.arms) {
+      const sleeve=arm.children.find(part=>part.isMesh);
+      if(sleeve) sleeve.material=this.material(color);
+    }
+    for(const {shin} of actor.legs) this.sphere(0x533935,[.122,.070,.191],[0,-.323,.065],shin);
     for(let i=0;i<3;i++) this.sphere(gold,[.026,.026,.02],[.035,1.29-i*.13,.209],actor.body);
     if(!long) {
-      this.sphere(0x303638,[.40,.12,.335],[0,2.01,0],actor.body);
+      this.sphere(0x303638,[.43,.12,.35],[0,2.07,0],actor.body);
       for(let row=0;row<2;row++) for(let x=-3;x<=3;x++) {
-        if((row+x)%2===0) this.box(0xf9eddb,[.067,.046,.02],[x*.097,1.99+row*.046,.32-Math.abs(x)*.012],actor.body);
+        if((row+x)%2===0) this.box(0xf9eddb,[.067,.046,.02],[x*.097,2.05+row*.046,.34-Math.abs(x)*.012],actor.body);
       }
     } else {
       for(const x of [-.12,.13]) this.sphere(gold,[.068,.047,.018],[x,.72,.21],actor.body);

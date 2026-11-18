@@ -12,7 +12,7 @@ const origin='http://127.0.0.1:'+app.server.address().port;
 let browser;
 try {
   browser=await chromium.launch({executablePath:process.env.XOM_TEST_CHROMIUM,args:['--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader']});
-  const page=await browser.newPage({viewport:{width:1280,height:720}});
+  const page=await browser.newPage({viewport:{width:540,height:960}});
   const errors=[];
   page.on('pageerror',error=>{errors.push(error.message);console.error(error.stack);});
   await page.goto(origin+'/admin');
@@ -29,6 +29,7 @@ try {
   assert.equal(await page.evaluate(()=>__market.scene.vendors.length),4);
   assert.equal(await page.locator('.market-gift').count(),10);
   assert.equal(await page.locator('.market-gift img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>0)),true);
+  assert.equal(await page.evaluate(()=>document.fonts.check('700 24px "Be Vietnam Pro"','BẾN MAI')),true);
   const first=await page.evaluate(()=>__market.scene.buyers[0].group.position.toArray());
   await page.waitForFunction(position=>JSON.stringify(__market.scene.buyers[0].group.position.toArray())!==JSON.stringify(position),first);
   const gift=async(giftName,count=1)=>{
@@ -52,7 +53,7 @@ try {
   await page.waitForFunction(()=>__market.scene.lamps.every(lamp=>lamp.shell.material.emissiveIntensity>1));
   await page.waitForFunction(()=>__market.scene.cargo.children.length===1);
   await mkdir('artifacts',{recursive:true});
-  await page.screenshot({path:'artifacts/ben-mai-cho-noi.png'});
+  await page.screenshot({path:'artifacts/ben-mai-doc.png'});
   clock+=4600;
   await page.waitForFunction(()=>__market.state.market.total===10 && __market.scene.jobs.size===0);
   assert.match(await page.locator('#market-feed').textContent(),/chậu hoa mai/);

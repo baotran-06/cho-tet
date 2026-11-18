@@ -1,6 +1,6 @@
 # Bến Mai · Chợ Tết Online
 
-Chợ 3D ven sông Nam Bộ dành cho khung chợ nổi ngang 16:9. Quà xuất hiện trên bảng chính dưới dạng hình, tên và hành động. Khi nhận quà, ô tương ứng sáng lên và hiện tên người tặng.
+Chợ 3D ven sông Nam Bộ dành cho khung chợ nổi dọc 9:16. Quà xuất hiện trên bảng chính dưới dạng hình, tên và hành động. Khi nhận quà, ô tương ứng sáng lên và hiện tên người tặng.
 
 ## Mở trên Windows
 
@@ -8,7 +8,7 @@ Chợ 3D ven sông Nam Bộ dành cho khung chợ nổi ngang 16:9. Quà xuất 
 2. Bấm **START-XOM.bat**. Lần đầu cần Node.js 22 trở lên và Internet để cài thư viện.
 3. Màn hình chợ mở tại http://127.0.0.1:3210/ và bảng điều khiển tại http://127.0.0.1:3210/admin.
 4. Trong **DEMO**, chọn một trong 10 quà rồi bấm gửi. Thử Hoa hồng số lượng 10 để xem một chuyến giao theo lô.
-5. Khi tài khoản đang phát TikTok LIVE, nhập tên người dùng và bấm **Kết nối**. Thêm cửa sổ Bến Mai làm nguồn hình trong LIVE Studio. Nếu dùng cửa sổ trình duyệt rộng, thu cửa sổ ở tỷ lệ ngang 16:9.
+5. Khi tài khoản đang phát TikTok LIVE, nhập tên người dùng và bấm **Kết nối**. Thêm cửa sổ Bến Mai làm nguồn hình trong LIVE Studio. Nếu dùng cửa sổ trình duyệt rộng, căn vùng thu hình theo tỷ lệ dọc 9:16.
 6. Trong trang điều khiển, dùng **Thêm bài** để chọn MP3/WAV từ máy. Có chọn bài, phát/dừng, chuyển bài, lặp bài và âm lượng riêng. Giữ tab điều khiển mở, chọn nguồn thu âm trình duyệt hoặc âm thanh hệ thống trong LIVE Studio và kiểm tra đồng hồ âm thanh. Playlist file cá nhân chỉ tồn tại trong phiên hiện tại.
 7. Kết thúc bằng **STOP-XOM.bat**.
 

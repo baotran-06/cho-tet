@@ -80,7 +80,8 @@ const client=new Client(next=>{
     $('market-feed').append(li);
   }
 });
-client.ready.then(()=>{
+client.ready.then(async()=>{
+await document.fonts.load('700 24px "Be Vietnam Pro"','BẾN MAI · ĐỒ TẾT · BÁNH VÀ MỨT').catch(()=>{});
 try {
   scene=new BenMai($('world'));
   if(state) scene.update(state);

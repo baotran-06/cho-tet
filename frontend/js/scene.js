@@ -30,7 +30,7 @@ export class Tavern {
   cyl(c,r,h,p,g){return this.mesh('cylinder',c,[r,h,r],p,g);}
   sphere(c,s,p,g){return this.mesh('sphere',c,s,p,g);}
   sign(text,width,height,color,bg,pos,parent=this.staticRoot,size=80){
-    const c=document.createElement('canvas');c.width=1024;c.height=Math.round(1024*height/width);const ctx=c.getContext('2d');ctx.fillStyle=bg;ctx.fillRect(0,0,c.width,c.height);ctx.strokeStyle=color;ctx.lineWidth=8;ctx.strokeRect(16,16,c.width-32,c.height-32);ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=color;ctx.font=`900 ${size}px Arial`;ctx.fillText(text,512,c.height/2,950);
+    const c=document.createElement('canvas');c.width=1024;c.height=Math.round(1024*height/width);const ctx=c.getContext('2d');ctx.fillStyle=bg;ctx.fillRect(0,0,c.width,c.height);ctx.strokeStyle=color;ctx.lineWidth=8;ctx.strokeRect(16,16,c.width-32,c.height-32);ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle=color;ctx.font=`700 ${size}px "Be Vietnam Pro", Arial`;ctx.fillText(text,512,c.height/2,950);
     const tx=new T.CanvasTexture(c);tx.colorSpace=T.SRGBColorSpace;const geo=new T.PlaneGeometry(width,height);const mat=new T.MeshBasicMaterial({map:tx});const m=new T.Mesh(geo,mat);m.position.set(...pos);parent.add(m);return m;
   }
   mug(pos,parent=this.staticRoot,scale=1){const g=this.group(pos,parent);g.scale.setScalar(scale);this.cyl(0xefae33,.16,.32,[0,.16,0],g);this.cyl(0xfff0c2,.17,.07,[0,.33,0],g);const h=this.mesh('torus',0xf5d89c,[.12,.12,.12],[.18,.18,0],g);return g;}
@@ -105,7 +105,7 @@ export class Tavern {
     const legs=[];for(const side of [-1,1]){const leg=this.group([side*.14,.76,0],body);this.cyl(0x465c59,.10,.38,[0,-.16,0],leg);const shin=this.group([0,-.34,0],leg);this.cyl(0x465c59,.09,.34,[0,-.15,0],shin);this.sphere(0xeee0bd,[.12,.07,.19],[0,-.32,.06],shin);legs.push({leg,shin});}
     const mug=this.mug([0,-.48,.10],arms[1],.8);mug.visible=false;
     const flowers=this.group([0,-.45,.04],arms[1]);for(let i=0;i<5;i++){this.cyl(0x52885b,.012,.4,[i*.035-.07,.15,0],flowers);this.sphere(i%2?0xf297ac:0xf2d17a,[.08,.08,.08],[i*.07-.14,.39+Math.sin(i)*.06,0],flowers);}flowers.visible=false;
-    const c=document.createElement('canvas');c.width=512;c.height=96;const ctx=c.getContext('2d');ctx.fillStyle=host?'#d8ab4d':'#fff8df';ctx.beginPath();ctx.roundRect(6,8,500,78,30);ctx.fill();ctx.font='bold 34px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#224b3f';ctx.fillText(shortName(user.name),256,48,470);
+    const c=document.createElement('canvas');c.width=512;c.height=96;const ctx=c.getContext('2d');ctx.fillStyle=host?'#d8ab4d':'#fff8df';ctx.beginPath();ctx.roundRect(6,8,500,78,30);ctx.fill();ctx.font='700 34px "Be Vietnam Pro", Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#224b3f';ctx.fillText(shortName(user.name),256,48,470);
     const texture=new T.CanvasTexture(c);texture.colorSpace=T.SRGBColorSpace;const label=new T.Sprite(new T.SpriteMaterial({map:texture,depthTest:false}));label.scale.set(2.15,.4,1);label.position.set(0,2.3,0);g.add(label);
     return {group:g,body,arms,legs,mug,flowers,label,texture,born:this.time,from:new T.Vector3(-12,0,6),seat:user.seat,name:user.name,joinedAt:user.joinedAt,host};
   }

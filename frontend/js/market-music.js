@@ -6,7 +6,17 @@ const audio = document.getElementById('game-music-audio');
 const status = document.getElementById('game-music-status');
 const tracks = [];
 
-audio.volume = .35;
+const volume = document.getElementById('game-music-volume');
+const volumeValue = document.getElementById('game-music-volume-value');
+audio.volume = Number(volume.value) / 100;
+volume.addEventListener('input', () => {
+  audio.volume = Number(volume.value) / 100;
+  volumeValue.value = volume.value + '%';
+});
+audio.addEventListener('volumechange', () => {
+  volume.value = Math.round(audio.volume * 100);
+  volumeValue.value = volume.value + '%';
+});
 toggle.addEventListener('click', () => {
   panel.hidden = !panel.hidden;
   toggle.setAttribute('aria-expanded', String(!panel.hidden));

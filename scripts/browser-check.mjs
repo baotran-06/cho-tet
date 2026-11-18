@@ -32,6 +32,11 @@ try {
   await page.waitForFunction(()=>document.querySelector('#game-music-audio').readyState>=2);
   await page.evaluate(()=>document.querySelector('#game-music-audio').play());
   await page.waitForFunction(()=>document.querySelector('#game-music-audio').currentTime>0);
+  await page.locator('#game-music-volume').focus();
+  await page.keyboard.press('End');
+  assert.equal(await page.locator('#game-music-audio').evaluate(audio=>audio.volume),1);
+  await page.keyboard.press('Home');
+  assert.equal(await page.locator('#game-music-audio').evaluate(audio=>audio.volume),0);
   await page.evaluate(()=>document.querySelector('#game-music-audio').pause());
   await page.click('#game-music-toggle');
   assert.equal(await page.locator('#game-music').isHidden(),true);
@@ -41,6 +46,9 @@ try {
   assert.equal(await page.locator('.market-gift').count(),10);
   assert.equal(await page.locator('.market-gift img').evaluateAll(images=>images.every(img=>img.complete&&img.naturalWidth>0)),true);
   assert.equal(await page.evaluate(()=>document.fonts.check('700 24px "Be Vietnam Pro"','BẾN MAI')),true);
+  assert.equal(await page.locator('.market-brand').innerText(),'Bến Mai');
+  assert.ok(await page.evaluate(()=>__market.scene.buyers.filter(npc=>npc.group.visible).length>=8));
+  await page.waitForFunction(()=>__market.scene.buyers.some(npc=>npc.group.visible&&npc.purchase.visible));
   const shoppers=await page.evaluate(()=>__market.scene.buyers.slice(0,2).map(npc=>npc.group.position.toArray()));
   assert.ok(shoppers[0][0]<-3 && shoppers[1][0]>3);
   await page.waitForFunction(start=>__market.scene.buyers.slice(0,2).every((npc,index)=>

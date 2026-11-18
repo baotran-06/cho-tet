@@ -13,12 +13,29 @@ const stalls=[
 ];
 const boatPosition=[0,.06,6.8];
 const landing=stall=>v(Math.sign(stall.x)*2.35,stall.z+1.05);
-const bankLoops=[-1,1].map(side=>[
-  v(side*3.61,7.7),v(side*3.61,-3.9),v(side*7.9,-3.9),
-  v(side*7.9,7.7),v(side*3.61,7.7)
-]);
-const bankLoopSeconds=bankLoops[0].slice(1)
-  .reduce((distance,point,index)=>distance+point.distanceTo(bankLoops[0][index]),0)/1.65;
+function shopperRoute(stall) {
+  const side=Math.sign(stall.x);
+  const visit=v(stall.x,stall.z+1.93);
+  const points=[v(side*3.61,7.7),v(side*3.61,visit.z),visit,
+    v(side*7.9,visit.z),v(side*7.9,-3.9),v(side*3.61,-3.9),v(side*3.61,7.7)];
+  const legs=[];
+  let duration=0;
+  for(let i=1;i<points.length;i++) {
+    const from=points[i-1],to=points[i];
+    const seconds=from.distanceTo(to)/1.68;
+    legs.push({from,to,start:duration,seconds,angle:Math.atan2(to.x-from.x,to.z-from.z)});
+    duration+=seconds;
+    if(to===visit) {
+      const seconds=1.7;
+      legs.push({from:visit,to:visit,start:duration,seconds,angle:Math.PI,shopping:true});
+      duration+=seconds;
+    }
+  }
+  return {legs,duration};
+}
+
+const shopperStalls=[stalls[0],stalls[1],stalls[3],stalls[2]];
+const shopperRoutes=shopperStalls.map(shopperRoute);
 
 export class BenMai extends Tavern {
   constructor(canvas, renderer=null, models=new Map()) {
@@ -54,8 +71,15 @@ export class BenMai extends Tavern {
       }
     }
     this.jobs=new Map();
-    this.buyers=Array.from({length:6},(_,index)=>this.person('buyer'+index,'',index));
-    this.buyers.forEach(actor=>applyMarketNpc(actor,models.get('shopper')));
+    this.buyers=Array.from({length:12},(_,index)=>{
+      const actor=this.person('buyer'+index,'',index);
+      applyMarketNpc(actor,models.get('shopper'));
+      const stall=shopperStalls[index%shopperStalls.length];
+      actor.purchase=this.product(stall.stock[Math.floor(index/4)%stall.stock.length],
+        [.16,.98,.43],actor.body,.54);
+      actor.purchase.visible=false;
+      return actor;
+    });
     this.vendors.forEach((actor,index)=>applyMarketNpc(actor,models.get(index%2?'scarf-vendor':'flower-vendor')));
     this.courier=this.person('courier','',2);
     applyMarketNpc(this.courier,models.get('courier'));
@@ -471,15 +495,19 @@ export class BenMai extends Tavern {
     });
     this.vendors.forEach(npc=>this.pose(npc));
     for(const [index,buyer] of this.buyers.entries()) {
-      buyer.group.visible=index<3+(market?.level??0);
+      buyer.group.visible=index<8+(market?.level??0);
       if(!buyer.group.visible) continue;
-      const progress=(this.time/bankLoopSeconds+.11+Math.floor(index/2)/3)%1;
-      const route=bankLoops[index%2];
-      const {position,angle}=this.alongPath(route,progress);
-      buyer.group.position.copy(position);
-      const turn=angle-buyer.group.rotation.y;
+      const route=shopperRoutes[index%shopperRoutes.length];
+      const offset=.035+Math.floor(index/4)/3+(index%4>=2?.14:0);
+      const elapsed=(this.time+route.duration*offset)%route.duration;
+      const leg=route.legs.find(segment=>elapsed<segment.start+segment.seconds);
+      const progress=(elapsed-leg.start)/leg.seconds;
+      buyer.group.position.copy(leg.from).lerp(leg.to,progress);
+      const turn=leg.angle-buyer.group.rotation.y;
       buyer.group.rotation.y+=Math.atan2(Math.sin(turn),Math.cos(turn))*.2;
-      this.pose(buyer,true);
+      buyer.purchase.visible=elapsed>=route.legs[2].start+route.legs[2].seconds*.65;
+      this.pose(buyer,!leg.shopping);
+      if(buyer.purchase.visible) buyer.arms[1].rotation.x=-.97;
     }
     const shipment=active.find(order=>order.departure);
     const recent=market?.recent.find(order=>!order.show);

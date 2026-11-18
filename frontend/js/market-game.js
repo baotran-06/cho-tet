@@ -58,7 +58,6 @@ const client=new Client(next=>{
     noticeId=null;
     for(const card of cards.values()) card.classList.remove('selected');
   }
-  $('mode-label').textContent=next.mode==='LIVE'?'TikTok LIVE':'DEMO · Mô phỏng';
   $('connection-label').textContent=next.mode==='DEMO'?statuses['demo-local']:(statuses[next.connection]??'Chờ kết nối');
   $('market-level').textContent=levelNames[market.level]??levelNames.at(-1);
   $('market-total').textContent=market.total+' món đã giao';

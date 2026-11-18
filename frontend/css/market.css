@@ -28,7 +28,7 @@ body.market-page{height:100dvh;display:grid;place-items:center;background:#32221
 .market-page .market-brand{padding:1.5cqw 2.4cqw;gap:1.5cqw;background:#902133;border:2px solid #f7c765}
 .market-page .market-seal{background:none;border:0;width:auto;height:auto;font-size:6cqw}
 .market-page .market-brand h1{font-size:6cqw;text-transform:uppercase;margin:0}
-.market-page .market-brand span:last-child,.market-page .market-growth{font-size:2.45cqw}
+.market-page .market-growth{font-size:2.45cqw}
 .market-page .market-growth{padding:1.5cqw 2cqw;min-width:25cqw}
 .market-page .market-growth small{font-size:2cqw}
 .market-page .market-footer{left:3%;right:11%;bottom:5%;justify-items:stretch;gap:1.2cqw}

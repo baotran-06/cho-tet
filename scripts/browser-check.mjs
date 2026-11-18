@@ -26,16 +26,6 @@ try {
   await page.goto(origin);
   await page.waitForFunction(()=>window.__market?.scene && __market.state?.connection==='disconnected');
   assert.equal(await page.locator('#fatal').isHidden(),true);
-  await page.setViewportSize({width:1280,height:720});
-  await page.click('#fullscreen');
-  await page.waitForFunction(()=>document.fullscreenElement===document.body);
-  const frame=await page.locator('#game').boundingBox();
-  assert.ok(Math.abs(frame.width/frame.height-9/16)<.01);
-  const action=await page.locator('#fullscreen').boundingBox();
-  assert.ok(action.y+action.height<=frame.y+frame.height);
-  await page.click('#fullscreen');
-  await page.waitForFunction(()=>!document.fullscreenElement);
-  await page.setViewportSize({width:540,height:960});
   await page.click('#game-music-toggle');
   await page.setInputFiles('#game-music-files',{name:'Nhạc DEMO.wav',mimeType:'audio/wav',buffer:Buffer.from(melodyWav())});
   assert.equal(await page.locator('#game-music-list option').textContent(),'Nhạc DEMO.wav');
@@ -90,6 +80,16 @@ try {
   await page.waitForFunction(()=>__market.state.market.total===10 && __market.scene.jobs.size===0);
   assert.match(await page.locator('#market-feed').textContent(),/chậu hoa mai/);
   assert.equal(await page.evaluate(()=>__market.state.market.level),1);
+  await page.setViewportSize({width:1280,height:720});
+  await page.click('#fullscreen');
+  await page.waitForFunction(()=>document.fullscreenElement===document.body);
+  const frame=await page.locator('#game').boundingBox();
+  assert.ok(Math.abs(frame.width/frame.height-9/16)<.01);
+  const action=await page.locator('#fullscreen').boundingBox();
+  assert.ok(action.y+action.height<=frame.y+frame.height);
+  await page.click('#fullscreen');
+  await page.waitForFunction(()=>!document.fullscreenElement);
+  await page.setViewportSize({width:540,height:960});
   assert.deepEqual(errors,[]);
   console.log('Verified 3D floating market, gift artwork, parallel delivery/effects, and local music playback.');
 } finally {

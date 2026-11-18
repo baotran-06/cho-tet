@@ -24,9 +24,9 @@ jobs:
       - run: npm run check
       - run: npm test
       - run: npm run build
-      - name: Install test browser
-        run: npx playwright install --with-deps chromium
       - name: Check WebGL and audio output
+        env:
+          XOM_TEST_CHROMIUM: /usr/bin/google-chrome
         run: node scripts/browser-check.mjs
       - uses: actions/upload-artifact@v4
         if: always()

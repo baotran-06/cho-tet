@@ -50,7 +50,14 @@ function employee(user,index){
  const legs=[],arms=[];for(const side of [-1,1]){const leg=new T.Group();leg.position.set(side*.12,0,0);body.add(leg);box(.13,.35,.15,materials.black,0,-.16,0,leg);const knee=new T.Group();knee.position.y=-.34;leg.add(knee);box(.11,.32,.12,materials.black,0,-.15,0,knee);box(.13,.10,.25,materials.black,0,-.31,.07,knee);leg.userData.knee=knee;legs.push(leg);const arm=new T.Group();arm.position.set(side*.27,.47,0);body.add(arm);box(.12,.4,.13,uniforms[index%4],0,-.18,0,arm);sphere(.065,staffSkin,0,-.4,0,arm);arms.push(arm);}
  const entry={id:user.id,holder,body,legs,arms,index,sit:0,phase:'entering',route:[],role:null,targetRole:null,name:user.name};entry.label=label(user.name,holder,1.7);return entry;
 }
-function routeTo(entry,target,stage=false){entry.route=[new T.Vector3(entry.holder.position.x,0,entry.holder.position.z+.5),new T.Vector3(0,0,entry.holder.position.z+.5),new T.Vector3(0,0,stage?-3.8:target.z+.6),new T.Vector3(target.x,stage?.28:0,target.z+.6),target.clone()];entry.phase='walking';}
+function routeTo(entry,target,stage=false){
+ const p=entry.holder.position,points=[];
+ if(p.z<-4.3){const side=p.x<0?-4.15:4.15;points.push(new T.Vector3(p.x,.28,-6.95),new T.Vector3(side,.28,-6.95),new T.Vector3(side,.28,-3.5),new T.Vector3(0,0,-3.5));}
+ else points.push(new T.Vector3(p.x,0,p.z+.5),new T.Vector3(0,0,p.z+.5));
+ if(stage){const side=target.x<0?-4.15:4.15;points.push(new T.Vector3(0,0,-3.5),new T.Vector3(side,.28,-3.5),new T.Vector3(side,.28,-6.95),new T.Vector3(target.x,.28,-6.95));}
+ else points.push(new T.Vector3(0,0,target.z+.6),new T.Vector3(target.x,0,target.z+.6));
+ points.push(target.clone());entry.route=points;entry.phase='walking';
+}
 let state=null,receivedAt=performance.now(),now=0,clock=new T.Clock(),time=0,activeKey=null,previousRoles={ceo:null,secretary:null},showClose=false,busy=false,drag=null,yaw=0;
 const audio=new OfficeAudio(message=>$('audio').textContent=message);
 const client=new Client(s=>{

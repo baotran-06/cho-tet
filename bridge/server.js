@@ -8,6 +8,19 @@ import {World,demoEvent} from '../frontend/js/core.js';
 import {root,settings,gifts,host,port} from './config.js';
 import {attachWebSocket} from './websocket.js';
 import {TikTokBridge} from './tiktok.js';
+function staticBytes(req,res,data,type){
+ const headers={'Content-Type':type,'Cache-Control':'no-cache','Accept-Ranges':'bytes','Content-Length':data.length};
+ let first=0,last=data.length-1,status=200;
+ if(req.headers.range){
+  const match=/^bytes=(\d*)-(\d*)$/.exec(req.headers.range);
+  if(!match||(!match[1]&&!match[2])){res.writeHead(416,{'Content-Range':`bytes */${data.length}`,'Content-Length':0});res.end();return;}
+  if(match[1]){first=Number(match[1]);last=match[2]?Math.min(Number(match[2]),last):last;}
+  else {const suffix=Number(match[2]);first=Math.max(0,data.length-suffix);if(suffix===0)first=data.length;}
+  if(!Number.isSafeInteger(first)||!Number.isSafeInteger(last)||first<0||first>last||first>=data.length){res.writeHead(416,{'Content-Range':`bytes */${data.length}`,'Content-Length':0});res.end();return;}
+  status=206;headers['Content-Range']=`bytes ${first}-${last}/${data.length}`;headers['Content-Length']=last-first+1;
+ }
+ res.writeHead(status,headers);res.end(req.method==='HEAD'?undefined:data.subarray(first,last+1));
+}
 export function createApp(options={}) {
   const world=new World(settings,gifts);if(options.initialMode)world.reset(options.initialMode);const logs=[];let connection='disconnected';let demoIndex=0;let auto=null;let busy=false;
   const musicDirectory=resolve(fileURLToPath(new URL('.runtime/music/',root)));
@@ -129,7 +142,7 @@ export function createApp(options={}) {
     try {
       const data=await readFile(path);
       if(page==='admin.html'||page==='index.html'||page==='office-3d/index.html')res.setHeader('Set-Cookie',`xom_control=${controlToken}; HttpOnly; SameSite=Strict; Path=/api; Max-Age=43200`);
-      res.writeHead(200,{'Content-Type':mime[extname(path)]||'application/octet-stream','Cache-Control':'no-cache'});res.end(req.method==='HEAD'?undefined:data);
+      staticBytes(req,res,data,mime[extname(path)]||'application/octet-stream');
     }catch{res.writeHead(404);res.end('Không tìm thấy tài nguyên');}
   });
   server.requestTimeout=10000;server.headersTimeout=10000;server.maxConnections=50;

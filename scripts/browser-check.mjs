@@ -27,7 +27,7 @@ try {
  clock+=13000;
  await game.waitForFunction(()=>__office.audio.idleCaption&&!__office.audio.voice.paused);
  const idleOffset=await game.evaluate(()=>__office.audio.idleCaption.offset);
- await game.waitForFunction(offset=>__office.audio.voice.currentTime>offset+.05,idleOffset);
+ await game.waitForFunction(offset=>__office.audio.voice.currentTime>offset+.05,idleOffset).catch(async error=>{console.log('Voice seek diagnostics',await game.evaluate(()=>({time:__office.audio.voice.currentTime,duration:__office.audio.voice.duration,paused:__office.audio.voice.paused,offset:__office.audio.idleCaption?.offset,status:document.getElementById('audio-start').textContent})));await game.screenshot({path:'artifacts/voice-error.png'});throw error;});
  assert.ok((await game.locator('#spoken').textContent()).length>0);
  await game.screenshot({path:'artifacts/office-idle.png'});
  const trigger=async gift=>{

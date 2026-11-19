@@ -27,3 +27,14 @@ test('pinned v2.5.0 protobuf defaults and real modern gift schema',async()=>{
  let c;class Fake extends EventEmitter{constructor(){super();c=this;}async connect(){}async disconnect(){}}
  const events=[];const b=new TikTokBridge(e=>events.push(e),()=>{},()=>{},async()=>({TikTokLiveConnection:Fake}));await b.start('test');c.emit('gift',{...gift,repeatEnd:0});assert.equal(events.length,0);c.emit('gift',gift);c.emit('gift',gift);assert.equal(events.length,1);await b.stop();
 });
+
+test('static speech sprites expose length and byte ranges for accurate browser seeking',async t=>{
+ const app=createApp();await new Promise(r=>app.server.listen(0,'127.0.0.1',r));t.after(()=>app.close());
+ const url='http://127.0.0.1:'+app.server.address().port+'/sounds/office/voices-v3.mp3';
+ const head=await fetch(url,{method:'HEAD'});assert.equal(head.status,200);
+ const size=Number(head.headers.get('content-length'));assert.ok(size>1000);assert.equal(head.headers.get('accept-ranges'),'bytes');
+ const part=await fetch(url,{headers:{Range:'bytes=120-183'}});assert.equal(part.status,206);assert.equal(part.headers.get('content-range'),`bytes 120-183/${size}`);assert.equal((await part.arrayBuffer()).byteLength,64);
+ const tail=await fetch(url,{headers:{Range:'bytes=-32'}});assert.equal(tail.status,206);assert.equal((await tail.arrayBuffer()).byteLength,32);
+ const invalid=await fetch(url,{headers:{Range:'bytes='+size+'-'}});assert.equal(invalid.status,416);
+ const multi=await fetch(url,{headers:{Range:'bytes=0-1,5-8'}});assert.equal(multi.status,416);
+});

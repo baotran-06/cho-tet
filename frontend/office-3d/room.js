@@ -7,7 +7,7 @@ import voices from '../config/voices.json' with {type:'json'};
 const $=id=>document.getElementById(id),canvas=document.querySelector('canvas'),frame=$('app');
 let renderer;
 try{renderer=new T.WebGLRenderer({canvas,antialias:true});}catch(e){$('error').hidden=false;$('error').textContent='Cần bật tăng tốc đồ họa WebGL trong trình duyệt.';throw e;}
-renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;
+renderer.setPixelRatio(Math.min(devicePixelRatio,1.25));renderer.shadowMap.enabled=true;renderer.shadowMap.type=T.PCFSoftShadowMap;renderer.toneMapping=T.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;
 const scene=new T.Scene();scene.background=new T.Color('#152438');scene.fog=new T.Fog('#152438',24,48);
 const camera=new T.PerspectiveCamera(43,1,.1,80);
 scene.add(new T.HemisphereLight(0xd4e8ff,0x504139,2.2));
@@ -76,7 +76,7 @@ $('audio').onclick=()=>audio.start().catch(e=>notify(e.message));$('overview').o
 canvas.onpointerdown=e=>{drag=e.clientX;canvas.setPointerCapture(e.pointerId);};canvas.onpointermove=e=>{if(drag===null)return;yaw=T.MathUtils.clamp(yaw+(e.clientX-drag)*.003,-.4,.4);drag=e.clientX;};canvas.onpointerup=()=>drag=null;
 function resize(){renderer.setSize(frame.clientWidth,frame.clientHeight);camera.aspect=frame.clientWidth/frame.clientHeight;camera.updateProjectionMatrix();}new ResizeObserver(resize).observe(frame);resize();
 const look=new T.Vector3(),destination=new T.Vector3(),v=new T.Vector3();camera.position.set(0,13,20);
-function update(){const dt=Math.min(.05,clock.getDelta());time+=dt;now=(state?.serverTime??Date.now())+Math.min(500,performance.now()-receivedAt);
+function update(){const dt=Math.min(.25,clock.getDelta());time+=dt;now=(state?.serverTime??Date.now())+Math.min(500,performance.now()-receivedAt);
  const active=state?.office?.active,key=active?.key,elapsed=active?(now-active.started)/1000:0;
  const targets={ceo:ceo,secretary:secretary};
  ceo.holder.position.copy(station.ceo);secretary.holder.position.copy(station.secretary);ceo.holder.rotation.set(0,0,0);secretary.holder.rotation.set(0,0,0);

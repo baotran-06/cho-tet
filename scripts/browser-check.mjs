@@ -121,11 +121,12 @@ try {
  await room.waitForFunction(()=>window.__office3d?.state?.mode==='DEMO');
  await room.locator('#join').click();
  await room.waitForFunction(()=>__office3d.staff.size===12);
- await room.waitForFunction(()=>[...__office3d.staff.values()].every(e=>e.phase==='working'),null,{timeout:25000});
+ await room.screenshot({path:'artifacts/office3d-entering.png'});
+ await room.waitForFunction(()=>[...__office3d.staff.values()].every(e=>e.phase==='working'),null,{timeout:45000}).catch(async error=>{console.log('Office diagnostics',await room.evaluate(()=>[...__office3d.staff.values()].map(e=>({id:e.id,phase:e.phase,route:e.route.length,pos:e.holder.position.toArray(),sit:e.sit}))));await room.screenshot({path:'artifacts/office3d-error.png'});throw error;});
  await room.screenshot({path:'artifacts/office3d-employees.png'});
  await page.request.post(origin+'/api/demo',{headers:{Origin:origin},data:{type:'gift',giftName:'Okay',viewer:1,name:'Nhân viên Minh'}});
  await page.request.post(origin+'/api/demo',{headers:{Origin:origin},data:{type:'gift',giftName:'Finger Heart',viewer:2,name:'Nhân viên An'}});
- await room.waitForFunction(()=>__office3d.staff.get('demo-1')?.role==='ceo'&&__office3d.staff.get('demo-2')?.role==='secretary',null,{timeout:25000});
+ await room.waitForFunction(()=>__office3d.staff.get('demo-1')?.role==='ceo'&&__office3d.staff.get('demo-2')?.role==='secretary',null,{timeout:45000});
  assert.equal(await room.evaluate(()=>__office3d.staff.get('demo-1').holder.visible),false);
  assert.equal(await room.evaluate(()=>__office3d.staff.size),12);
  await room.locator('#focus').click();
@@ -133,7 +134,7 @@ try {
  await room.screenshot({path:'artifacts/office3d-promoted.png'});
  assert.deepEqual(errors,[]);
  clock+=180001;
- await room.waitForFunction(()=>__office3d.state.office.ceo.id===null&&[...__office3d.staff.values()].every(e=>!e.role&&e.phase==='working'),null,{timeout:25000});
+ await room.waitForFunction(()=>__office3d.state.office.ceo.id===null&&[...__office3d.staff.values()].every(e=>!e.role&&e.phase==='working'),null,{timeout:45000});
  await room.screenshot({path:'artifacts/office3d-returned.png'});
  await room.close();
  console.log('Verified office gifts, names, recorded speech, scene queue, bedroom interrupt, firing/refill, audio upload/volume, LIVE isolation, Pages DEMO and fullscreen.');

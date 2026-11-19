@@ -2,10 +2,10 @@ import {World,demoEvent} from './core.js';
 export class Client {
   constructor(onState) {
     this.onState=onState;this.world=new World();this.remote=false;this.closed=false;this.retry=0;this.demoIndex=0;this.lastRemote=0;this.isLocal=false;
-    this.channel=new BroadcastChannel('office-live-demo-v1');this.leader=false;this.state=null;
+    this.channel=new BroadcastChannel('wedding-live-demo-v1');this.leader=false;this.state=null;
     this.channel.onmessage=({data})=>{if(this.remote)return;if(data.command&&this.leader){try{this.localCommand(data.path,data.body);}catch{}}if(data.state&&!this.leader){this.state=data.state;this.onState(this.state);}};
     // Web Locks elects one DEMO simulation across game and dashboard tabs.
-    if(navigator.locks)navigator.locks.request('office-live-demo-leader',{mode:'exclusive'},async()=>{if(this.closed)return;this.leader=true;await new Promise(r=>{this.release=r;});});else this.leader=true;
+    if(navigator.locks)navigator.locks.request('wedding-live-demo-leader',{mode:'exclusive'},async()=>{if(this.closed)return;this.leader=true;await new Promise(r=>{this.release=r;});});else this.leader=true;
     this.timer=setInterval(()=>{if(!this.remote&&this.holdLive&&this.state){this.onState({...this.state,connection:'disconnected',liveEvidence:{...this.state.liveEvidence,verified:false}});return;}if(!this.remote&&this.leader){this.world.tick();const s={...this.world.snapshot(),connection:this.world.mode==='LIVE'?'disconnected':'demo-local',logs:[]};this.state=s;this.onState(s);this.channel.postMessage({state:s});}},100);
     this.ready=this.probe();
   }
@@ -23,17 +23,18 @@ export class Client {
   async command(path,body={}) {
     await this.ready;
     if(this.remote||this.isLocal){const res=await fetch('/api/'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const data=await res.json();if(!res.ok)throw Error(data.error||'Thao tác thất bại');return;}
-    if(['connect','disconnect'].includes(path)||path==='mode'&&body.mode!=='DEMO')throw Error('LIVE cần cầu nối Windows: chạy START-XOM.bat và mở http://127.0.0.1:3210/admin.');
+    if(['connect','disconnect'].includes(path)||path==='mode'&&body.mode!=='DEMO')throw Error('LIVE cần cầu nối Windows: chạy START-DAM-CUOI.bat và mở http://127.0.0.1:3210/admin.');
     if(!this.leader){this.channel.postMessage({command:true,path,body});return;}
     this.localCommand(path,body);
   }
   localCommand(path,body) {
-    if(path==='connect'||path==='disconnect')throw Error('LIVE cần cầu nối Windows. Mở http://127.0.0.1:3210/admin sau khi chạy START-XOM.bat.');
+    if(path==='connect'||path==='disconnect')throw Error('LIVE cần cầu nối Windows. Mở http://127.0.0.1:3210/admin sau khi chạy START-DAM-CUOI.bat.');
     if(path==='mode'){if(body.mode!=='DEMO')throw Error('Trang tĩnh chỉ hỗ trợ DEMO. LIVE cần cầu nối local.');this.world.reset('DEMO');clearInterval(this.auto);}
     if(path==='restart'){this.world.reset('DEMO');clearInterval(this.auto);}
-    if(path==='office-skip'){if(this.world.mode!=='DEMO')throw Error('Chỉ thử trong DEMO');this.world.office.finish(this.world.now());return;}
-    if(path==='office-audio'){Object.assign(this.world.office.audio,body);return;}
-    if(path==='office-rules'){this.world.office.rules=body.rules;return;}
+    if(path==='wedding-skip'){if(this.world.mode!=='DEMO')throw Error('Chỉ thử trong DEMO');this.world.wedding.finish(this.world.now());return;}
+    if(path==='wedding-tracks'){this.world.wedding.tracks=body.tracks;return;}
+    if(path==='wedding-audio'){Object.assign(this.world.wedding.audio,body);return;}
+    if(path==='wedding-rules'){this.world.wedding.rules=body.rules;return;}
     if(path==='sound')this.world.sound=Boolean(body.enabled);
     if(path==='demo'&&this.world.mode==='DEMO'){
       if(body.action==='auto'){clearInterval(this.auto);if(body.enabled)this.auto=setInterval(()=>this.world.enqueue(demoEvent('join',++this.demoIndex)),2000);return;}

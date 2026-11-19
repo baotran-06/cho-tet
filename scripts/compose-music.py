@@ -1,7 +1,7 @@
-"""Original instrumental loops composed for Văn phòng Tổng tài. CC0."""
+"""Original instrumental loops composed for Hỷ Sự Online. CC0."""
 from pathlib import Path
 import math, random, wave, subprocess, struct
-root=Path(__file__).resolve().parents[1]/'frontend/sounds/office'
+root=Path(__file__).resolve().parents[1]/'frontend/sounds/wedding'
 root.mkdir(parents=True,exist_ok=True)
 rate=22050
 def compose(name,tempo,notes,chords,length=24):

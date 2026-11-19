@@ -1,6 +1,3 @@
-import {readdir,readFile} from 'node:fs/promises';
-import {spawnSync} from 'node:child_process';
-async function files(dir){const out=[];for(const e of await readdir(dir,{withFileTypes:true})){if(e.name==='node_modules'||e.name==='vendor')continue;const p=dir+'/'+e.name;if(e.isDirectory())out.push(...await files(p));else out.push(p);}return out;}
-let count=0;for(const dir of ['frontend/js','frontend/office-3d','frontend/model-preview','bridge','scripts','tests'])for(const p of await files(dir))if(/\.(js|mjs)$/.test(p)){const r=spawnSync(process.execPath,['--check',p],{encoding:'utf8'});if(r.status){console.error(r.stderr);process.exit(1);}count++;}
-for(const p of ['config/gifts.json','config/game-settings.json','package.json','bridge/package.json','frontend/config/interactions.json','frontend/config/audio.json','frontend/config/dialogue.json','frontend/config/voices.json','frontend/config/office.json'])JSON.parse(await readFile(p));
-console.log(`${count} JavaScript modules: syntax OK; JSON configuration OK.`);
+import {readdir,readFile} from 'node:fs/promises';import {spawnSync} from 'node:child_process';
+async function scan(p){for(const e of await readdir(p,{withFileTypes:true})){const f=p+'/'+e.name;if(e.isDirectory())await scan(f);else if(/\.(js|mjs)$/.test(f)){const r=spawnSync(process.execPath,['--check',f],{encoding:'utf8'});if(r.status)throw Error(r.stderr);}else if(f.endsWith('.json'))JSON.parse(await readFile(f,'utf8'));}}
+await scan('frontend/js');await scan('frontend/config');await scan('bridge');console.log('Syntax and JSON OK');

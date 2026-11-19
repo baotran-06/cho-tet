@@ -30,7 +30,7 @@ test('pinned v2.5.0 protobuf defaults and real modern gift schema',async()=>{
 
 test('static speech sprites expose length and byte ranges for accurate browser seeking',async t=>{
  const app=createApp();await new Promise(r=>app.server.listen(0,'127.0.0.1',r));t.after(()=>app.close());
- const url='http://127.0.0.1:'+app.server.address().port+'/sounds/office/voices-v3.mp3';
+ const url='http://127.0.0.1:'+app.server.address().port+'/sounds/wedding/voices.mp3';
  const head=await fetch(url,{method:'HEAD'});assert.equal(head.status,200);
  const size=Number(head.headers.get('content-length'));assert.ok(size>1000);assert.equal(head.headers.get('accept-ranges'),'bytes');
  const part=await fetch(url,{headers:{Range:'bytes=120-183'}});assert.equal(part.status,206);assert.equal(part.headers.get('content-range'),`bytes 120-183/${size}`);assert.equal((await part.arrayBuffer()).byteLength,64);

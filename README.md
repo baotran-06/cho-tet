@@ -1,90 +1,76 @@
-# Văn phòng Tổng tài
+# HỶ SỰ ONLINE · Đám cưới tương tác 3D
 
-Game tương tác TikTok LIVE khung dọc 9:16. Tổng tài ngồi sau bàn, thư ký đứng sau vai, Liễu Như Yên vào từ cửa. Có 9 quà, tên người tặng trên đầu, camera theo cảnh, lời thoại tiếng Việt và nhạc theo trạng thái.
+Thay toàn bộ ứng dụng Văn phòng Tổng tài bằng một tiệc cưới 3D WebGL, khung dọc 9:16. Repository và lịch sử Git được giữ để theo dõi thay đổi; mã ứng dụng cũ không nằm trong cây nguồn hiện tại.
 
-## Mở trên Windows
+## Chạy trên Windows — không viết code
 
-1. Cài Node.js 22 LTS trở lên. Giải nén toàn bộ Van-Phong-Tong-Tai.zip vào thư mục riêng.
-2. Nếu bản trước đang chạy, dùng file STOP trong thư mục bản đó trước.
-3. Bấm đúp START-TONG-TAI.bat. Lần đầu cần Internet để cài thư viện. Giữ cửa sổ cầu nối mở.
-4. Game mở tại http://127.0.0.1:3210/, điều khiển tại http://127.0.0.1:3210/admin.
-5. Bấm Bật âm thanh trên game. Mở Điều khiển, bật DEMO, chọn tên mô phỏng rồi thử từng quà.
-6. Kết thúc bằng STOP-TONG-TAI.bat. Bộ khởi động chỉ dừng dịch vụ thuộc thư mục này.
+1. Trên GitHub, bấm **Code → Download ZIP**, giải nén toàn bộ thành thư mục riêng, ví dụ `Hy-Su-Online`. Không mở BAT bên trong cửa sổ ZIP, không trộn vào bản game cũ.
+2. Cài Node.js **22 LTS trở lên** kèm npm (nếu đã có thì bỏ qua).
+3. Nhấp đúp **START-DAM-CUOI.bat**. Lần đầu cần Internet để tự cài thư viện và chuẩn bị tài nguyên. Giữ cửa sổ START mở.
+4. Hai trang tự mở: điều khiển `http://127.0.0.1:3210/admin` và sân khấu `http://127.0.0.1:3210/`.
+5. Ở cửa sổ sân khấu, bấm **Bật âm thanh** một lần. Đây là yêu cầu của trình duyệt, không thể đảm bảo tự phát trước thao tác người dùng.
+6. Khi dùng xong, nhấp **STOP-DAM-CUOI.bat** trong cùng thư mục. Script chỉ dừng phiên do thư mục này mở; không dùng `taskkill` để tắt mọi Node.
 
-Bộ khởi động cũ START-XOM/STOP-XOM vẫn gọi cùng chương trình để hỗ trợ người đã quen dùng. Đổi tên sản phẩm không thay giao thức nhận diện tiến trình nội bộ.
+Bấm START lần nữa không tạo server trùng. Lỗi cổng bận, thiếu Node, cài thư viện, HTTP/WebSocket đều có thông báo; nhật ký ở `.runtime/logs/latest.log`. Nút “Khởi động lại cầu nối” ngắt và khởi tạo lại phiên ứng dụng; STOP/START dùng khi cần khởi động lại tiến trình.
 
-## Quà đã cấu hình
+## Xem web và kết nối LIVE
+
+GitHub Pages phục vụ frontend tĩnh và DEMO; **không chạy Node.js, không tự nhận quà TikTok**. Muốn dùng LIVE trên laptop, chạy BAT và dùng hai trang localhost ở trên. Không dán địa chỉ localhost vào nguồn Liên kết nếu TikTok LIVE Studio từ chối địa chỉ này.
+
+Ở admin nhập **username của tài khoản đang phát LIVE**, bấm Kết nối. Không nhập mật khẩu TikTok. Trạng thái “đã nhận sự kiện thật” chỉ xuất hiện khi bridge nhận payload có ID/tên người dùng hợp lệ từ nguồn TikTok. Socket mở hoặc hình lên livestream chưa chứng minh nhận được quà. Chưa có kiểm thử LIVE thật trên tài khoản của người dùng trong lần xây dựng này.
+
+Nguồn `tiktok-live-connector` được ghim 2.5.0, là thư viện **không chính thức**, có thể bị TikTok/dịch vụ ký giới hạn hoặc thay đổi. Không đảm bảo mọi người xem được nhận diện: bridge chỉ tạo khách từ sự kiện nguồn thực sự cung cấp. Nguồn này không bảo đảm có sự kiện rời LIVE; không suy đoán rời chỉ vì im lặng. Có dedupe, streak kết thúc, giới hạn hàng đợi, reconnect, xử lý stream kết thúc. Kiểm tra `bridge/tiktok.js`, `bridge/diagnostics.js` và các test về payload.
+
+## Quà và vai diễn
+
+Bảng dưới là cấu hình mẫu nhận theo tên. **Gift ID cần đối chiếu với sự kiện thật của tài khoản/khu vực**, chỉnh ở admin; ID ưu tiên hơn tên, lưu trên laptop trong `.runtime/wedding-rules.json`. Quà không khớp không kích hoạt cảnh. Không ghi số xu chưa xác minh.
 
 | Quà | Hành động |
-|---|---|
-| Paper Crane / Hạc giấy | Sa thải thư ký, tổng tài chỉ nói “Cô bị sa thải.” |
-| Bouquet Flower / Bó hoa | Kết hôn, nhạc cưới, nhẫn và vỗ tay |
-| Doughnut / Donut | Phòng tân hôn, cửa khép, tối đa 3 phút |
-| Bravo! / Hoan hô | Liễu Như Yên mang tên người tặng, va chạm hoạt hình và tiếng BỐP |
-| Shamrock / Cỏ bốn lá | Người tặng thay tổng tài 3 phút; đang cưới thì đổi chú rể và bắt đầu lại lễ cưới |
-| Lucky Pig / Heo may mắn | Đổi diện mạo thư ký, đưa thư ký trở lại nếu đang vắng |
-| Okay / Đồng ý | Nhận vai tổng tài 3 phút khi ghế trống; ghế có người thì không nhận và không phát hiệu ứng |
-| Finger Heart / Tim ngón tay | Người tặng nhận vai thư ký 3 phút |
-| Rose / Hoa hồng | Tổng tài hôn má thư ký |
+| --- | --- |
+| Hoa hồng / Rose | Nụ hôn hạnh phúc |
+| Tim ngón tay / Finger Heart | Làm cô dâu |
+| Đồng ý / Okay | Làm chú rể |
+| Heo may mắn / Lucky Pig | Đổi cô dâu |
+| Cỏ bốn lá / Shamrock | Đổi chú rể |
+| Bó hoa / Bouquet Flower | Lễ thành hôn |
+| Hạc giấy / Paper Crane | Tung hoa cưới |
+| Hoan hô / Bravo! | Cả tiệc cùng nhảy |
+| Donut / Doughnut | Phòng tân hôn, cảnh vui nhẹ nhàng |
 
-Vai được cấp từ thời điểm quà được xử lý. Vai tổng tài đã có người chỉ được thay bằng quà Đổi tổng tài; quà Làm tổng tài bị bỏ qua, không gia hạn thời gian. Vai trống sau 3 phút mới nhận quà Làm tổng tài trở lại. Đồng hồ chạy ngầm. Hết giờ trả tên về mặc định. Quà Đổi thư ký đổi diện mạo và giữ tên, thời hạn hiện tại; quà Đổi tổng tài nhận người tặng làm chủ vai mới trong 3 phút. Sau sa thải, thư ký vắng mặt đến khi có quà nhận/đổi thư ký. Cảnh cần thư ký sẽ chờ, quà đưa thư ký trở lại có thể đi trước các cảnh bị chặn.
+Vai mặc định là nhân vật sân khấu, không phải tài khoản TikTok giả. Người nhận vai hiển thị đúng tên payload trên đầu nhân vật; người đó không xuất hiện trùng ở hàng khách. Vai giữ 3 phút, tạm giữ trong lễ cưới/phòng tân hôn. Quà “làm” bị từ chối khi ghế đã có người; quà “đổi” thay người ngay cả giữa cảnh, giữ cảnh cưới đang diễn ra. Một tài khoản chỉ giữ một vai. Đơn quà liên tiếp được xếp hàng, không chồng cảnh; số lượng streak được ghi vào sự kiện, mỗi streak hoàn tất kích hoạt một tiết mục để không gây lặp hàng nghìn lần.
 
-Quà combo nhận một cảnh với tổng số lượng hiển thị. Bộ TikTok bridge chỉ gửi tổng streak khi nguồn báo kết thúc streak, loại trùng bằng ID. Hàng đợi giới hạn 120 cảnh, sự kiện và nhật ký được giới hạn bộ nhớ.
+Khách đi vào lối giữa rồi về bàn; sự kiện rời theo đúng ID làm khách đi ra khỏi cảnh trước khi xóa. DEMO có nút thêm khách, quà và rời tiệc. Nhân viên/khách nền trang trí không gắn tên tài khoản, không tính vào số người xem thật.
 
-Chỉnh Gift ID ở bảng điều khiển. ID được ưu tiên hơn tên, lưu trong phiên cầu nối và giữ qua đổi chế độ/kết nối lại. Muốn mặc định lâu dài, sửa frontend/config/office.json. Tên trên là tên quy đổi cấu hình, danh mục TikTok thực tế có thể khác theo tài khoản. Xem sự kiện thật và Gift ID ở nhật ký để đối chiếu.
+## Âm thanh và playlist
 
-## Nhạc và lời thoại
+- 61 câu thoại được dựng sẵn bằng giọng tổng hợp tiếng Việt: MC, chú rể, cô dâu. Mỗi loại cảnh có 6 biến thể; cảnh chờ có 7 câu. Phát tốc độ vừa nhanh, không nhép miệng, không bắt chước giọng cá nhân trong clip tham khảo.
+- Nhạc chờ, nhạc cưới và nhạc phòng riêng tự đổi theo cảnh. Lễ cưới có các lượt thoại theo tiến trình. Khi nói, nhạc tự hạ còn 25% mức đã chọn; không chồng hai câu thoại.
+- Admin chỉnh độc lập nhạc / thoại / hiệu ứng, phát–tạm dừng, trước–sau, chọn bài, thêm/xóa MP3 hoặc WAV (tối đa 30 MB/bài, 50 bài). Hết bài tự sang bài tiếp.
+- Chạy laptop: nhạc lưu cục bộ ở `.runtime/music`, không upload GitHub. Bản tĩnh: nhạc lưu IndexedDB trong cùng trình duyệt/cùng origin; cửa sổ admin và game cần mở cùng trình duyệt. Xóa dữ liệu trình duyệt sẽ mất playlist tĩnh.
+- Nhạc cưới tích hợp tự ưu tiên khi làm lễ; playlist tự chọn dùng ở cảnh chờ. File nhạc người dùng thêm cần quyền phát livestream. Không kèm bài nhạc thương mại từ video tham khảo.
 
-- Bấm Bật âm thanh trong chính cửa sổ đang phát game. Nếu game chạy trong OBS, dùng chuột phải nguồn Trình duyệt → Tương tác.
-- Điều khiển có âm lượng nhạc, lời thoại, hiệu ứng riêng; bật/tắt độc lập.
-- Chờ quà dùng nhạc chill, cưới dùng nhạc lễ cưới, Liễu/sa thải dùng nhạc căng, tân hôn dùng nhạc dịu. Nhạc hạ xuống khi có lời.
-- Lời thoại nam và nữ tiếng Việt tổng hợp được tạo sẵn. Mỗi sự kiện có 6 biến thể, luân phiên không lặp liền nhau. Sa thải dùng một câu ngắn mỗi lượt. Dòng phụ đề và tiếng chạy theo cùng mốc cảnh.
-- Thêm MP3/WAV trong Điều khiển, tối đa 50 bài, 30 MB/bài. Nhạc được lưu ở .runtime/music trên máy. Chọn bài rồi phát/dừng, chuyển trước/sau hoặc xóa. Kết thúc bài sẽ chuyển tiếp trong playlist. Chỉ dùng bài bạn có quyền phát LIVE.
-- Bản GitHub Pages hỗ trợ DEMO và bộ nhạc có sẵn. Lưu playlist và nhận TikTok thật dùng bản Windows.
-- Giai điệu nhạc nền và hiệu ứng được tạo riêng cho dự án. Xem docs/OFFICE-ASSETS.md.
+## Thu hình và âm thanh lên TikTok LIVE Studio
 
-## Đưa riêng game lên TikTok LIVE Studio
+Phương án tách biệt khỏi màn hình desktop: **OBS Browser Source → OBS Virtual Camera → TikTok LIVE Studio**.
 
-Nguồn Liên kết của LIVE Studio trên máy người dùng đã từ chối URL 127.0.0.1. Dùng OBS để mở trang local:
+1. Chạy BAT. Trong OBS đặt canvas dọc **1080×1920**, 30 FPS.
+2. Sources → **Browser**: URL `http://127.0.0.1:3210/`, Width **1080**, Height **1920**. Giữ nguồn hoạt động, không đặt chế độ đóng nguồn khi ẩn nếu muốn duy trì phiên. Đặt vừa khung (Fit to screen), không phóng zoom cắt một góc.
+3. Dùng chức năng tương tác nguồn trình duyệt trong OBS để bấm **Bật âm thanh**. Kiểm tra nhân vật chuyển động và cột âm lượng OBS nhảy. Chỉ để **một cửa sổ game phát tiếng** để tránh vọng.
+4. Start Virtual Camera; trong TikTok LIVE Studio thêm Camera → **OBS Virtual Camera**. Máy quay ảo truyền hình, **không tự truyền tiếng**.
+5. Để lấy tiếng: cấu hình OBS monitoring ra thiết bị âm thanh/virtual cable phù hợp rồi thêm đúng thiết bị đầu vào trong LIVE Studio; hoặc dùng capture âm thanh ứng dụng/desktop mà phiên bản LIVE Studio cung cấp. Nếu dùng virtual cable, phải cài từ nguồn chính thức. Tránh thu cùng một tiếng hai lần. Muốn giữ riêng tư âm thanh thông báo, ưu tiên đường âm thanh riêng thay vì thu mọi âm thanh desktop.
+6. **Ghi thử 15–30 giây** và nghe lại đoạn ghi để xác nhận cả giọng, nhạc, hiệu ứng. Xem NPC chuyển động trên preview và bản ghi; không dùng nguồn Hình ảnh hay ảnh chụp màn hình.
 
-1. Chạy START-TONG-TAI.bat.
-2. OBS → Nguồn → Trình duyệt → URL http://127.0.0.1:3210/, rộng 1080, cao 1920.
-3. OBS → Thiết đặt → Video → Canvas và đầu ra 1080×1920, 30 FPS.
-4. Chuột phải nguồn Trình duyệt → Tương tác → Bật âm thanh. Nếu đang bật Chế độ Studio, chuyển cảnh sang Chương trình.
-5. Bắt đầu máy quay ảo, LIVE Studio → Camera → OBS Virtual Camera. Kiểm tra chuyển động trước khi lên LIVE.
-6. Camera ảo chuyển hình. Để thu riêng tiếng game, trong thuộc tính nguồn Trình duyệt chọn Điều khiển âm thanh qua OBS, định tuyến âm thanh OBS vào đầu vào của LIVE Studio bằng thiết bị âm thanh ảo nếu cần. Xem đồng hồ âm thanh và thử ghi 10 giây. Phần định tuyến này cần cấu hình trên laptop, chưa được xác minh từ xa.
-7. Phát LIVE, mở Điều khiển, nhập username và Kết nối. Chỉ khi có sự kiện nguồn thật, giao diện mới ghi đã nhận sự kiện. Thử một quà đã gắn để xác nhận.
+Tên mục có thể khác theo phiên bản OBS/LIVE Studio. Chưa thể xác nhận capture âm thanh trên máy người dùng hoặc trên livestream TikTok thật từ môi trường xây dựng này. Việc file MP3 phát được trong kiểm thử không thay thế bước ghi thử trên laptop.
 
-Mật khẩu TikTok không được nhập vào ứng dụng. Thư viện TikTok không chính thức có thể bị hạn chế hoặc cần dịch vụ ký bên ngoài. Kết nối quà thật và thu âm lên LIVE của tài khoản người dùng cần được kiểm tra trên laptop.
+## Kỹ thuật và kiểm thử
 
-## Mức độ đồ họa
+- Three.js 0.170.0, mô hình hình học 3D có khớp tay chân; không dùng ảnh screenshot làm thế giới game.
+- Node.js HTTP + WebSocket localhost; cookie quản trị HttpOnly/SameSite, kiểm tra Origin/Host, không lưu mật khẩu/token TikTok trong mã nguồn.
+- Giới hạn 28 avatar người xem hiển thị, 80 chờ; tối đa 2.000 sự kiện đầu vào, 80 tiết mục, lịch sử có giới hạn. Nhãn luôn hướng về camera và ẩn nhãn khách va chạm.
+- `npm run check`, `npm test`, `npm run build`; CI kiểm tra Windows BAT và trình duyệt WebGL + giải mã/phát âm thanh. Ảnh các cảnh nằm trong artifact của Actions, không phải ảnh minh họa giả kết quả.
+- Source: `frontend/js/scene.js`, `people.js`, `wedding-state.js`, `audio.js`, `client.js`; config `frontend/config/wedding.json`, `dialogue.json`, `voices.json`; bridge trong `bridge/`.
+- `scripts/generate-voices.py` là công cụ biên soạn tùy chọn, không chạy lúc dùng game. Cần `edge-tts`, ffmpeg và Internet nếu tự dựng lại thoại; không kèm khóa API. Runtime dùng MP3 đã đóng gói.
 
-Màn hình chính hiện là văn phòng WebGL 3D với nhân vật hình học, khớp tay chân và các bàn nhân viên. Không dùng ảnh nhân vật ghép lớp làm màn hình chính; không có hoạt ảnh nhép miệng. Tạo hình vẫn là bản cách điệu dựng bằng code, chưa tinh xảo như ảnh render đã duyệt.
+## Giấy phép
 
-## Phát triển và kiểm thử
-
-- npm ci và npm ci --prefix bridge
-- npm run check, npm test, npm run build
-- XOM_TEST_CHROMIUM=/path/to/chrome node scripts/browser-check.mjs
-- frontend/js/office-state.js quản lý vai, thời gian, quà, hàng đợi.
-- frontend/office-3d/room.js, people.js quản lý diễn cảnh, focus và tên.
-- frontend/js/office-audio.js, frontend/config/voices.json quản lý nhạc/thoại.
-- bridge/ nhận nguồn TikTok, xác thực lệnh local và phát trạng thái qua WebSocket.
-
-GitHub Actions kiểm tra bản build, browser, Windows START/STOP và triển khai Pages bằng workflow hiện có.
-
-## Bản thử văn phòng 3D có nhân viên
-
-START tự mở /office-3d/index.html. Đường dẫn gốc của máy chủ và Pages cũng tự chuyển sang trang này. Bản này có tổng tài, thư ký, Liễu Như Yên dựng bằng hình học 3D và 16 vị trí nhân viên. Người xem nhận được sự kiện nguồn sẽ có nhân viên theo đúng ID; không thể xác định những tài khoản TikTok không cung cấp sự kiện. Trong DEMO bấm Thêm 12 nhân viên. Tặng Đồng ý hoặc Tim ngón tay để nhân viên đi từ bàn lên vai lãnh đạo; hết thời hạn sẽ đi về bàn. Một tài khoản chỉ giữ một vai cùng lúc. Tên được rút gọn, bảng tên chồng nhau được ẩn bớt. Giới hạn 16 nhân viên nhìn thấy giúp giữ hiệu suất.
-
-Đây là bản hình học cách điệu và đã được đặt làm màn hình chính. Chưa đạt độ chi tiết của hình render đã duyệt và chưa có facial rig/hoạt ảnh tiếp xúc hoàn chỉnh. Nhạc và thoại dùng lại hệ thống đã có; LIVE thật vẫn cần kiểm tra với tài khoản đang phát.
-
-### Thoại hoạt náo và mời nhận vai
-
-Bản thoại mới có 6 kịch bản cho mỗi hiệu ứng, cùng 18 câu chờ chia theo hai vai đang trống, trống tổng tài hoặc trống thư ký. Dùng giọng nam trầm, thư ký nữ nhẹ, Liễu sắc sảo và MC công ty như bản âm thanh thử đã duyệt. Sau khoảng chờ đầu 2,5 giây, các câu chờ nghỉ 3–5 giây sau khi câu trước kết thúc. Các lượt đáp trong cảnh cách nhau khoảng 0,12 giây. Khi cả hai vai đã có người, các lời mời tự dừng. Cảnh quà cắt ngay thoại chờ; nhạc giảm khi nói. Không chạy chồng hai câu thoại. Tắt âm lời thoại ở Điều khiển sẽ tắt cả lời mời.
-
-Cấu hình lời tại frontend/config/dialogue.json. File frontend/config/voices.json giữ thời điểm, thời lượng và vùng phát trong voices-v3.mp3; nhờ vậy trình duyệt tải chung một tệp thay vì hàng trăm tệp nhỏ. Công cụ scripts/generate-office-voices.py chỉ dùng khi biên soạn, cần edge-tts và ffmpeg, không cần chạy trên máy người dùng. Giọng vẫn là tiếng tổng hợp, không sao chép giọng người trong video mẫu.
-
-### Lễ cưới 3D
-
-Quà Bó hoa chuyển hẳn khỏi văn phòng sang lễ đường 3D với cổng hoa, thảm cưới, ghế khách, váy cô dâu, khăn voan và vest chú rể. Lễ cưới kéo dài tối thiểu 26 giây. Trong lễ cưới, quà Cỏ bốn lá chuyển vai chú rể cho người gửi, đặt lại lời thoại, nhạc và thời gian lễ từ đầu; không chèn cảnh văn phòng hay hiệu ứng đổi vest giữa chừng. Chỉ khi lễ cưới hoàn tất mới trở về văn phòng và xử lý cảnh đang chờ. Quà Làm tổng tài gửi lúc ghế có chủ được ghi nhận nhưng không chiếm vai, không gia hạn, không phát lời nhận vai. Nút DEMO bị khóa và thẻ hướng dẫn đánh dấu ghế đã có người; ứng dụng không thể khóa danh mục quà trong TikTok.
+Mã nguồn: AGPL-3.0-only, giữ LICENSE gốc. Three.js: MIT (assets/vendor/THREE-LICENSE.txt). Font Be Vietnam Pro: OFL (assets/fonts/OFL.txt). Nhạc nguyên bản: CC0, xem `frontend/sounds/wedding/LICENSE.md`. Icon quà là tài sản nhận diện TikTok, không tuyên bố CC0 hoặc sở hữu độc quyền; cần tuân thủ điều khoản nền tảng. Giọng dựng bằng dịch vụ TTS được ghi nguồn trong giấy phép âm thanh, không lấy giọng người trong video tham khảo.

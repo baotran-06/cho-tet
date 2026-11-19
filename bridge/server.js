@@ -24,9 +24,10 @@ function staticBytes(req,res,data,type){
 export function createApp(options={}) {
   const world=new World(settings,gifts);if(options.initialMode)world.reset(options.initialMode);const logs=[];let connection='disconnected';let demoIndex=0;let auto=null;let busy=false;
   const musicDirectory=resolve(fileURLToPath(new URL('.runtime/music/',root)));
-  try{world.office.tracks=JSON.parse(readFileSync(joinPath(musicDirectory,'playlist.json'),'utf8')).filter(track=>/^[a-f0-9]{32}$/.test(track.id)&&existsSync(joinPath(musicDirectory,track.id+'.audio'))).slice(0,50);}catch{}
+  try{world.wedding.tracks=JSON.parse(readFileSync(joinPath(musicDirectory,'playlist.json'),'utf8')).filter(track=>/^[a-f0-9]{32}$/.test(track.id)&&existsSync(joinPath(musicDirectory,track.id+'.audio'))).slice(0,50);}catch{}
+  try{const saved=JSON.parse(readFileSync(new URL('.runtime/wedding-rules.json',root),'utf8'));if(saved&&typeof saved==='object'&&!Array.isArray(saved)&&Object.keys(saved).length<=100&&Object.entries(saved).every(([id,key])=>/^\d{1,25}$/.test(id)&&['kiss','wedding','bedroom','bouquet','replaceGroom','replaceBride','claimGroom','claimBride','celebrate'].includes(key)))world.wedding.rules=saved;}catch{}
   let musicBusy=false;
-  const savePlaylist=async()=>{await mkdir(musicDirectory,{recursive:true});await writeFile(joinPath(musicDirectory,'playlist.json'),JSON.stringify(world.office.tracks));};
+  const savePlaylist=async()=>{await mkdir(musicDirectory,{recursive:true});await writeFile(joinPath(musicDirectory,'playlist.json'),JSON.stringify(world.wedding.tracks));};
   const controlToken=randomBytes(32).toString('hex');
   const log=message=>{try{options.onLog?.(message);}catch{}logs.unshift({at:Date.now(),message});logs.length=Math.min(logs.length,60);};
   const bridge=new TikTokBridge(e=>world.enqueue(e),s=>{connection=s;},log,options.loader);
@@ -48,7 +49,7 @@ export function createApp(options={}) {
     if(pathname.startsWith('/api/')) {
       if(req.method==='GET'&&pathname==='/api/health'){
         const ready=['index.html','admin.html','assets/vendor/three.module.js'].every(p=>existsSync(joinPath(frontend,p)));
-        json(res,ready?200:503,{service:'xom-online-live',protocol:1,ready,instanceId:options.instanceId||null,projectId:options.projectId||null,pid:process.pid,connection,liveEvidence:liveEvidence()});return;
+        json(res,ready?200:503,{service:'wedding-online-live',protocol:1,ready,instanceId:options.instanceId||null,projectId:options.projectId||null,pid:process.pid,connection,liveEvidence:liveEvidence()});return;
       }
       if(pathname==='/api/launcher/stop'){
         const supplied=(req.headers.authorization||'').replace(/^Bearer /,'');const token=options.shutdownToken;
@@ -58,7 +59,7 @@ export function createApp(options={}) {
       if(req.method==='GET'&&pathname==='/api/state'){json(res,200,{...world.snapshot(),connection,liveEvidence:liveEvidence(),rememberedUsername:options.rememberedUsername||bridge.target||'',logs});return;}
       if(req.method==='GET'&&pathname.startsWith('/api/music/')){
         const id=pathname.split('/').at(-1);
-        const track=world.office.tracks.find(track=>track.id===id);
+        const track=world.wedding.tracks.find(track=>track.id===id);
         if(!track){json(res,404,{error:'Không tìm thấy bài'});return;}
         try{const file=await readFile(joinPath(musicDirectory,id+'.audio'));res.writeHead(200,{'Content-Type':track.type,'Content-Length':file.length,'Cache-Control':'private, max-age=600'});res.end(file);}catch{json(res,404,{error:'File nhạc không còn tồn tại'});}return;
       }
@@ -68,7 +69,7 @@ export function createApp(options={}) {
       if(pathname==='/api/music'){
         if(musicBusy){json(res,409,{error:'Đang lưu bài khác. Thử lại sau.'});return;}
         if(!['audio/mpeg','audio/wav','audio/x-wav'].includes(req.headers['content-type'])){json(res,415,{error:'Chọn file MP3 hoặc WAV'});return;}
-        if(world.office.tracks.length>=50){json(res,409,{error:'Tối đa 50 bài. Xóa bớt rồi thêm.'});return;}
+        if(world.wedding.tracks.length>=50){json(res,409,{error:'Tối đa 50 bài. Xóa bớt rồi thêm.'});return;}
         musicBusy=true;
         const id=randomBytes(16).toString('hex');
         try{
@@ -78,10 +79,10 @@ export function createApp(options={}) {
           let name;try{name=decodeURIComponent(req.headers['x-track-name']||'Bài của bạn').slice(0,120);}catch{name='Bài của bạn';}
           await mkdir(musicDirectory,{recursive:true});
           await writeFile(joinPath(musicDirectory,id+'.audio'),Buffer.concat(chunks));
-          world.office.tracks.push({id,name,type:req.headers['content-type']});
+          world.wedding.tracks.push({id,name,type:req.headers['content-type']});
           await savePlaylist();
           json(res,201,{ok:true,id});
-        }catch{world.office.tracks=world.office.tracks.filter(track=>track.id!==id);await unlink(joinPath(musicDirectory,id+'.audio')).catch(()=>{});json(res,500,{error:'Không lưu được file nhạc'});}
+        }catch{world.wedding.tracks=world.wedding.tracks.filter(track=>track.id!==id);await unlink(joinPath(musicDirectory,id+'.audio')).catch(()=>{});json(res,500,{error:'Không lưu được file nhạc'});}
         finally{musicBusy=false;}
         return;
       }
@@ -99,28 +100,28 @@ export function createApp(options={}) {
         else if(pathname==='/api/mode') {
           if(!['DEMO','LIVE'].includes(body.mode)){json(res,400,{error:'Chế độ không hợp lệ'});return;}
           busy=true;await bridge.stop();clearInterval(auto);auto=null;world.reset(body.mode);busy=false;
-         } else if(pathname==='/api/office-skip'){
+         } else if(pathname==='/api/wedding-skip'){
           if(world.mode!=='DEMO'){json(res,409,{error:'Chỉ kết thúc cảnh thử ở DEMO'});return;}
-          world.office.finish(world.now());
+          world.wedding.finish(world.now());
         } else if(pathname==='/api/music-remove'){
-          const track=world.office.tracks.find(track=>track.id===body.id);
+          const track=world.wedding.tracks.find(track=>track.id===body.id);
           if(!track){json(res,404,{error:'Bài không tồn tại'});return;}
           if(musicBusy){json(res,409,{error:'Đang lưu nhạc'});return;}
           musicBusy=true;
-          try{world.office.tracks=world.office.tracks.filter(track=>track.id!==body.id);
-          if(world.office.audio.trackId===body.id)world.office.audio.trackId=null;
+          try{world.wedding.tracks=world.wedding.tracks.filter(track=>track.id!==body.id);
+          if(world.wedding.audio.trackId===body.id)world.wedding.audio.trackId=null;
           await savePlaylist();await unlink(joinPath(musicDirectory,body.id+'.audio')).catch(()=>{});
           }finally{musicBusy=false;}
-        } else if(pathname==='/api/office-audio'){
-          const audio=world.office.audio;
+        } else if(pathname==='/api/wedding-audio'){
+          const audio=world.wedding.audio;
           for(const key of ['musicVolume','voiceVolume','sfxVolume'])if(Object.hasOwn(body,key)){if(!Number.isFinite(body[key])||body[key]<0||body[key]>1){json(res,400,{error:'Âm lượng phải trong 0–100%'});return;}}
           for(const key of ['musicVolume','voiceVolume','sfxVolume'])if(Object.hasOwn(body,key))audio[key]=body[key];
           for(const key of ['musicEnabled','voiceEnabled','sfxEnabled','paused'])if(Object.hasOwn(body,key))audio[key]=body[key]===true;
-          if(Object.hasOwn(body,'trackId'))audio.trackId=world.office.tracks.some(track=>track.id===body.trackId)?body.trackId:null;
-        } else if(pathname==='/api/office-rules'){
+          if(Object.hasOwn(body,'trackId'))audio.trackId=world.wedding.tracks.some(track=>track.id===body.trackId)?body.trackId:null;
+        } else if(pathname==='/api/wedding-rules'){
           const rules=body.rules;
-          if(!rules||typeof rules!=='object'||Array.isArray(rules)||Object.keys(rules).length>100||Object.entries(rules).some(([id,key])=>!/^\d{1,25}$/.test(id)||!['fire','wedding','bedroom','lieu','replaceCeo','replaceSecretary','claimCeo','claimSecretary','kiss'].includes(key))){json(res,400,{error:'Gift ID hoặc hành động không hợp lệ'});return;}
-          world.office.rules={...rules};
+          if(!rules||typeof rules!=='object'||Array.isArray(rules)||Object.keys(rules).length>100||Object.entries(rules).some(([id,key])=>!/^\d{1,25}$/.test(id)||!['kiss','wedding','bedroom','bouquet','replaceGroom','replaceBride','claimGroom','claimBride','celebrate'].includes(key))){json(res,400,{error:'Gift ID hoặc hành động không hợp lệ'});return;}
+          world.wedding.rules={...rules};await mkdir(new URL('.runtime/',root),{recursive:true});await writeFile(new URL('.runtime/wedding-rules.json',root),JSON.stringify(rules));
         } else if(pathname==='/api/restart'){busy=true;await bridge.stop();clearInterval(auto);auto=null;world.reset(world.mode);logs.length=0;busy=false;}
         else if(pathname==='/api/sound')world.sound=Boolean(body.enabled);
         else if(pathname==='/api/demo'){
@@ -141,7 +142,7 @@ export function createApp(options={}) {
     const path=resolve(frontend,page);if(!path.startsWith(frontend+sep)){res.writeHead(403);res.end();return;}
     try {
       const data=await readFile(path);
-      if(page==='admin.html'||page==='index.html'||page==='office-3d/index.html')res.setHeader('Set-Cookie',`xom_control=${controlToken}; HttpOnly; SameSite=Strict; Path=/api; Max-Age=43200`);
+      if(page==='admin.html'||page==='index.html'||page==='index.html')res.setHeader('Set-Cookie',`xom_control=${controlToken}; HttpOnly; SameSite=Strict; Path=/api; Max-Age=43200`);
       staticBytes(req,res,data,mime[extname(path)]||'application/octet-stream');
     }catch{res.writeHead(404);res.end('Không tìm thấy tài nguyên');}
   });
@@ -152,7 +153,7 @@ export function createApp(options={}) {
   return {server,world,bridge,connectLive,close:()=>closePromise??=(async()=>{clearInterval(tick);clearInterval(auto);try{await bridge.stop();}finally{sockets.close();server.closeAllConnections();await new Promise(r=>server.close(()=>r()));}})()};
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
-  const app=createApp({initialMode:'LIVE'});app.server.listen(port,host,()=>console.log(`VĂN PHÒNG TỔNG TÀI\nGame: http://${host}:${port}/\nĐiều khiển: http://${host}:${port}/admin`));
+  const app=createApp({initialMode:'LIVE'});app.server.listen(port,host,()=>console.log(`ĐÁM CƯỚI ONLINE\nGame: http://${host}:${port}/\nĐiều khiển: http://${host}:${port}/admin`));
   app.server.on('error',e=>{console.error(e.code==='EADDRINUSE'?'Cổng đang bận. Đóng cửa sổ cầu nối cũ hoặc đặt PORT khác.':'Không khởi chạy được cầu nối.');process.exitCode=1;});
   for(const sig of ['SIGINT','SIGTERM'])process.once(sig,async()=>{await app.close();process.exit(0);});
 }

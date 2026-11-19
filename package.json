@@ -1,8 +1,8 @@
 {
-  "name": "van-phong-tong-tai",
-  "version": "2.0.0",
+  "name": "dam-cuoi-online",
+  "version": "3.0.0",
   "private": true,
-  "description": "Văn phòng Tổng tài · game tương tác TikTok LIVE và DEMO trên Windows",
+  "description": "Đám Cưới Online · sân khấu 3D tương tác TikTok LIVE",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -10,10 +10,9 @@
   "scripts": {
     "start": "node bridge/server.js",
     "test": "node --test",
-    "check": "node scripts/check.mjs",
     "build": "node scripts/build.mjs",
-    "install:tiktok": "npm install --prefix bridge",
-    "publish:github": "node scripts/publish-github.mjs"
+    "check": "node scripts/check.mjs",
+    "install:tiktok": "npm ci --prefix bridge"
   },
   "license": "AGPL-3.0-only",
   "dependencies": {

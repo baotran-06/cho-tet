@@ -1,7 +1,7 @@
 name: Test and deploy GitHub Pages
 on:
   push:
-    branches: [main, ben-mai, office-preview]
+    branches: [main, wedding-preview]
   workflow_dispatch:
 permissions:
   contents: read
@@ -45,7 +45,7 @@ jobs:
         with:
           node-version: '22'
           cache: npm
-      - name: Execute START and STOP BAT on Windows
+      - name: Execute wedding START and STOP BAT on Windows
         run: node --test tests/windows-launcher.test.js
   deploy:
     if: github.ref == 'refs/heads/main'

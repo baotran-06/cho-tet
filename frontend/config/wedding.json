@@ -1,0 +1,13 @@
+{
+ "roleDurationMs":180000,"bedroomDurationMs":180000,"weddingDurationMs":28000,"queueLimit":80,"byId":{},
+ "guide":[
+ {"key":"kiss","gift":"Rose","label":"Hoa hồng","effect":"Nụ hôn hạnh phúc","icon":"rose"},
+ {"key":"claimBride","gift":"Finger Heart","label":"Tim ngón tay","effect":"Làm cô dâu","icon":"finger_heart"},
+ {"key":"claimGroom","gift":"Okay","label":"Đồng ý","effect":"Làm chú rể","icon":"okay"},
+ {"key":"replaceBride","gift":"Lucky Pig","label":"Heo may mắn","effect":"Đổi cô dâu","icon":"pig"},
+ {"key":"replaceGroom","gift":"Shamrock","label":"Cỏ bốn lá","effect":"Đổi chú rể","icon":"shamrock"},
+ {"key":"wedding","gift":"Bouquet Flower","label":"Bó hoa","effect":"Lễ thành hôn","icon":"bouquet"},
+ {"key":"bouquet","gift":"Paper Crane","label":"Hạc giấy","effect":"Tung hoa cưới","icon":"crane"},
+ {"key":"celebrate","gift":"Bravo!","label":"Hoan hô","effect":"Cả tiệc cùng nhảy","icon":"bravo"},
+ {"key":"bedroom","gift":"Doughnut","label":"Donut","effect":"Phòng tân hôn","icon":"doughnut"}]
+}

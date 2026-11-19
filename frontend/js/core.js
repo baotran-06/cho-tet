@@ -1,6 +1,5 @@
-import {Office} from './office-state.js';
-import {MarketOrders} from './orders.js';
-export const DEFAULT_SETTINGS = {tables:7,seatsPerTable:4,maxVisible:28,maxWaiting:80,idleTimeoutMs:600000,eventQueueLimit:2000,eventsPerTick:30,tickMs:100,dedupeLimit:10000,dedupeTtlMs:900000,historyLimit:80,sessionVisitorLimit:50000};
+import {Wedding} from './wedding-state.js';
+export const DEFAULT_SETTINGS = {tables:6,seatsPerTable:5,maxVisible:28,maxWaiting:80,idleTimeoutMs:600000,eventQueueLimit:2000,eventsPerTick:30,tickMs:100,dedupeLimit:10000,dedupeTtlMs:900000,historyLimit:80,sessionVisitorLimit:50000};
 export const DEFAULT_GIFTS = {byId:{},byName:{rose:'flowers','hoa hồng':'flowers',beer:'cheers',bia:'cheers',heart:'wave',galaxy:'spotlight',lion:'spotlight'},defaultAction:'cheers',groupThreshold:10};
 const ACTIONS = new Set(['wave','cheers','flowers','spotlight']);
 export class World {
@@ -9,9 +8,9 @@ export class World {
     this.mode='DEMO'; this.sound=false; this.reset();
   }
   reset(mode=this.mode) {
-    const prior=this.office;
-    this.market=new MarketOrders();this.office=new Office();
-    if(prior){this.office.rules=prior.rules;this.office.audio=prior.audio;this.office.tracks=prior.tracks;}
+    const prior=this.wedding;
+    this.wedding=new Wedding();
+    if(prior){this.wedding.rules=prior.rules;this.wedding.audio=prior.audio;this.wedding.tracks=prior.tracks;}
     this.mode=mode; this.users=new Map(); this.waiting=[]; this.queue=[]; this.seen=new Map();
     this.visitors=new Set(); this.total=0; this.totalCapped=false; this.dropped=0; this.history=[]; this.sequence=0;
     this.groupUntil=0; this.lastEffect=null;
@@ -33,7 +32,7 @@ export class World {
     const now=this.now(); if(this.seen.has(e.id)) return;
     this.seen.set(e.id,now);
     while(this.seen.size>this.settings.dedupeLimit) this.seen.delete(this.seen.keys().next().value);
-    if(e.type==='gift'){this.market.accept(e);this.office.accept(e,now);}
+    if(e.type==='gift'){this.wedding.accept(e,now);}
     let u=this.users.get(e.user.id);
     if(e.type==='leave') {
       if(u&&!u.departedAt){u.departedAt=now||1;u.state='standing';u.action=null;u.removeAt=now+18000;this.waiting=this.waiting.filter(id=>id!==u.id);this.history.unshift({...e,at:now,action:null});this.history.length=Math.min(this.history.length,this.settings.historyLimit);}
@@ -65,7 +64,7 @@ export class World {
   tick() {
     for(let i=0;i<this.settings.eventsPerTick&&this.queue.length;i++)this.apply(this.queue.shift());
     const now=this.now();
-    this.market.tick(now);this.office.tick(now);
+    this.wedding.tick(now);
     for(const [id,u] of this.users) {
       if(u.departedAt){if(now>=u.removeAt){const back=u.returnEvent;this.remove(id);if(back){this.seen.delete(back.id);this.apply(back);}}else u.state=now-u.departedAt<900?'standing':now-u.departedAt<14000?'walking':'exiting';continue;}
       if(this.mode==='DEMO'&&now-u.lastSeen>this.settings.idleTimeoutMs){this.remove(id);continue;}
@@ -76,7 +75,7 @@ export class World {
   }
   snapshot() {
     const users=[...this.users.values()];const visible=users.filter(u=>u.seat!==null);
-    return {office:this.office.snapshot(),market:this.market.snapshot(),giftRules:this.gifts,mode:this.mode,sound:this.sound,users,total:this.total,totalCapped:this.totalCapped,inside:visible.length,waiting:this.waiting.length,tablesUsed:new Set(visible.map(u=>Math.floor(u.seat/this.settings.seatsPerTable))).size,capacity:Math.min(this.settings.maxVisible,this.settings.tables*this.settings.seatsPerTable),queue:this.queue.length,dropped:this.dropped,history:this.history,groupUntil:this.groupUntil,lastEffect:this.lastEffect,serverTime:this.now()};
+    return {wedding:this.wedding.snapshot(),giftRules:this.gifts,mode:this.mode,sound:this.sound,users,total:this.total,totalCapped:this.totalCapped,inside:visible.length,waiting:this.waiting.length,tablesUsed:new Set(visible.map(u=>Math.floor(u.seat/this.settings.seatsPerTable))).size,capacity:Math.min(this.settings.maxVisible,this.settings.tables*this.settings.seatsPerTable),queue:this.queue.length,dropped:this.dropped,history:this.history,groupUntil:this.groupUntil,lastEffect:this.lastEffect,serverTime:this.now()};
   }
 }
 export function demoEvent(type='join', index=1, giftName='Rose', count=1) {

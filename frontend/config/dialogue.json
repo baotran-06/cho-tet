@@ -3,72 +3,48 @@
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Đứng yên. Đây là phúc lợi riêng của em."
-        },
-        {
-          "role": "secretary",
-          "text": "Dạ. Phúc lợi này có được quy ra tiền không sếp?"
+          "role": "groom",
+          "text": "Cho anh mượn má một chút. Anh trả bằng cả tấm lòng."
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Hợp đồng ghi rõ, em phải ở cạnh anh."
-        },
-        {
-          "role": "secretary",
-          "text": "Em nhớ hợp đồng chỉ ghi tám tiếng một ngày mà!"
+          "role": "bride",
+          "text": "Hôn nhẹ thôi anh, lớp nền này em đánh cả tiếng đó."
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Em vừa được thưởng vì làm việc chăm chỉ."
-        },
-        {
-          "role": "secretary",
-          "text": "Thưởng thì chuyển khoản đi anh. Sao anh lại tiến tới?"
+          "role": "mc",
+          "text": "Má đã hồng, tim đã rung. Cả nhà cho đôi trẻ một tràng vỗ tay!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Cả công ty ra ngoài. Anh có chuyện riêng cần trao đổi."
-        },
-        {
-          "role": "secretary",
-          "text": "Anh ơi, cả công ty đang xem trực tiếp!"
+          "role": "groom",
+          "text": "Anh không giỏi thả thính. Anh chỉ giỏi thương em."
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Trong công ty này, em chỉ cần nghe lời anh."
-        },
-        {
-          "role": "secretary",
-          "text": "Dạ. Nhưng lương tháng này, anh chuyển chưa?"
+          "role": "bride",
+          "text": "Được rồi, em nhận nụ hôn. Còn trà sữa anh vẫn nợ nha."
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "secretary",
-          "text": "Sếp gọi em có việc gì ạ?"
-        },
-        {
-          "role": "ceo",
-          "text": "Có. Anh đang thiếu một người đứng thật gần."
+          "role": "mc",
+          "text": "Xin giữ bình tĩnh! Đây là đám cưới, không phải cuộc thi phát đường."
         }
       ]
     }
@@ -78,15 +54,23 @@
       "lines": [
         {
           "role": "mc",
-          "text": "Thông báo! Công ty vừa sáp nhập hai trái tim."
-        },
+          "text": "Xin mời cả nhà hướng về sân khấu. Lễ thành hôn chính thức bắt đầu!"
+        }
+      ]
+    },
+    {
+      "lines": [
         {
-          "role": "ceo",
-          "text": "Từ hôm nay, anh giao cả đời này cho em."
-        },
+          "role": "groom",
+          "text": "Từ hôm nay, tiền lương anh có nơi để về rồi."
+        }
+      ]
+    },
+    {
+      "lines": [
         {
-          "role": "secretary",
-          "text": "Dạ. Mật khẩu tài khoản anh giao luôn nha."
+          "role": "bride",
+          "text": "Em đồng ý. Riêng mật khẩu điện thoại, mình bàn sau nha."
         }
       ]
     },
@@ -94,97 +78,41 @@
       "lines": [
         {
           "role": "mc",
-          "text": "Họp khẩn! Tổng tài chuẩn bị ký hợp đồng trọn đời."
-        },
-        {
-          "role": "ceo",
-          "text": "Điều khoản duy nhất: em ở lại bên anh."
-        },
-        {
-          "role": "secretary",
-          "text": "Còn điều khoản của em: không được quên ngày kỷ niệm."
+          "text": "Một người trao nhẫn, một người trao cả thanh xuân. Xin chúc mừng đôi uyên ương!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "mc",
-          "text": "Xin mời phòng nhân sự chứng kiến buổi bổ nhiệm đặc biệt!"
-        },
-        {
-          "role": "ceo",
-          "text": "Anh muốn em làm chủ cuộc đời anh."
-        },
-        {
-          "role": "secretary",
-          "text": "Vậy em xin nhận luôn quyền duyệt chi."
+          "role": "groom",
+          "text": "Trước bao nhiêu người ở đây, anh chọn em. Hôm nay và cả những ngày sau."
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "mc",
-          "text": "Từ đồng nghiệp thành người một nhà. Xin một tràng pháo tay!"
-        },
-        {
-          "role": "ceo",
-          "text": "Cuối cùng, em cũng thuộc về gia đình anh."
-        },
-        {
-          "role": "secretary",
-          "text": "Nhưng việc nhà thì mình vẫn chia đôi nha."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Hôm nay tổng tài thôi tuyển dụng, chuyển sang cầu hôn!"
-        },
-        {
-          "role": "ceo",
-          "text": "Anh đã tìm được người anh muốn giữ cả đời."
-        },
-        {
-          "role": "secretary",
-          "text": "Em đồng ý. Nhớ duyệt đơn nghỉ tuần trăng mật!"
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Lễ ký kết hạnh phúc bắt đầu! Hai bên đều không được hủy ngang."
-        },
-        {
-          "role": "ceo",
-          "text": "Anh hứa sẽ luôn chọn em."
-        },
-        {
-          "role": "secretary",
-          "text": "Em hứa sẽ nhắc anh chuyển tiền điện đúng hạn."
+          "role": "bride",
+          "text": "Vậy từ mai anh rửa chén, em đứng cạnh cổ vũ nha."
         }
       ]
     }
   ],
-  "lieu": [
+  "bouquet": [
     {
       "lines": [
         {
           "role": "mc",
-          "text": "Báo cáo! Có người bước vào với khí thế đòi kiểm tra nội bộ."
-        },
+          "text": "Hội độc thân đâu rồi? Hoa cưới chuẩn bị cất cánh!"
+        }
+      ]
+    },
+    {
+      "lines": [
         {
-          "role": "lieu",
-          "text": "Công ty tuyển thư ký, hay tuyển người yêu vậy?"
-        },
-        {
-          "role": "secretary",
-          "text": "Dạ, em chỉ đang tăng ca thôi chị!"
+          "role": "bride",
+          "text": "Em tung hoa thôi, không tung người yêu đâu nha!"
         }
       ]
     },
@@ -192,15 +120,23 @@
       "lines": [
         {
           "role": "mc",
-          "text": "Nhân vật mới vừa xuất hiện. Mùi drama đã tới trước người!"
-        },
+          "text": "Ai bắt được hoa, nhớ mời cả phòng này đi ăn cưới đó!"
+        }
+      ]
+    },
+    {
+      "lines": [
         {
-          "role": "lieu",
-          "text": "Tôi vừa đi một lát, cô đã đứng gần anh ấy vậy rồi?"
-        },
+          "role": "bride",
+          "text": "Ba, hai, một! Duyên tới thì mình đừng né nha!"
+        }
+      ]
+    },
+    {
+      "lines": [
         {
-          "role": "secretary",
-          "text": "Dạ, vì chỗ xa không nghe rõ chỉ đạo ạ."
+          "role": "groom",
+          "text": "Bắt hoa bằng tay, đừng bắt bằng đầu nha cả nhà!"
         }
       ]
     },
@@ -208,77 +144,33 @@
       "lines": [
         {
           "role": "mc",
-          "text": "Phòng tiếp khách hôm nay có vẻ hơi nóng!"
-        },
-        {
-          "role": "lieu",
-          "text": "Cô biết vị trí bên cạnh anh ấy là của ai không?"
-        },
-        {
-          "role": "secretary",
-          "text": "Dạ, sơ đồ công ty ghi chỗ này là chỗ thư ký."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Cảnh báo! Bão sắp đổ bộ vào bàn tổng tài."
-        },
-        {
-          "role": "lieu",
-          "text": "Cô tưởng đứng cạnh anh ấy là thành bà chủ sao?"
-        },
-        {
-          "role": "secretary",
-          "text": "Dạ không. Em vẫn đang chờ tăng lương thôi."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Bộ phận hóng chuyện xin phép làm thêm giờ!"
-        },
-        {
-          "role": "lieu",
-          "text": "Cô tránh ra. Tôi có chuyện riêng với anh ấy."
-        },
-        {
-          "role": "secretary",
-          "text": "Dạ, chị đặt lịch chưa để em kiểm tra?"
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Có vị khách mang theo cả áp suất thấp vào công ty!"
-        },
-        {
-          "role": "lieu",
-          "text": "Tôi nhớ mình chưa cho phép cô thân thiết như vậy."
-        },
-        {
-          "role": "secretary",
-          "text": "Dạ, quyền phê duyệt của chị nằm ở phòng nào ạ?"
+          "text": "Hoa đã lên đường. Tình yêu đang tìm địa chỉ giao hàng!"
         }
       ]
     }
   ],
-  "replaceCeo": [
+  "celebrate": [
     {
       "lines": [
         {
           "role": "mc",
-          "text": "Chú ý! Ghế nóng chuẩn bị đổi phong cách lãnh đạo."
-        },
+          "text": "Nhạc lên! Bàn nào vui nhất cho tôi thấy cánh tay nào!"
+        }
+      ]
+    },
+    {
+      "lines": [
         {
-          "role": "ceo",
-          "text": "Tổng tài mới tới. Báo cáo ngắn, lương thưởng nói dài."
+          "role": "bride",
+          "text": "Hôm nay vui quá, cô dâu xin phép quên luôn dáng dịu dàng!"
+        }
+      ]
+    },
+    {
+      "lines": [
+        {
+          "role": "groom",
+          "text": "Anh nhảy không đẹp. Nhưng được cái anh rất nhiệt tình!"
         }
       ]
     },
@@ -286,11 +178,15 @@
       "lines": [
         {
           "role": "mc",
-          "text": "Hội đồng quản trị vừa bấm nút thay đổi diện mạo!"
-        },
+          "text": "Ăn cưới phải vui! Cả nhà cùng lắc lư theo điệu nhạc!"
+        }
+      ]
+    },
+    {
+      "lines": [
         {
-          "role": "ceo",
-          "text": "Tôi thay bộ vest. Còn khí chất thì không cần thay."
+          "role": "bride",
+          "text": "Bên trái một chút, bên phải một chút. Đừng giẫm váy em nha!"
         }
       ]
     },
@@ -298,269 +194,7 @@
       "lines": [
         {
           "role": "mc",
-          "text": "Bản cập nhật tổng tài đã hoàn tất!"
-        },
-        {
-          "role": "ceo",
-          "text": "Từ giờ, công ty này làm việc bằng thực lực. Và một chút đẹp trai."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Lãnh đạo tái xuất với phong cách mới!"
-        },
-        {
-          "role": "ceo",
-          "text": "Mọi người cứ bình tĩnh. Người nhiều tiền thường tới hơi muộn."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Tổng tài đã trở lại. Phòng kế toán bắt đầu hồi hộp!"
-        },
-        {
-          "role": "ceo",
-          "text": "Tôi đổi phong cách, không đổi lời hứa tăng lương. Để mai tính."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Một diện mạo mới vừa bước lên ghế lãnh đạo!"
-        },
-        {
-          "role": "ceo",
-          "text": "Ai gọi tôi lên? Báo trước, tôi không duyệt đơn nghỉ hóng chuyện."
-        }
-      ]
-    }
-  ],
-  "replaceSecretary": [
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Phòng nhân sự thông báo: thư ký vừa đổi phong cách!"
-        },
-        {
-          "role": "secretary",
-          "text": "Em mới tới. Hồ sơ, lịch họp và tin đồn em đều nắm rõ."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Một diện mạo mới xuất hiện bên cạnh tổng tài!"
-        },
-        {
-          "role": "secretary",
-          "text": "Em đổi trang phục thôi. Hóa đơn chưa thanh toán em vẫn nhớ."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Thư ký đã sẵn sàng nhận bàn giao!"
-        },
-        {
-          "role": "secretary",
-          "text": "Việc khó cứ giao em. Còn việc tăng lương, em giao sếp."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Bộ phận điều hành vừa có bản cập nhật mới!"
-        },
-        {
-          "role": "secretary",
-          "text": "Lịch hôm nay kín rồi. Chỉ còn trống lịch sếp chuyển lương."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Xin chào thư ký với phong cách mới của công ty!"
-        },
-        {
-          "role": "secretary",
-          "text": "Em làm việc rất chuyên nghiệp. Đặc biệt là lúc đúng giờ tan ca."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Thư ký mới bước vào. Công ty bỗng gọn gàng hơn hẳn!"
-        },
-        {
-          "role": "secretary",
-          "text": "Từ giờ, ai gặp sếp nhớ đặt lịch. Kể cả sếp muốn gặp em."
-        }
-      ]
-    }
-  ],
-  "claimCeo": [
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Một nhân viên vừa bước lên nhận ghế tổng tài!"
-        },
-        {
-          "role": "ceo",
-          "text": "Ai muốn ngồi ghế này thì bước lên đối đầu với tôi."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Thang máy sự nghiệp vừa chạy thẳng lên tầng cao nhất!"
-        },
-        {
-          "role": "ceo",
-          "text": "Từ nay, tôi là người ký giấy. Còn ai làm giấy thì tính sau."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Cả công ty chào đón vị tổng tài vừa được bổ nhiệm!"
-        },
-        {
-          "role": "ceo",
-          "text": "Tôi không thích nói nhiều. Ai rảnh thì pha giúp tôi ly cà phê."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Chúc mừng nhân viên đã thăng chức thành tổng tài!"
-        },
-        {
-          "role": "ceo",
-          "text": "Hồi nãy còn gõ báo cáo. Giờ tôi duyệt luôn báo cáo của mình."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Ghế tổng tài chính thức có người nhận rồi!"
-        },
-        {
-          "role": "ceo",
-          "text": "Trời lạnh rồi. Công ty mình phát áo ấm trước, chuyện bá đạo để sau."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Quyết định bổ nhiệm đã có hiệu lực!"
-        },
-        {
-          "role": "ceo",
-          "text": "Mục tiêu của tôi rất đơn giản: công ty phát triển, thư ký đừng nghỉ."
-        }
-      ]
-    }
-  ],
-  "claimSecretary": [
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Một nhân viên đang bước lên nhận vị trí thư ký!"
-        },
-        {
-          "role": "secretary",
-          "text": "Em xin nhận việc. Xin sếp đừng giao em cả việc yêu đương."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Vị trí bên cạnh tổng tài vừa có người nhận!"
-        },
-        {
-          "role": "secretary",
-          "text": "Em quản lịch họp, hồ sơ và cả lịch sếp nhớ chuyển lương."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Thư ký của tổng tài đã có chủ nhân mới!"
-        },
-        {
-          "role": "secretary",
-          "text": "Từ hôm nay, ai muốn gặp sếp xin đi qua em trước."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Đơn xin thăng chức đã được duyệt!"
-        },
-        {
-          "role": "secretary",
-          "text": "Em đã chuẩn bị sẵn báo cáo. Và đơn đề nghị tăng phụ cấp."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Công ty chào đón người giữ lịch trình của tổng tài!"
-        },
-        {
-          "role": "secretary",
-          "text": "Em nhận việc vì đam mê. Đam mê thấy tiền lương vào tài khoản."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Nhân viên vừa đổi bàn. Sự nghiệp cũng đổi luôn!"
-        },
-        {
-          "role": "secretary",
-          "text": "Sếp yên tâm, em rất kín miệng. Trừ những chuyện cả công ty đã biết."
+          "text": "Xin dành một tràng pháo tay cho đội văn nghệ tự phát!"
         }
       ]
     }
@@ -570,11 +204,23 @@
       "lines": [
         {
           "role": "mc",
-          "text": "Lịch họp kết thúc. Hai nhân vật chính xin phép nghỉ riêng một chút!"
-        },
+          "text": "Đôi trẻ xin phép nghỉ một chút. Khách quý ở ngoài dùng trà nha!"
+        }
+      ]
+    },
+    {
+      "lines": [
         {
-          "role": "ceo",
-          "text": "Hôm nay không tiếp khách. Chuyện công ty để ngày mai."
+          "role": "bride",
+          "text": "Mọi người đừng trêu nữa, em đỏ mặt rồi nè!"
+        }
+      ]
+    },
+    {
+      "lines": [
+        {
+          "role": "groom",
+          "text": "Đóng cửa nhẹ thôi. Ngoài kia cả họ đang nghe đó!"
         }
       ]
     },
@@ -582,259 +228,281 @@
       "lines": [
         {
           "role": "mc",
-          "text": "Chế độ riêng tư đã bật. Xin quý vị giữ khoảng cách với cánh cửa!"
-        },
-        {
-          "role": "ceo",
-          "text": "Anh đã tắt điện thoại. Trừ số của kế toán, lỡ còn tiền về."
+          "text": "Phòng tân hôn đã sẵn sàng. Xin quý khách giữ khoảng cách với cửa phòng!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "mc",
-          "text": "Phòng riêng đang được sử dụng. Bộ phận hóng chuyện xin chờ bên ngoài!"
-        },
-        {
-          "role": "ceo",
-          "text": "Không nhận lịch họp, không nhận báo cáo. Anh cần yên tĩnh."
+          "role": "bride",
+          "text": "Khoan đã anh. Em còn chưa đếm xong phong bì!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "mc",
-          "text": "Hai người tạm rời văn phòng. Cửa đã khép, xin đừng làm phiền!"
-        },
-        {
-          "role": "ceo",
-          "text": "Anh chỉ nghỉ một lát. Đừng ai tranh thủ đổi luôn ghế của anh."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Thông báo nội bộ: cuộc họp riêng đã bắt đầu!"
-        },
-        {
-          "role": "ceo",
-          "text": "Việc quan trọng nhất bây giờ là nghỉ ngơi. Mọi người giải tán."
-        }
-      ]
-    },
-    {
-      "lines": [
-        {
-          "role": "mc",
-          "text": "Tổng tài đã chuyển sang chế độ không làm phiền!"
-        },
-        {
-          "role": "ceo",
-          "text": "Anh đặt biển ngoài cửa rồi. Ai gõ cửa nhớ có lý do thật thuyết phục."
+          "role": "groom",
+          "text": "Hôm nay mình nghỉ sớm. Mai còn đi trả đồ cưới nữa em!"
         }
       ]
     }
   ],
-  "fire": [
+  "claimGroom": [
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Cô bị sa thải."
+          "role": "mc",
+          "text": "Xin chào chú rể mới! Mời anh bước lên sân khấu nhận vai!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Cô có thể nghỉ việc rồi."
+          "role": "groom",
+          "text": "Anh tới hơi trễ. Nhưng thương em thì anh tới đúng giờ."
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Từ hôm nay, cô không cần đến nữa."
+          "role": "mc",
+          "text": "Ghế chú rể đã có chủ. Ai muốn tranh tài thì dùng quà đổi vai nha!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Bàn giao công việc rồi rời đi."
+          "role": "groom",
+          "text": "Vest đã chỉnh, tóc đã vuốt. Giờ chỉ còn đợi em gật đầu."
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Quyết định của tôi là chấm dứt hợp đồng."
+          "role": "mc",
+          "text": "Cả nhà cho chú rể mới một tràng vỗ tay thật giòn!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Cô ra ngoài đi. Hợp đồng kết thúc."
+          "role": "groom",
+          "text": "Xin chào cả họ. Hôm nay con xin nhận trách nhiệm rửa chén!"
         }
       ]
     }
   ],
-  "idleBoth": [
+  "claimBride": [
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Ai muốn làm tổng tài thì bước lên đối đầu với ta. Đừng gửi mỗi ánh mắt."
+          "role": "mc",
+          "text": "Cô dâu của chúng ta đã tới! Xin mời em lên sân khấu!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Trời lạnh rồi. Ta định cho một tập đoàn phá sản. Nhưng nhớ ra mình chưa trả tiền điện."
+          "role": "bride",
+          "text": "Em tới rồi đây. Chú rể đứng thẳng lên cho em ngắm nào!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Ghế tổng tài còn trống, ghế thư ký cũng còn. Công ty đông thế mà chưa ai muốn thăng chức sao?"
+          "role": "mc",
+          "text": "Một cô dâu xinh đẹp vừa xuất hiện. Cả nhà thả tim chúc mừng nào!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Ta có tất cả, chỉ thiếu một thư ký chịu nhắc ta đi họp đúng giờ."
+          "role": "bride",
+          "text": "Váy cưới em đã mặc. Giờ chờ anh thể hiện thôi nha!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Thư ký đâu? Mang hợp đồng tới. Khoan, mang luôn bảng lương để ta biết công ty còn tiền không."
+          "role": "mc",
+          "text": "Xin dành lối đi giữa cho nhân vật chính của hôm nay!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Ta không thiếu tiền. Ta chỉ thiếu người dám ngồi vào cái ghế này."
+          "role": "bride",
+          "text": "Em không cần đám cưới đắt nhất. Em cần người thương em thật nhất!"
         }
       ]
     }
   ],
-  "idleCeo": [
+  "replaceGroom": [
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Thư ký đã có người rồi. Ai muốn làm tổng tài thì đừng để chiếc ghế này nguội."
+          "role": "mc",
+          "text": "Có biến ở hàng ghế chú rể! Xin chào nhân vật mới của buổi tiệc!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Ghế tổng tài đang trống. Ai lên nhận đi, chứ ta tự duyệt báo cáo mãi cũng ngại."
+          "role": "bride",
+          "text": "Ủa, mới quay đi một chút mà chú rể đã đổi người rồi!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Công ty cần người lãnh đạo. Đẹp trai là lợi thế, biết trả lương là ưu tiên."
+          "role": "groom",
+          "text": "Anh xin tiếp quản sân khấu. Nhạc cứ chạy, tình cứ tới!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Ai dám thay ta điều hành công ty? Có thư ký hỗ trợ rồi, đừng sợ bảng tính."
+          "role": "mc",
+          "text": "Chú rể đổi người, tiệc vẫn tiếp tục. Bếp đừng dọn nha!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Ta chờ một đối thủ xứng tầm. Còn ghế thì chờ một người chịu ngồi."
+          "role": "bride",
+          "text": "Anh mới tới nhớ học thuộc tên em trước nha!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Vị trí tổng tài còn trống. Ai lên trước thì được nghe thư ký nhắc lịch họp trước."
+          "role": "mc",
+          "text": "Một màn đổi vai đầy bất ngờ! Cả nhà chào chú rể mới nào!"
         }
       ]
     }
   ],
-  "idleSecretary": [
+  "replaceBride": [
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Tổng tài đã có rồi. Ai muốn đứng cạnh anh thì lên nhận vị trí thư ký đi."
+          "role": "mc",
+          "text": "Xin chào cô dâu mới! Sân khấu hôm nay lại thêm rực rỡ!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Anh cần một thư ký. Ưu tiên người biết nhắc anh ăn cơm, không chỉ nhắc thanh toán."
+          "role": "groom",
+          "text": "Anh vẫn đứng đây. Mà sao tim lại đập như lần đầu gặp em vậy?"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Ghế thư ký còn trống. Lương có thể thương lượng, còn độ bá đạo thì có sẵn."
+          "role": "bride",
+          "text": "Em nhận vai rồi nha. Hoa cưới đưa đây em cầm cho!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Đứng cạnh anh không khó. Khó là giữ được bình tĩnh trước lịch họp của anh."
+          "role": "mc",
+          "text": "Cô dâu đổi người, nhạc không đổi nhịp. Cả nhà tiếp tục chung vui!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Anh đã chuẩn bị bàn làm việc. Chỉ còn thiếu người tới quản luôn cả lịch của anh."
+          "role": "bride",
+          "text": "Chú rể nhìn em nè. Đừng nhìn bàn đồ ăn nữa!"
         }
       ]
     },
     {
       "lines": [
         {
-          "role": "ceo",
-          "text": "Thư ký tương lai đâu rồi? Anh hứa việc nhẹ. Nhẹ nhất là lời hứa này."
+          "role": "mc",
+          "text": "Xin mời cô dâu mới bước vào ánh đèn. Một tràng vỗ tay nào!"
+        }
+      ]
+    }
+  ],
+  "idle": [
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Khách quý cứ ngồi tự nhiên nha. Hôm nay ăn cưới online, vui là chính!"
+        }
+      ]
+    },
+    {
+      "lines": [
+        {
+          "role": "groom",
+          "text": "Có ai muốn lên làm chú rể không? Anh nhường sân khấu, không nhường phong bì!"
+        }
+      ]
+    },
+    {
+      "lines": [
+        {
+          "role": "bride",
+          "text": "Ai lên làm cô dâu cùng em không? Váy đẹp đã chuẩn bị sẵn rồi nè!"
+        }
+      ]
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Bàn bên trái đâu rồi? Bàn bên phải đâu rồi? Cho đôi trẻ nghe tiếng vỗ tay nào!"
+        }
+      ]
+    },
+    {
+      "lines": [
+        {
+          "role": "groom",
+          "text": "Anh đã có nhà, có xe. Chỉ thiếu một người nhắc anh đổ rác thôi!"
+        }
+      ]
+    },
+    {
+      "lines": [
+        {
+          "role": "bride",
+          "text": "Đi ăn cưới đừng chỉ nhìn cô dâu. Nhớ nhìn đường kẻo vấp nha!"
+        }
+      ]
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Thích cảnh nào thì xem bảng quà bên dưới nha. Mỗi món quà là một tiết mục!"
         }
       ]
     }

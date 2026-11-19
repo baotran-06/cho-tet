@@ -25,7 +25,7 @@ export class Wedding {
  tick(now){this.expire(now);if(this.active&&now>=this.active.end)this.finish(now);if(this.active||!this.pending.length)return;
  this.pending=this.pending.filter(g=>!/(?:Groom|Bride)$/.test(g.key)||(/Groom$/.test(g.key)?this.groom:this.bride).id===g.userId);if(!this.pending.length)return;
  const g=this.pending.shift(),variant=pickVariant(this.variants,g.key,voices[g.key]?.length||1),spoken=voices[g.key]?.[variant]?.duration||5;
- const length=g.key==='bedroom'?config.bedroomDurationMs:g.key==='wedding'?config.weddingDurationMs:Math.max(g.key==='bouquet'?11000:8000,(spoken+1)*1000);
+ const length=g.key==='bedroom'?config.bedroomDurationMs:g.key==='wedding'?config.weddingDurationMs:Math.max(g.key==='bouquet'?11000:/Groom$/.test(g.key)?13000:8000,(spoken+(/Groom$/.test(g.key)?7:1))*1000);
  this.active={...g,variant,sequence:++this.sequence,started:now,end:now+length};}
  snapshot(){return {groom:{...this.groom},bride:{...this.bride},active:this.active,recent:this.recent,notice:this.notice,pending:this.pending.length,total:this.total,dropped:this.dropped,unmapped:this.unmapped,rejected:this.rejected,lastRejected:this.lastRejected,rules:this.rules,audio:this.audio,tracks:this.tracks};}
 }

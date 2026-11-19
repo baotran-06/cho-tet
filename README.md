@@ -78,3 +78,11 @@ Mã nguồn: AGPL-3.0-only, giữ LICENSE gốc. Three.js: MIT (assets/vendor/TH
 ## Bản áo dài đỏ đang thử
 
 Theo lựa chọn tiếp tục của người dùng, cặp nhân vật được thay bằng bản GLB áo dài đỏ dựng từ MakeHuman CC0. Đây là bản tạo hình thô, chưa giống đầy đủ concept đã duyệt. Các clip Idle/Walk/Wave/Cheer/Sit được phát bằng AnimationMixer; các cảnh cặp đôi dùng vị trí, hướng và clip nền, chưa có diễn hoạt cặp đôi chuyên dụng hoặc mô phỏng vải. Có thể còn xuyên áo hoặc dáng cứng. Không coi bản này là model mỹ thuật hoàn thiện. Xem `frontend/models/ao-dai/README.md` và giấy phép cùng thư mục.
+
+## MC đọc tên người xem
+
+Khi nhận vai chú rể, MC đọc “Tên đang tiến vào lễ đường!”. Đổi chú rể cũng đọc tên người nhận vai; thay người giữa lễ cưới không làm thoát cảnh. Khách mới có bảng tên trên đầu và được xếp lời chào “Chào Tên đến chung vui!”. Tên lấy từ payload TikTok (hoặc tên DEMO khi thử), không tự đặt tên trong LIVE. Ký tự trang trí/emoji bỏ khỏi phần đọc, bảng tên vẫn giữ tên hiển thị gốc.
+
+Trên bản chạy bằng BAT, cầu nối ưu tiên tạo MP3 giọng Nam Minh tiếng Việt, tốc độ +10%, phát qua cùng kênh audio của game. Dịch vụ Edge TTS không chính thức qua node-edge-tts 1.2.12, cần Internet, có thể bị giới hạn/ngừng hoạt động; không cần nhập mật khẩu hoặc khóa API. Tối đa 2 lượt tạo tiếng đồng thời, cache bộ nhớ 32 clip/10 phút, không ghi file tên người xem xuống đĩa. Khi nguồn này lỗi hoặc ở GitHub Pages, dự phòng bằng Web Speech API với giọng vi-VN mà trình duyệt/Windows cung cấp, tốc độ 1.08. Cần bấm Bật âm thanh ở game. Nếu cả nguồn cầu nối và giọng tiếng Việt trình duyệt đều không khả dụng, game báo rõ; thoại MP3 có sẵn vẫn chạy, không coi đó là đã đọc được tên. OBS Browser Source có thể có bộ giọng khác Chrome/Edge; cần thử trong chính nguồn đang phát. Tiếng đọc tên có thể cần đường capture âm thanh hệ thống/ứng dụng riêng, phải kiểm tra bản ghi thử trên LIVE Studio. Không tuyên bố giọng theo tên đã được kiểm chứng trên laptop của người dùng.
+
+Tên chú rể ưu tiên hơn chào khách; nhạc hạ khi đọc, không chồng hai giọng. Lời chào khách có hàng đợi tối đa 8, gộp tối đa 2 tên/lượt, bỏ lời chào quá 15 giây hoặc khi khách đã rời. Chỉ chào lúc sân khấu rảnh, không đọc mọi người dồn dập. Khi mở lại game không đọc lại toàn bộ khách cũ. Tắt Giọng thoại ở admin cũng tắt đọc tên.

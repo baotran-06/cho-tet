@@ -1,4 +1,5 @@
 import http from 'node:http';
+import {AnnouncementService,announcementText} from './announcements.js';
 import {readFile,writeFile,mkdir,unlink} from 'node:fs/promises';
 import {existsSync,readFileSync} from 'node:fs';
 import {resolve,sep,extname,join as joinPath} from 'node:path';
@@ -22,7 +23,7 @@ function staticBytes(req,res,data,type){
  res.writeHead(status,headers);res.end(req.method==='HEAD'?undefined:data.subarray(first,last+1));
 }
 export function createApp(options={}) {
-  const world=new World(settings,gifts);if(options.initialMode)world.reset(options.initialMode);const logs=[];let connection='disconnected';let demoIndex=0;let auto=null;let busy=false;
+  const announcements=new AnnouncementService(options.speechGenerator);const world=new World(settings,gifts);if(options.initialMode)world.reset(options.initialMode);const logs=[];let connection='disconnected';let demoIndex=0;let auto=null;let busy=false;
   const musicDirectory=resolve(fileURLToPath(new URL('.runtime/music/',root)));
   try{world.wedding.tracks=JSON.parse(readFileSync(joinPath(musicDirectory,'playlist.json'),'utf8')).filter(track=>/^[a-f0-9]{32}$/.test(track.id)&&existsSync(joinPath(musicDirectory,track.id+'.audio'))).slice(0,50);}catch{}
   try{const saved=JSON.parse(readFileSync(new URL('.runtime/wedding-rules.json',root),'utf8'));if(saved&&typeof saved==='object'&&!Array.isArray(saved)&&Object.keys(saved).length<=100&&Object.entries(saved).every(([id,key])=>/^\d{1,25}$/.test(id)&&['kiss','wedding','bedroom','bouquet','replaceGroom','replaceBride','claimGroom','claimBride','celebrate'].includes(key)))world.wedding.rules=saved;}catch{}
@@ -88,6 +89,11 @@ export function createApp(options={}) {
       }
       if(req.headers['content-type']!=='application/json'){json(res,415,{error:'Cần application/json'});return;}
       let body='';try{for await(const chunk of req){body+=chunk;if(body.length>4096){json(res,413,{error:'Yêu cầu quá lớn'});return;}}body=JSON.parse(body||'{}');}catch{json(res,400,{error:'JSON không hợp lệ'});return;}
+      if(pathname==='/api/announcement'){
+        const text=announcementText(world,body);if(!text){json(res,409,{error:'Tên hoặc vai không còn hợp lệ'});return;}
+        try{const data=await announcements.audio(text);if(!res.destroyed){res.writeHead(200,{'Content-Type':'audio/mpeg','Content-Length':data.length,'Cache-Control':'no-store'});res.end(data);}}
+        catch{if(!res.destroyed)json(res,503,{error:'Nguồn đọc tên tạm không khả dụng; dùng giọng trình duyệt nếu có.'});}return;
+      }
       if(busy&&!['/api/disconnect','/api/restart'].includes(pathname)){json(res,409,{error:'Đang chuyển kết nối, chờ giây lát'});return;}
       try {
         if(pathname==='/api/connect') {
@@ -150,7 +156,7 @@ export function createApp(options={}) {
   const sockets=attachWebSocket(server,world,()=>connection,liveEvidence);
   const tick=setInterval(()=>{world.tick();sockets.broadcast();},settings.tickMs);tick.unref();
   let closePromise;
-  return {server,world,bridge,connectLive,close:()=>closePromise??=(async()=>{clearInterval(tick);clearInterval(auto);try{await bridge.stop();}finally{sockets.close();server.closeAllConnections();await new Promise(r=>server.close(()=>r()));}})()};
+  return {server,world,bridge,connectLive,close:()=>closePromise??=(async()=>{clearInterval(tick);clearInterval(auto);try{await bridge.stop();}finally{sockets.close();server.closeAllConnections();await announcements.close();await new Promise(r=>server.close(()=>r()));}})()};
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)) {
   const app=createApp({initialMode:'LIVE'});app.server.listen(port,host,()=>console.log(`ĐÁM CƯỚI ONLINE\nGame: http://${host}:${port}/\nĐiều khiển: http://${host}:${port}/admin`));

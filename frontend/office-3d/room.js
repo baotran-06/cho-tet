@@ -1,5 +1,6 @@
 import * as T from '../assets/vendor/three.module.js';
-import {person,pose} from './people.js';
+import {person,pose,weddingOutfit} from './people.js';
+import {weddingVenue} from './wedding.js';
 import {Client} from '../js/client.js';
 import {OfficeAudio} from '../js/office-audio.js';
 import config from '../config/office.json' with {type:'json'};
@@ -13,15 +14,17 @@ const camera=new T.PerspectiveCamera(45,1,.1,80);
 scene.add(new T.HemisphereLight(0xd4e8ff,0x504139,2.2));
 const sun=new T.DirectionalLight(0xffe5c6,3.5);sun.position.set(-5,12,8);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-10,right:10,top:13,bottom:-13});sun.shadow.normalBias=.035;scene.add(sun);
 const rim=new T.DirectionalLight(0x8db8ff,2);rim.position.set(5,5,-10);scene.add(rim);
+const officeSet=new T.Group();officeSet.name='OfficeVenue';scene.add(officeSet);
+const ceremony=weddingVenue(scene);
 const materials={wood:new T.MeshStandardMaterial({color:'#4e3027',roughness:.6}),metal:new T.MeshStandardMaterial({color:'#bea16a',metalness:.55,roughness:.4}),desk:new T.MeshStandardMaterial({color:'#35485a'}),black:new T.MeshStandardMaterial({color:'#142332'}),seat:new T.MeshStandardMaterial({color:'#31394a'}),screen:new T.MeshStandardMaterial({color:'#5ac9d8',emissive:'#235d73',emissiveIntensity:.5}),floor:new T.MeshStandardMaterial({color:'#526578',roughness:.85})};
-function box(w,h,d,m,x,y,z,parent=scene){const o=new T.Mesh(new T.BoxGeometry(w,h,d),m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o;}
-function sphere(r,m,x,y,z,parent=scene){const o=new T.Mesh(new T.SphereGeometry(r,12,8),m);o.position.set(x,y,z);parent.add(o);return o;}
+function box(w,h,d,m,x,y,z,parent=officeSet){const o=new T.Mesh(new T.BoxGeometry(w,h,d),m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o;}
+function sphere(r,m,x,y,z,parent=officeSet){const o=new T.Mesh(new T.SphereGeometry(r,12,8),m);o.position.set(x,y,z);parent.add(o);return o;}
 box(15,.2,23,materials.floor,0,-.12,1);box(14.5,.3,5,materials.wood,0,.12,-5.4);box(15,7,.25,materials.black,0,3.3,-8);
 const glass=new T.MeshStandardMaterial({color:'#24496a',emissive:'#19344b',emissiveIntensity:.4,roughness:.3});
 for(let i=-2;i<=2;i++){box(2.55,4,.06,glass,i*2.8,3.65,-7.82);box(.06,4,.12,materials.metal,i*2.8-1.3,3.65,-7.75);for(let j=0;j<4;j++)box(.25,.16,.1,materials.screen,i*2.8-.8+j*.5,2+((i+j+4)%3)*.5,-7.7);}
 box(7,.14,1.4,materials.wood,0,1.5,-5.05);box(6.4,1.25,.25,materials.wood,0,.83,-4.57);box(6.3,.025,.06,materials.metal,0,1.36,-4.41);
 box(.72,.30,.06,materials.black,-2.25,1.72,-5.0);box(.55,.03,.35,materials.metal,-2.25,1.59,-5.0);
-function chair(x,z,executive=false){const g=new T.Group();g.position.set(x,0,z);scene.add(g);box(executive?1.1:.7,.15,.7,materials.seat,0,.58,0,g);box(executive?1.1:.7,executive?1.15:.65,.1,materials.seat,0,executive?1.2:.93,.34,g);for(const a of [-1,1])box(.07,.55,.07,materials.black,a*.25,.28,0,g);return g;}
+function chair(x,z,executive=false){const g=new T.Group();g.position.set(x,0,z);officeSet.add(g);box(executive?1.1:.7,.15,.7,materials.seat,0,.58,0,g);box(executive?1.1:.7,executive?1.15:.65,.1,materials.seat,0,executive?1.2:.93,.34,g);for(const a of [-1,1])box(.07,.55,.07,materials.black,a*.25,.28,0,g);return g;}
 const throne=chair(-.75,-5.95,true);throne.rotation.y=Math.PI;throne.scale.setScalar(1.25);throne.position.y=.37;
 box(.65,.2,.45,materials.wood,-.75,.37,-5.1);
 const slots=[];
@@ -45,7 +48,7 @@ const ceoLabel=label('Tổng tài',ceo.holder,2.52,true),secretaryLabel=label('T
 const staff=new Map(),staffSkin=new T.MeshStandardMaterial({color:'#dbab8b'}),staffHair=new T.MeshStandardMaterial({color:'#29202a'}),uniforms=['#91b6c9','#d0c0a0','#b6b0cc','#9eaeb9'].map(color=>new T.MeshStandardMaterial({color}));
 // Small employees use a lightweight articulated rig; the three lead characters are more detailed.
 function employee(user,index){
- const holder=new T.Group();scene.add(holder);holder.position.set(0,0,10.5);holder.rotation.y=Math.PI;
+ const holder=new T.Group();officeSet.add(holder);holder.position.set(0,0,10.5);holder.rotation.y=Math.PI;
  const body=new T.Group();holder.add(body);body.position.y=.64;
  box(.40,.55,.24,uniforms[index%4],0,.24,0,body);sphere(.185,staffSkin,0,.7,0,body);const hair=sphere(.19,staffHair,0,.77,-.02,body);hair.scale.y=.65;
  const legs=[],arms=[];for(const side of [-1,1]){const leg=new T.Group();leg.position.set(side*.12,0,0);body.add(leg);box(.13,.35,.15,materials.black,0,-.16,0,leg);const knee=new T.Group();knee.position.y=-.34;leg.add(knee);box(.11,.32,.12,materials.black,0,-.15,0,knee);box(.13,.10,.25,materials.black,0,-.31,.07,knee);leg.userData.knee=knee;legs.push(leg);const arm=new T.Group();arm.position.set(side*.27,.47,0);body.add(arm);box(.12,.4,.13,uniforms[index%4],0,-.18,0,arm);sphere(.065,staffSkin,0,-.4,0,arm);arms.push(arm);}
@@ -59,10 +62,11 @@ function routeTo(entry,target,stage=false){
  else points.push(new T.Vector3(0,0,target.z+.6),new T.Vector3(target.x,0,target.z+.6));
  points.push(target.clone());entry.route=points;entry.phase='walking';
 }
-let state=null,receivedAt=performance.now(),now=0,clock=new T.Clock(),time=0,activeKey=null,previousRoles={ceo:null,secretary:null},showClose=false,busy=false,drag=null,yaw=0;
+let state=null,receivedAt=performance.now(),now=0,clock=new T.Clock(),time=0,activeKey=null,rejectionKey=null,previousRoles={ceo:null,secretary:null},showClose=false,busy=false,drag=null,yaw=0;
 const audio=new OfficeAudio(message=>$('audio').textContent=message);
 const client=new Client(s=>{
  state=s;receivedAt=performance.now();if(!s.office)return;
+ for(const button of document.querySelectorAll('[data-gift]')){const locked=button.dataset.gift==='claimCeo'&&(s.office.canClaimCeo===false||Boolean(s.office.ceo.id));button.disabled=locked;button.title=locked?'Đã có tổng tài. Dùng Cỏ bốn lá để thay người.':'';if(button.dataset.gift==='claimCeo')button.querySelector('strong').textContent=locked?'Đã có người giữ vai':'Làm tổng tài';if(button.dataset.gift==='replaceCeo')button.querySelector('strong').textContent=s.office.active?.key==='wedding'?'Đổi chú rể':'Đổi tổng tài';}
  $('status').textContent=(s.mode==='DEMO'?'DEMO · Nhân viên mô phỏng':s.liveEvidence?.verified?'LIVE · Đã nhận sự kiện thật':'LIVE · Chờ sự kiện thật')+' · '+Math.min(16,s.users.filter(u=>!u.departedAt).length)+' nhân viên';
  const roleIds=new Set([s.office.ceo.id,s.office.secretary.id]);const valid=s.users.filter(u=>u.seat!==null||roleIds.has(u.id)).sort((a,b)=>Number(roleIds.has(b.id))-Number(roleIds.has(a.id))).slice(0,16),ids=new Set(valid.map(u=>u.id));
  for(const [id,e] of staff)if(!ids.has(id)){scene.remove(e.holder);e.holder.traverse(o=>{if(o.isMesh)o.geometry.dispose();});e.label.el.remove();labels.splice(labels.indexOf(e.label),1);staff.delete(id);}
@@ -74,7 +78,8 @@ const client=new Client(s=>{
   const desired=s.office.ceo.id===e.id?'ceo':s.office.secretary.id===e.id&&s.office.secretary.present?'secretary':null;
   if(e.targetRole!==desired){e.targetRole=desired;e.role=null;e.holder.visible=true;routeTo(e,desired?station[desired]:slots[e.index],Boolean(desired));}
  }
- const active=s.office.active;if(active?.id!==activeKey){activeKey=active?.id??null;if(active){const g=config.guide.find(g=>g.key===active.key);$('toast').textContent=active.name+' · '+g.effect;$('toast').hidden=false;}else $('toast').hidden=true;}
+ const active=s.office.active;if(active?.id!==activeKey){activeKey=active?.id??null;if(active){const g=config.guide.find(g=>g.key===active.key);$('toast').textContent=active.name+' · '+(active.cause==='replaceCeo'?'Đổi chú rể · cưới lại từ đầu':g.effect);$('toast').hidden=false;}else $('toast').hidden=true;}
+ if(s.office.lastRejected&&s.office.lastRejected.sequence!==rejectionKey){rejectionKey=s.office.lastRejected.sequence;notify(s.office.lastRejected.message);}
  audio.update(s);
 });
 audio.nextTrack=()=>{const tracks=state?.office?.tracks??[];if(!tracks.length)return;const index=tracks.findIndex(t=>t.id===state.office.audio.trackId);void client.command('office-audio',{trackId:tracks[(index+1)%tracks.length].id}).catch(e=>notify(e.message));};
@@ -90,6 +95,8 @@ function update(){const dt=Math.min(.25,clock.getDelta());time+=dt;now=(state?.s
  const active=state?.office?.active,key=active?.key,elapsed=active?(now-active.started)/1000:0;
  const sceneLines=voices[key]?.[active?.variant%voices[key]?.length]?.lines??[];
  const sceneAfter=sceneLines.length?sceneLines.at(-1).at+sceneLines.at(-1).duration:2;
+ const isWedding=key==='wedding';officeSet.visible=!isWedding;ceremony.root.visible=isWedding;scene.background.set(isWedding?'#663043':'#152438');scene.fog.color.copy(scene.background);
+ $('scene-title').textContent=isWedding?'LỄ THÀNH HÔN':'VĂN PHÒNG TỔNG TÀI';
  const targets={ceo:ceo,secretary:secretary};
  ceo.holder.position.copy(station.ceo);secretary.holder.position.copy(station.secretary);ceo.holder.rotation.set(0,0,0);secretary.holder.rotation.set(0,0,0);
  let ceoSit=1;
@@ -101,23 +108,25 @@ function update(){const dt=Math.min(.25,clock.getDelta());time+=dt;now=(state?.s
  }
  for(const [role,rig] of Object.entries(targets)){
   const data=state?.office?.[role],e=staff.get(data?.id),arrived=e?.role===role;
-  const text=data?.id&&(!e||arrived)?'@'+data.name:role==='ceo'?'Tổng tài':'Thư ký';(role==='ceo'?ceoLabel:secretaryLabel).el.textContent=text;
+  const text=data?.id&&(isWedding||!e||arrived)?'@'+data.name:role==='ceo'?'Tổng tài':'Thư ký';const plate=role==='ceo'?ceoLabel:secretaryLabel;plate.el.textContent=text;plate.el.dataset.role=isWedding?(role==='ceo'?'Chú rể':'Cô dâu'):'';
   rig.holder.visible=data?.present!==false;
   const palettes=role==='ceo'?['#171d29','#28364a','#33302c']:['#e8dcc4','#d6cad9','#bfd4d8'];rig.jacket.color.set(palettes[data?.look??0]);
  }
+ for(const rig of [ceo,secretary])weddingOutfit(rig,isWedding);
  lieu.holder.visible=key==='lieu';
- if(key==='wedding'){ceoSit=0;ceo.holder.position.set(-.7,.28,-3.7);secretary.holder.position.set(.7,.28,-3.7);ceo.holder.rotation.y=.22;secretary.holder.rotation.y=-.22;}
+ if(isWedding){ceoSit=0;ceo.holder.visible=true;secretary.holder.visible=true;ceo.holder.position.set(-.8,.08,-1.25);secretary.holder.position.set(.8,.08,-1.25);ceo.holder.rotation.y=.18;secretary.holder.rotation.y=-.18;ceremony.tick(elapsed,sceneAfter+.3);}
  if(key==='kiss'){ceoSit=0;ceo.holder.position.x+=Math.min(1,Math.max(0,(elapsed-sceneAfter)/1.3))*.85;ceo.holder.rotation.z=-.09;secretary.holder.rotation.z=.06;}
  if(key==='fire'){secretary.holder.position.set(.55+Math.min(1,Math.max(0,(elapsed-sceneAfter)/1.6))*7,.28,-6.35);secretary.holder.rotation.y=Math.PI/2;}
  if(key==='bedroom'){ceo.holder.visible=false;secretary.holder.visible=false;}
  if(key==='lieu'){lieu.holder.position.set(7-Math.min(1,elapsed/3)*5.5,.28,-5.1);lieu.holder.rotation.y=-.4;lieuLabel.el.textContent='@'+active.name;}
  pose(ceo,time,ceoSit,0);pose(secretary,time,0,key==='fire'?1:0);pose(lieu,time,0,elapsed<3?1:0);
+ if(isWedding){ceo.arms[1].rotation.x=-.55;ceo.arms[1].userData.elbow.rotation.x=-.9;secretary.arms[0].rotation.x=-.5;secretary.arms[0].userData.elbow.rotation.x=-.9;}
  if(key==='lieu'&&elapsed>sceneAfter&&elapsed<sceneAfter+.75){const swing=Math.sin((elapsed-sceneAfter)/.75*Math.PI);lieu.arms[0].rotation.z=-swing*1.4;lieu.arms[0].rotation.x=-swing*.8;secretary.holder.rotation.z=-swing*.12;}
  ceoLabel.height=(ceo.hip.position.y+2.11)*.78+.08;secretaryLabel.height=(secretary.hip.position.y+2.11)*.78+.08;lieuLabel.height=(lieu.hip.position.y+2.11)*.78+.08;
  const lines=voices[key]?.[active?.variant%voices[key]?.length]?.lines??[],cue=lines.find(l=>elapsed>=l.at&&elapsed<l.at+l.duration)??audio.idleCaption;
  $('subtitle').hidden=!cue;if(cue){$('subtitle').querySelector('strong').textContent={ceo:'Tổng tài',secretary:'Thư ký',lieu:'Liễu Như Yên',mc:'MC công ty'}[cue.role];$('subtitle').querySelector('span').textContent=cue.text;}
- const close=showClose||['kiss','lieu','fire','wedding','bedroom'].includes(key);destination.set(Math.sin(yaw)*(close?10:22),close?6.1:13,close?4:23);camera.position.lerp(destination,1-Math.exp(-dt*3));look.set(0,close?2.2:0,close?-5:-1);camera.lookAt(look);
- const used=[];for(const item of labels.sort((a,b)=>Number(b.vip)-Number(a.vip))){const {obj,el,height}=item;if(!obj.visible){el.hidden=true;continue;}v.copy(obj.position);v.y+=height;v.project(camera);const x=(v.x*.5+.5)*frame.clientWidth;let y=(-v.y*.5+.5)*frame.clientHeight;let overlap=used.some(p=>Math.abs(p.x-x)<95&&Math.abs(p.y-y)<22);if(item.vip)for(let i=0;i<3&&overlap;i++){y-=24;overlap=used.some(p=>Math.abs(p.x-x)<95&&Math.abs(p.y-y)<22);}el.hidden=v.z>1||Math.abs(v.x)>1||y>frame.clientHeight*.76||overlap;if(!el.hidden){el.style.left=x+'px';el.style.top=y+'px';used.push({x,y});}}
+ const close=showClose||['kiss','lieu','fire','wedding','bedroom'].includes(key);destination.set(Math.sin(yaw)*(close?10:22),close?6.1:13,close?4:23);if(isWedding)destination.set(Math.sin(yaw)*5,5.1,10.2);camera.position.lerp(destination,1-Math.exp(-dt*3));look.set(0,isWedding?1.85:close?2.2:0,isWedding?-1.25:close?-5:-1);camera.lookAt(look);
+ const used=[];for(const item of labels.sort((a,b)=>Number(b.vip)-Number(a.vip))){const {obj,el,height}=item;if(!obj.visible||(!item.vip&&isWedding)){el.hidden=true;continue;}v.copy(obj.position);v.y+=height;v.project(camera);const x=(v.x*.5+.5)*frame.clientWidth;let y=(-v.y*.5+.5)*frame.clientHeight;let overlap=used.some(p=>Math.abs(p.x-x)<95&&Math.abs(p.y-y)<22);if(item.vip)for(let i=0;i<3&&overlap;i++){y-=24;overlap=used.some(p=>Math.abs(p.x-x)<95&&Math.abs(p.y-y)<22);}el.hidden=v.z>1||Math.abs(v.x)>1||y>frame.clientHeight*.76||overlap;if(!el.hidden){el.style.left=x+'px';el.style.top=y+'px';used.push({x,y});}}
  renderer.render(scene,camera);requestAnimationFrame(update);
 }
-window.__office3d={scene,renderer,staff,ceo,secretary,lieu,client,audio,get state(){return state;}};update();window.addEventListener('pagehide',()=>{client.close();audio.close();renderer.dispose();},{once:true});
+window.__office3d={scene,renderer,officeSet,ceremony,staff,ceo,secretary,lieu,client,audio,get state(){return state;}};update();window.addEventListener('pagehide',()=>{client.close();audio.close();renderer.dispose();},{once:true});

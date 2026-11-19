@@ -79,5 +79,6 @@
     "maxPauseMs": 5000,
     "sceneLeadSeconds": 0.3,
     "turnGapSeconds": 0.12
-  }
+  },
+  "weddingDurationMs": 26000
 }

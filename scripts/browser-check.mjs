@@ -35,7 +35,13 @@ try{
  clock=app.world.office.active.started+1000;
  await room.waitForFunction(()=>!__office3d.audio.voice.paused&&__office3d.audio.voice.currentTime>0);
  await room.waitForFunction(()=>__office3d.staff.get('demo-1')?.role==='ceo',null,{timeout:45000});
- assert.equal(await room.evaluate(()=>__office3d.staff.get('demo-1').holder.visible),false);await skip();
+ assert.equal(await room.evaluate(()=>__office3d.staff.get('demo-1').holder.visible),false);
+ assert.equal(await room.locator('[data-gift="claimCeo"]').isDisabled(),true);
+ assert.equal(await admin.locator('[data-gift="claimCeo"]').isDisabled(),true);
+ const heldScene=app.world.office.active.id;
+ await gift('Okay',3,'Không được chiếm vai');
+ await room.waitForFunction(()=>__office3d.state.office.rejected>0);
+ assert.equal(app.world.office.ceo.id,'demo-1');assert.equal(app.world.office.active.id,heldScene);await skip();
  await gift('Finger Heart',2,'Nhân viên An');await room.waitForFunction(()=>__office3d.state.office.secretary.id==='demo-2');
  await room.waitForFunction(()=>__office3d.staff.get('demo-2')?.role==='secretary',null,{timeout:45000});await skip();
  clock+=12000;await room.waitForFunction(t=>__office3d.state.serverTime>=t,clock);
@@ -44,11 +50,29 @@ try{
  await room.click('#focus');await room.waitForTimeout(1300);await room.screenshot({path:'artifacts/main-3d-promoted.png'});
  clock+=180001;
  await room.waitForFunction(()=>__office3d.state.office.ceo.id===null&&[...__office3d.staff.values()].every(e=>!e.role&&e.phase==='working'),null,{timeout:45000});
- for(const [name,key] of [['Rose','kiss'],['Bouquet Flower','wedding'],['Bravo!','lieu']]){
+ for(const [name,key] of [['Rose','kiss'],['Bravo!','lieu']]){
   await gift(name);await room.waitForFunction(k=>__office3d.state.office.active?.key===k,key);clock=app.world.office.active.started+1000;
   if(key==='lieu')await room.waitForFunction(()=>__office3d.lieu.holder.visible);
   await room.screenshot({path:'artifacts/main-3d-'+key+'.png'});await skip();
  }
+ await gift('Bouquet Flower');await room.waitForFunction(()=>__office3d.state.office.active?.key==='wedding'&&__office3d.ceremony.root.visible);
+ clock=app.world.office.active.started+1500;await room.waitForTimeout(1800);
+ assert.equal(await room.evaluate(()=>__office3d.officeSet.visible),false);
+ assert.equal(await room.evaluate(()=>__office3d.ceo.weddingWear.visible&&__office3d.secretary.weddingWear.visible),true);
+ await room.screenshot({path:'artifacts/wedding-venue-and-clothes.png'});
+ const originalEnd=app.world.office.active.end;
+ clock=app.world.office.active.started+4000;
+ await gift('Shamrock',3,'Chú rể mới');
+ await room.waitForFunction(()=>__office3d.state.office.ceo.id==='demo-3'&&__office3d.state.office.active?.restartCount===1);
+ assert.equal(app.world.office.active.key,'wedding');assert.equal(app.world.office.active.started,clock);
+ assert.equal(await room.evaluate(()=>__office3d.officeSet.visible),false);
+ assert.equal(await room.evaluate(()=>__office3d.ceo.weddingWear.visible),true);
+ const restartedEnd=app.world.office.active.end;
+ await room.screenshot({path:'artifacts/wedding-replaced-groom.png'});
+ await gift('Okay',4,'Vai đã có người');await room.waitForFunction(()=>__office3d.state.office.lastRejected?.name==='Vai đã có người');assert.equal(app.world.office.ceo.id,'demo-3');
+ clock=originalEnd+1;await room.waitForFunction(t=>__office3d.state.serverTime>=t,clock);
+ await room.waitForFunction(()=>__office3d.ceremony.root.visible);assert.equal(app.world.office.active.key,'wedding');
+ clock=restartedEnd+1;await room.waitForFunction(()=>__office3d.officeSet.visible&&!__office3d.ceo.weddingWear.visible);
  await gift('Doughnut');await room.waitForFunction(()=>__office3d.state.office.active?.key==='bedroom');
  await gift('Shamrock');await room.waitForFunction(()=>__office3d.state.office.active?.key==='replaceCeo');assert.equal(app.world.office.recent[0].interrupted,true);await skip();
  await gift('Paper Crane');await room.waitForFunction(()=>__office3d.state.office.active?.key==='fire');clock=app.world.office.active.end+1;

@@ -21,13 +21,13 @@ Bộ khởi động cũ START-XOM/STOP-XOM vẫn gọi cùng chương trình đ�
 | Bouquet Flower / Bó hoa | Kết hôn, nhạc cưới, nhẫn và vỗ tay |
 | Doughnut / Donut | Phòng tân hôn, cửa khép, tối đa 3 phút |
 | Bravo! / Hoan hô | Liễu Như Yên mang tên người tặng, va chạm hoạt hình và tiếng BỐP |
-| Shamrock / Cỏ bốn lá | Đổi diện mạo tổng tài, ngắt cảnh động phòng đang chạy |
+| Shamrock / Cỏ bốn lá | Người tặng thay tổng tài 3 phút; đang cưới thì đổi chú rể và bắt đầu lại lễ cưới |
 | Lucky Pig / Heo may mắn | Đổi diện mạo thư ký, đưa thư ký trở lại nếu đang vắng |
-| Okay / Đồng ý | Người tặng nhận vai tổng tài 3 phút |
+| Okay / Đồng ý | Nhận vai tổng tài 3 phút khi ghế trống; ghế có người thì không nhận và không phát hiệu ứng |
 | Finger Heart / Tim ngón tay | Người tặng nhận vai thư ký 3 phút |
 | Rose / Hoa hồng | Tổng tài hôn má thư ký |
 
-Vai được cấp từ thời điểm quà được xử lý. Một người mới nhận vai sẽ thay người đang giữ vai. Đồng hồ chạy ngầm. Hết giờ trả tên về mặc định. Quà đổi diện mạo giữ tên và thời hạn nhận vai hiện tại. Sau sa thải, thư ký vắng mặt đến khi có quà nhận/đổi thư ký. Cảnh cần thư ký sẽ chờ, quà đưa thư ký trở lại có thể đi trước các cảnh bị chặn.
+Vai được cấp từ thời điểm quà được xử lý. Vai tổng tài đã có người chỉ được thay bằng quà Đổi tổng tài; quà Làm tổng tài bị bỏ qua, không gia hạn thời gian. Vai trống sau 3 phút mới nhận quà Làm tổng tài trở lại. Đồng hồ chạy ngầm. Hết giờ trả tên về mặc định. Quà Đổi thư ký đổi diện mạo và giữ tên, thời hạn hiện tại; quà Đổi tổng tài nhận người tặng làm chủ vai mới trong 3 phút. Sau sa thải, thư ký vắng mặt đến khi có quà nhận/đổi thư ký. Cảnh cần thư ký sẽ chờ, quà đưa thư ký trở lại có thể đi trước các cảnh bị chặn.
 
 Quà combo nhận một cảnh với tổng số lượng hiển thị. Bộ TikTok bridge chỉ gửi tổng streak khi nguồn báo kết thúc streak, loại trùng bằng ID. Hàng đợi giới hạn 120 cảnh, sự kiện và nhật ký được giới hạn bộ nhớ.
 
@@ -84,3 +84,7 @@ START tự mở /office-3d/index.html. Đường dẫn gốc của máy chủ v�
 Bản thoại mới có 6 kịch bản cho mỗi hiệu ứng, cùng 18 câu chờ chia theo hai vai đang trống, trống tổng tài hoặc trống thư ký. Dùng giọng nam trầm, thư ký nữ nhẹ, Liễu sắc sảo và MC công ty như bản âm thanh thử đã duyệt. Sau khoảng chờ đầu 2,5 giây, các câu chờ nghỉ 3–5 giây sau khi câu trước kết thúc. Các lượt đáp trong cảnh cách nhau khoảng 0,12 giây. Khi cả hai vai đã có người, các lời mời tự dừng. Cảnh quà cắt ngay thoại chờ; nhạc giảm khi nói. Không chạy chồng hai câu thoại. Tắt âm lời thoại ở Điều khiển sẽ tắt cả lời mời.
 
 Cấu hình lời tại frontend/config/dialogue.json. File frontend/config/voices.json giữ thời điểm, thời lượng và vùng phát trong voices-v3.mp3; nhờ vậy trình duyệt tải chung một tệp thay vì hàng trăm tệp nhỏ. Công cụ scripts/generate-office-voices.py chỉ dùng khi biên soạn, cần edge-tts và ffmpeg, không cần chạy trên máy người dùng. Giọng vẫn là tiếng tổng hợp, không sao chép giọng người trong video mẫu.
+
+### Lễ cưới 3D
+
+Quà Bó hoa chuyển hẳn khỏi văn phòng sang lễ đường 3D với cổng hoa, thảm cưới, ghế khách, váy cô dâu, khăn voan và vest chú rể. Lễ cưới kéo dài tối thiểu 26 giây. Trong lễ cưới, quà Cỏ bốn lá chuyển vai chú rể cho người gửi, đặt lại lời thoại, nhạc và thời gian lễ từ đầu; không chèn cảnh văn phòng hay hiệu ứng đổi vest giữa chừng. Chỉ khi lễ cưới hoàn tất mới trở về văn phòng và xử lý cảnh đang chờ. Quà Làm tổng tài gửi lúc ghế có chủ được ghi nhận nhưng không chiếm vai, không gia hạn, không phát lời nhận vai. Nút DEMO bị khóa và thẻ hướng dẫn đánh dấu ghế đã có người; ứng dụng không thể khóa danh mục quà trong TikTok.

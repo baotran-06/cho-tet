@@ -1,7 +1,7 @@
 import {Client} from './client.js';
 import {officeConfig} from './office-state.js';
 const $=id=>document.getElementById(id);
-let state,historyKey,trackKey='',rulesInitialized=false;
+let state,historyKey,trackKey='',rulesInitialized=false,rejectionKey=null;
 const statuses={connected:'Đã nhận sự kiện TikTok LIVE thật', 'awaiting-event':'Đã mở kết nối, đang chờ sự kiện TikTok thật',connecting:'Đang kết nối…',reconnecting:'Đang kết nối lại…',disconnected:'Chưa kết nối',ended:'LIVE đã kết thúc',error:'Lỗi nguồn TikTok, xem nhật ký', 'demo-local':'DEMO trên trình duyệt'};
 function error(message){$('error').hidden=false;$('error').textContent=message;}
 async function command(path,body={}){
@@ -15,7 +15,8 @@ const client=new Client(next=>{
   $('connection').textContent=(statuses[next.connection]??next.connection)+(verified?' · '+next.liveEvidence.receivedEvents+' sự kiện':'')+(next.liveEvidence?.lastError?' · '+next.liveEvidence.lastError.summary:'');
   $('queue').textContent=office.pending+' cảnh đang chờ · '+office.total+' đã hoàn tất · '+office.unmapped+' quà chưa khớp'+(office.waitingForSecretary?' · đang chờ thư ký trở lại':'');
   $('roles').textContent='Tổng tài: '+office.ceo.name+' · Thư ký: '+(office.secretary.present?office.secretary.name:'Vắng mặt');
-  for(const button of document.querySelectorAll('[data-gift]'))button.disabled=next.mode!=='DEMO';
+  for(const button of document.querySelectorAll('[data-gift]')){button.disabled=next.mode!=='DEMO'||button.dataset.gift==='claimCeo'&&(office.canClaimCeo===false||Boolean(office.ceo.id));button.title=button.dataset.gift==='claimCeo'&&(office.canClaimCeo===false||Boolean(office.ceo.id))?'Ghế đã có người. Dùng Đổi tổng tài.':'';}
+  if(office.lastRejected&&office.lastRejected.sequence!==rejectionKey){rejectionKey=office.lastRejected.sequence;error(office.lastRejected.message);}
   for(const bus of ['music','voice','sfx']){
     const value=Math.round((office.audio[bus+'Volume']??.5)*100);
     if(document.activeElement!==$(bus+'-volume'))$(bus+'-volume').value=value;

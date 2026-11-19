@@ -50,3 +50,32 @@ test('one viewer can hold only one leadership role, switching releases the other
  assert.equal(office.ceo.id,'Minh');assert.equal(office.secretary.id,null);
  assert.equal(office.ceo.until,183000);
 });
+
+test('occupied CEO rejects all claim gifts without takeover, renewal, queue or new scene; vacancy reopens at 3 minutes',()=>{
+ const office=new Office();office.accept(event('Okay','An'),1000);office.tick(1000);
+ const scene=office.active.id,until=office.ceo.until;
+ assert.equal(office.accept(event('Okay','Bình'),2000),false);
+ assert.equal(office.accept(event('Okay','An'),3000),false);
+ assert.equal(office.ceo.id,'An');assert.equal(office.ceo.until,until);assert.equal(office.active.id,scene);assert.equal(office.pending.length,0);assert.equal(office.snapshot().canClaimCeo,false);
+ assert.equal(office.accept(event('Okay','Bình'),181000),true);
+ assert.equal(office.ceo.id,'Bình');assert.equal(office.ceo.until,361000);
+});
+test('CEO replacement takes over for three minutes and restarts the active wedding without an office intermission',()=>{
+ const office=new Office();office.accept(event('Okay','An'),1000);office.tick(1000);office.finish(1001);
+ office.accept(event('Finger Heart','Hà'),1002);office.tick(1002);office.finish(1003);
+ office.accept(event('Bouquet Flower','Khách'),2000);office.tick(2000);
+ const first={...office.active};assert.equal(first.key,'wedding');
+ office.accept(event('Shamrock','Minh'),5000);
+ assert.equal(office.ceo.id,'Minh');assert.equal(office.ceo.until,185000);assert.equal(office.secretary.id,'Hà');
+ assert.equal(office.active.key,'wedding');assert.equal(office.active.started,5000);assert.notEqual(office.active.id,first.id);assert.equal(office.active.weddingId,first.weddingId);assert.equal(office.active.restartCount,1);assert.equal(office.pending.length,0);
+ const restarted={...office.active};
+ assert.equal(office.accept(event('Okay','Người khác'),6000),false);assert.equal(office.ceo.id,'Minh');assert.equal(office.active.id,restarted.id);
+ office.tick(first.end+1);assert.equal(office.active.key,'wedding');assert.equal(office.active.id,restarted.id);
+ office.tick(restarted.end);assert.equal(office.active,null);assert.equal(office.recent.filter(s=>s.key==='wedding').length,1);
+});
+test('duplicate replacement events cannot restart a wedding twice or renew the new groom',()=>{
+ let now=1000;const world=new World({},undefined,()=>now);
+ world.enqueue(event('Bouquet Flower'));world.tick();
+ const replacement=event('Shamrock','Minh');now=2000;world.enqueue(replacement);world.tick();const started=world.office.active.started,until=world.office.ceo.until;
+ now=3000;world.enqueue(replacement);world.tick();assert.equal(world.office.active.started,started);assert.equal(world.office.ceo.until,until);assert.equal(world.office.active.restartCount,1);
+});

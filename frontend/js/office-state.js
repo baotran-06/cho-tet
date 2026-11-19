@@ -17,26 +17,51 @@ export class Office {
   constructor() {
     this.ceo=role('Tổng tài');this.secretary=role('Thư ký');
     this.pending=[];this.active=null;this.recent=[];this.notice=null;this.sequence=0;this.total=0;this.dropped=0;this.unmapped=0;
-    this.rules={...config.byId};this.variants={};
+    this.rules={...config.byId};this.variants={};this.rejected=0;this.lastRejected=null;
     this.audio={musicVolume:.22,voiceVolume:.95,sfxVolume:.6,musicEnabled:true,voiceEnabled:true,sfxEnabled:true,paused:false,trackId:null};
     this.tracks=[];
   }
+  expireRoles(now){
+    for(const [key,name] of [['ceo','Tổng tài'],['secretary','Thư ký']]){
+      const actor=this[key];if(actor.until&&now>=actor.until)Object.assign(actor,{name,id:null,until:0});
+    }
+  }
+  grantCeo(gift,now){
+    if(this.secretary.id===gift.userId)Object.assign(this.secretary,{name:'Thư ký',id:null,until:0});
+    Object.assign(this.ceo,{name:gift.name,id:gift.userId,until:now+config.roleDurationMs,present:true});
+  }
+  startScene(gift,now,extra={}){
+    const variant=pickVariant(this.variants,gift.key,voices[gift.key]?.length??1);
+    const spoken=voices[gift.key]?.[variant%voices[gift.key].length]?.duration??0;
+    const minimum=gift.key==='wedding'?(config.weddingDurationMs??26000):duration[gift.key];
+    const length=gift.key==='bedroom'?config.bedroomDurationMs:Math.max(minimum,(spoken+2.5)*1000);
+    this.active={...gift,started:now,end:now+length,variant,sequence:++this.sequence,...extra};
+  }
   accept(event,now) {
+    this.expireRoles(now);
     const key=officeGift(event,this.rules);
-    if(!key){this.unmapped++;return;}
+    if(!key){this.unmapped++;return false;}
     const gift={id:event.id,key,name:event.user.name,userId:event.user.id,count:event.count,source:event.source,receivedAt:now};
-    // Role grants use receipt time and remain available during long scenes.
-    if(key==='claimCeo'||key==='claimSecretary') {
-      const actor=key==='claimCeo'?this.ceo:this.secretary;
-      const other=key==='claimCeo'?this.secretary:this.ceo;
-      if(other.id===gift.userId)Object.assign(other,{name:key==='claimCeo'?'Thư ký':'Tổng tài',id:null,until:0});
-      Object.assign(actor,{name:gift.name,id:gift.userId,until:now+config.roleDurationMs,present:true});
+    if(key==='claimCeo'&&this.ceo.id){
+      this.rejected++;this.lastRejected={id:gift.id,key,name:gift.name,at:now,sequence:++this.sequence,reason:'ceo-occupied',message:'Ghế tổng tài đã có người. Dùng quà Đổi tổng tài để thay người.'};return false;
+    }
+    const weddingSwap=key==='replaceCeo'&&this.active?.key==='wedding';
+    if(!weddingSwap&&this.pending.length>=config.queueLimit){this.dropped++;return false;}
+    if(key==='claimCeo'||key==='replaceCeo')this.grantCeo(gift,now);
+    if(key==='claimSecretary'){
+      if(this.ceo.id===gift.userId)Object.assign(this.ceo,{name:'Tổng tài',id:null,until:0});
+      Object.assign(this.secretary,{name:gift.name,id:gift.userId,until:now+config.roleDurationMs,present:true});
+    }
+    this.notice={...gift,sequence:++this.sequence,at:now};
+    if(weddingSwap){
+      const prior=this.active;this.ceo.look=(this.ceo.look+1)%3;
+      this.startScene({...gift,key:'wedding',id:gift.id+':wedding'},now,{weddingId:prior.weddingId??prior.id,restartCount:(prior.restartCount??0)+1,cause:'replaceCeo'});
+      return true;
     }
     const interrupt=(key==='replaceCeo'||key==='fire')&&this.active?.key==='bedroom';
-    if(interrupt) this.finish(now,true);
-    if(this.pending.length>=config.queueLimit){this.dropped++;return;}
+    if(interrupt)this.finish(now,true);
     if(interrupt)this.pending.unshift(gift);else this.pending.push(gift);
-    this.notice={...gift,sequence:++this.sequence,at:now};
+    return true;
   }
   finish(now,interrupted=false) {
     if(!this.active)return;
@@ -46,10 +71,7 @@ export class Office {
     this.active=null;
   }
   tick(now) {
-    for(const [key,name] of [['ceo','Tổng tài'],['secretary','Thư ký']]){
-      const actor=this[key];
-      if(actor.until&&now>=actor.until)Object.assign(actor,{name,id:null,until:0});
-    }
+    this.expireRoles(now);
     if(this.active&&now>=this.active.end)this.finish(now);
     if(this.active)return;
     // A vacant secretary slot must not prevent a later refill gift executing.
@@ -58,14 +80,12 @@ export class Office {
     const gift=this.pending.splice(index,1)[0];
     if(gift.key==='replaceCeo')this.ceo.look=(this.ceo.look+1)%3;
     if(gift.key==='replaceSecretary'){this.secretary.look=(this.secretary.look+1)%3;this.secretary.present=true;}
-    const variant=pickVariant(this.variants,gift.key,voices[gift.key]?.length??1);
-    const spoken=voices[gift.key]?.[variant%voices[gift.key].length]?.duration??0;
-    const length=gift.key==='bedroom'?config.bedroomDurationMs:Math.max(duration[gift.key],(spoken+2.5)*1000);
-    this.active={...gift,started:now,end:now+length,variant,sequence:++this.sequence};
+    this.startScene(gift,now,gift.key==='wedding'?{weddingId:gift.id,restartCount:0}:{});
   }
   snapshot() {
     return {ceo:{...this.ceo},secretary:{...this.secretary},active:this.active,recent:this.recent,
       notice:this.notice,pending:this.pending.length,waitingForSecretary:!this.secretary.present&&this.pending.some(g=>needsSecretary.has(g.key)),
+      canClaimCeo:!this.ceo.id,rejected:this.rejected,lastRejected:this.lastRejected,
       total:this.total,dropped:this.dropped,unmapped:this.unmapped,rules:this.rules,audio:this.audio,tracks:this.tracks};
   }
 }

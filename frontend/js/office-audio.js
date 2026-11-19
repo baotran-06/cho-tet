@@ -53,6 +53,7 @@ export class OfficeAudio {
     const music=key==='wedding'?'wedding':key==='bedroom'?'night':key==='lieu'||key==='fire'?'tension':'chill';
     void this.musicFor(music,music==='chill'?this.preferences.trackId:null);
     if(this.sceneId!==active?.id){
+      if(active?.key==='wedding'){try{this.music.currentTime=0;}catch{}}
       this.sceneId=active?.id;this.played.clear();this.stopSpeech();this.nextIdleAt=now+config.speech.afterSceneDelayMs;
     }
     if(!active){

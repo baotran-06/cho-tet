@@ -15,3 +15,5 @@ Phông sảnh cưới và cửa phòng tân hôn cũng được tạo mới bằ
 Bản thoại hoạt náo bổ sung MC công ty. Thông số giọng giữ theo đoạn thử người dùng đã duyệt; tất cả nội dung được viết riêng. Lời mời chỉ nói về vai còn trống.
 
 Màn hình chính đã chuyển sang nhân vật và văn phòng hình học 3D dựng bằng code. Các ảnh render 2.5D cũ không còn được dùng làm màn hình chính. Không có hoạt ảnh nhép miệng; lời thoại phát riêng với phụ đề và hiệu ứng cảnh.
+
+Lễ đường, cổng hoa, cánh hoa, nhẫn, trang phục chú rể, váy cô dâu và khăn voan được dựng bằng hình học Three.js trong wedding.js và people.js, không dùng ảnh lễ cưới làm nền thay thế cảnh 3D.

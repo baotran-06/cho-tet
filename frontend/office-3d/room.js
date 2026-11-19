@@ -22,7 +22,7 @@ for(let i=-2;i<=2;i++){box(2.55,4,.06,glass,i*2.8,3.65,-7.82);box(.06,4,.12,mate
 box(7,.14,1.4,materials.wood,0,1.12,-5.05);box(6.4,.9,.25,materials.wood,0,.64,-4.57);box(6.3,.025,.06,materials.metal,0,.98,-4.41);
 box(.8,.55,.06,materials.black,-1.3,1.47,-5.0);box(.5,.03,.3,materials.metal,-1.3,1.22,-5.0);
 function chair(x,z,executive=false){const g=new T.Group();g.position.set(x,0,z);scene.add(g);box(executive?1.1:.7,.15,.7,materials.seat,0,.58,0,g);box(executive?1.1:.7,executive?1.15:.65,.1,materials.seat,0,executive?1.2:.93,.34,g);for(const a of [-1,1])box(.07,.55,.07,materials.black,a*.25,.28,0,g);return g;}
-chair(-1.35,-5.95,true);chair(1.4,-6.1,true);
+chair(-1.35,-5.95,true).rotation.y=Math.PI;chair(1.4,-6.1,true).rotation.y=Math.PI;
 const slots=[];
 for(let row=0;row<4;row++)for(const x of [-3.9,-1.7,1.7,3.9]){
  const z=-1+row*2.5;slots.push(new T.Vector3(x,0,z+.3));
@@ -107,6 +107,7 @@ function update(){const dt=Math.min(.25,clock.getDelta());time+=dt;now=(state?.s
  if(key==='bedroom'){ceo.holder.visible=false;secretary.holder.visible=false;}
  if(key==='lieu'){lieu.holder.position.set(7-Math.min(1,elapsed/3)*4.8,.28,-5.1);lieu.holder.rotation.y=-.4;lieuLabel.el.textContent='@'+active.name;}
  pose(ceo,time,ceoSit,0);pose(secretary,time,0,key==='fire'?1:0);pose(lieu,time,0,elapsed<3?1:0);
+ ceoLabel.height=(ceo.hip.position.y+2.11)*.58+.08;secretaryLabel.height=(secretary.hip.position.y+2.11)*.58+.08;lieuLabel.height=(lieu.hip.position.y+2.11)*.58+.08;
  const lines=voices[key]?.[active?.variant%voices[key]?.length]?.lines??[],cue=lines.find(l=>elapsed>=l.at&&elapsed<l.at+l.duration);
  $('subtitle').hidden=!cue;if(cue){$('subtitle').querySelector('strong').textContent={ceo:'Tổng tài',secretary:'Thư ký',lieu:'Liễu Như Yên'}[cue.role];$('subtitle').querySelector('span').textContent=cue.text;if(targets[cue.role])targets[cue.role].head.rotation.x=Math.sin(time*12)*.025;}
  const close=showClose||['kiss','lieu','fire','wedding','bedroom'].includes(key);destination.set(Math.sin(yaw)*(close?10:22),close?5.8:13,close?4:23);camera.position.lerp(destination,1-Math.exp(-dt*3));look.set(0,close?1.8:0,close?-5:-1);camera.lookAt(look);

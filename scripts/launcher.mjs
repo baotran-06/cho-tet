@@ -19,7 +19,7 @@ export async function probe(origin,expected={}) {
     const finish=(error)=>{clearTimeout(timer);socket.close();error?reject(error):resolve();};
     socket.addEventListener('error',()=>finish(Error('WebSocket khong san sang')),{once:true});socket.addEventListener('message',e=>{try{const s=JSON.parse(e.data);if(!Array.isArray(s.users))throw Error();finish();}catch{finish(Error('WebSocket payload khong hop le'));}},{once:true});
   });
-  for(const path of ['/admin','/index.html','/js/scene.js','/js/people.js','/assets/vendor/three.module.js']){const r=await fetch(origin+path,{method:'HEAD',signal:AbortSignal.timeout(2500)});if(!r.ok)throw Error('Thieu frontend '+path+' (HTTP '+r.status+')');}
+  for(const path of ['/admin','/index.html','/js/scene.js','/js/people.js','/assets/vendor/three.module.js','/assets/vendor/GLTFLoader.js','/models/ao-dai/groom.glb','/models/ao-dai/bride.glb']){const r=await fetch(origin+path,{method:'HEAD',signal:AbortSignal.timeout(2500)});if(!r.ok)throw Error('Thieu frontend '+path+' (HTTP '+r.status+')');}
   return health;
 }
 async function portFree(port){await new Promise((resolve,reject)=>{const server=net.createServer();server.once('error',()=>reject(Error('Cong '+port+' dang ban. Khong tat tien trinh khac; dong phien cu hoac dung STOP-DAM-CUOI.bat trong dung thu muc.')));server.listen(port,'127.0.0.1',()=>server.close(resolve));});}

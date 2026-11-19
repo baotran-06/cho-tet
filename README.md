@@ -64,7 +64,7 @@ Tên mục có thể khác theo phiên bản OBS/LIVE Studio. Chưa thể xác n
 
 ## Kỹ thuật và kiểm thử
 
-- Three.js 0.170.0, mô hình hình học 3D có khớp tay chân; không dùng ảnh screenshot làm thế giới game.
+- Three.js 0.170.0, cô dâu/chú rể dùng GLB có skeleton và clip chuyển động; không dùng ảnh screenshot làm nhân vật.
 - Node.js HTTP + WebSocket localhost; cookie quản trị HttpOnly/SameSite, kiểm tra Origin/Host, không lưu mật khẩu/token TikTok trong mã nguồn.
 - Giới hạn 28 avatar người xem hiển thị, 80 chờ; tối đa 2.000 sự kiện đầu vào, 80 tiết mục, lịch sử có giới hạn. Nhãn luôn hướng về camera và ẩn nhãn khách va chạm.
 - `npm run check`, `npm test`, `npm run build`; CI kiểm tra Windows BAT và trình duyệt WebGL + giải mã/phát âm thanh. Ảnh các cảnh nằm trong artifact của Actions, không phải ảnh minh họa giả kết quả.
@@ -74,3 +74,7 @@ Tên mục có thể khác theo phiên bản OBS/LIVE Studio. Chưa thể xác n
 ## Giấy phép
 
 Mã nguồn: AGPL-3.0-only, giữ LICENSE gốc. Three.js: MIT (assets/vendor/THREE-LICENSE.txt). Font Be Vietnam Pro: OFL (assets/fonts/OFL.txt). Nhạc nguyên bản: CC0, xem `frontend/sounds/wedding/LICENSE.md`. Icon quà là tài sản nhận diện TikTok, không tuyên bố CC0 hoặc sở hữu độc quyền; cần tuân thủ điều khoản nền tảng. Giọng dựng bằng dịch vụ TTS được ghi nguồn trong giấy phép âm thanh, không lấy giọng người trong video tham khảo.
+
+## Bản áo dài đỏ đang thử
+
+Theo lựa chọn tiếp tục của người dùng, cặp nhân vật được thay bằng bản GLB áo dài đỏ dựng từ MakeHuman CC0. Đây là bản tạo hình thô, chưa giống đầy đủ concept đã duyệt. Các clip Idle/Walk/Wave/Cheer/Sit được phát bằng AnimationMixer; các cảnh cặp đôi dùng vị trí, hướng và clip nền, chưa có diễn hoạt cặp đôi chuyên dụng hoặc mô phỏng vải. Có thể còn xuyên áo hoặc dáng cứng. Không coi bản này là model mỹ thuật hoàn thiện. Xem `frontend/models/ao-dai/README.md` và giấy phép cùng thư mục.

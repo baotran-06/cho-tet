@@ -33,7 +33,7 @@ export function createApp(options={}) {
   const bridge=new TikTokBridge(e=>world.enqueue(e),s=>{connection=s;},log,options.loader);
   const json=(res,status,obj)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(obj));};
   const frontend=resolve(fileURLToPath(new URL('frontend/',root)));
-  const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.woff':'font/woff','.woff2':'font/woff2','.mp3':'audio/mpeg','.wav':'audio/wav','.ogg':'audio/ogg'};
+  const mime={'.glb':'model/gltf-binary','.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.webp':'image/webp','.woff':'font/woff','.woff2':'font/woff2','.mp3':'audio/mpeg','.wav':'audio/wav','.ogg':'audio/ogg'};
   const liveEvidence=()=>bridge.evidence();
   const connectLive=async username=>{
     if(!/^[a-zA-Z0-9_.]{1,40}$/.test(username))throw Error('Username không hợp lệ');
@@ -48,7 +48,7 @@ export function createApp(options={}) {
     let pathname;try{pathname=decodeURIComponent(new URL(req.url,'http://127.0.0.1').pathname);}catch{json(res,400,{error:'URL không hợp lệ'});return;}
     if(pathname.startsWith('/api/')) {
       if(req.method==='GET'&&pathname==='/api/health'){
-        const ready=['index.html','admin.html','assets/vendor/three.module.js'].every(p=>existsSync(joinPath(frontend,p)));
+        const ready=['index.html','admin.html','assets/vendor/three.module.js','assets/vendor/GLTFLoader.js','models/ao-dai/groom.glb','models/ao-dai/bride.glb'].every(p=>existsSync(joinPath(frontend,p)));
         json(res,ready?200:503,{service:'wedding-online-live',protocol:1,ready,instanceId:options.instanceId||null,projectId:options.projectId||null,pid:process.pid,connection,liveEvidence:liveEvidence()});return;
       }
       if(pathname==='/api/launcher/stop'){

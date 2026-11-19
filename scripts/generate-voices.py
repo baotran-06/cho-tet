@@ -12,7 +12,7 @@ root=Path(__file__).resolve().parents[1]
 source=json.loads((root/'frontend/config/dialogue.json').read_text())
 timing=json.loads((root/'frontend/config/wedding.json').read_text()).get('speech',{})
 cache=root/'.runtime/voice-build';cache.mkdir(parents=True,exist_ok=True)
-profiles={'groom':('vi-VN-NamMinhNeural','+10%','-10Hz'),'bride':('vi-VN-HoaiMyNeural','+12%','+4Hz'),'mc':('vi-VN-NamMinhNeural','+12%','+8Hz')}
+profiles={'groom':('vi-VN-NamMinhNeural','+10%','-10Hz'),'bride':('vi-VN-HoaiMyNeural','+12%','+4Hz'),'mc':('vi-VN-HoaiMyNeural','+25%','+0Hz')}
 jobs=[]
 for key,variants in source.items():
  for variant in variants:

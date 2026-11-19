@@ -6,7 +6,7 @@
           "role": "groom",
           "text": "Cho anh mượn má một chút. Anh trả bằng cả tấm lòng.",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 0.0,
+          "offset": 0,
           "at": 0.3,
           "duration": 4.32
         }
@@ -34,10 +34,10 @@
           "src": "sounds/wedding/voices.mp3",
           "offset": 8.352,
           "at": 0.3,
-          "duration": 5.184
+          "duration": 4.632
         }
       ],
-      "duration": 5.604
+      "duration": 5.052
     },
     {
       "lines": [
@@ -45,7 +45,7 @@
           "role": "groom",
           "text": "Anh không giỏi thả thính. Anh chỉ giỏi thương em.",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 13.716,
+          "offset": 13.164,
           "at": 0.3,
           "duration": 4.104
         }
@@ -58,7 +58,7 @@
           "role": "bride",
           "text": "Được rồi, em nhận nụ hôn. Còn trà sữa anh vẫn nợ nha.",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 18.0,
+          "offset": 17.448,
           "at": 0.3,
           "duration": 4.896
         }
@@ -71,12 +71,12 @@
           "role": "mc",
           "text": "Xin giữ bình tĩnh! Đây là đám cưới, không phải cuộc thi phát đường.",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 23.076,
+          "offset": 22.524,
           "at": 0.3,
-          "duration": 5.112
+          "duration": 4.416
         }
       ],
-      "duration": 5.532
+      "duration": 4.836
     }
   ],
   "wedding": [
@@ -86,12 +86,12 @@
           "role": "mc",
           "text": "Xin mời cả nhà hướng về sân khấu. Lễ thành hôn chính thức bắt đầu!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 28.368,
+          "offset": 27.12,
           "at": 0.3,
-          "duration": 4.92
+          "duration": 4.368
         }
       ],
-      "duration": 5.34
+      "duration": 4.788
     },
     {
       "lines": [
@@ -99,7 +99,7 @@
           "role": "groom",
           "text": "Từ hôm nay, tiền lương anh có nơi để về rồi.",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 33.468,
+          "offset": 31.668,
           "at": 0.3,
           "duration": 3.216
         }
@@ -112,7 +112,7 @@
           "role": "bride",
           "text": "Em đồng ý. Riêng mật khẩu điện thoại, mình bàn sau nha.",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 36.864,
+          "offset": 35.064,
           "at": 0.3,
           "duration": 3.768
         }
@@ -125,12 +125,12 @@
           "role": "mc",
           "text": "Một người trao nhẫn, một người trao cả thanh xuân. Xin chúc mừng đôi uyên ương!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 40.812,
+          "offset": 39.012,
           "at": 0.3,
-          "duration": 5.616
+          "duration": 4.872
         }
       ],
-      "duration": 6.036
+      "duration": 5.292
     },
     {
       "lines": [
@@ -138,7 +138,7 @@
           "role": "groom",
           "text": "Trước bao nhiêu người ở đây, anh chọn em. Hôm nay và cả những ngày sau.",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 46.608,
+          "offset": 44.064,
           "at": 0.3,
           "duration": 5.232
         }
@@ -151,12 +151,12 @@
           "role": "bride",
           "text": "Vậy từ mai anh rửa chén, em đứng cạnh cổ vũ nha.",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 52.02,
+          "offset": 49.476,
           "at": 0.3,
           "duration": 3.72
         }
       ],
-      "duration": 4.14
+      "duration": 4.140000000000001
     }
   ],
   "bouquet": [
@@ -166,12 +166,12 @@
           "role": "mc",
           "text": "Hội độc thân đâu rồi? Hoa cưới chuẩn bị cất cánh!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 55.92,
+          "offset": 53.376,
           "at": 0.3,
-          "duration": 4.032
+          "duration": 3.648
         }
       ],
-      "duration": 4.452
+      "duration": 4.068
     },
     {
       "lines": [
@@ -179,7 +179,7 @@
           "role": "bride",
           "text": "Em tung hoa thôi, không tung người yêu đâu nha!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 60.132,
+          "offset": 57.204,
           "at": 0.3,
           "duration": 3.24
         }
@@ -192,12 +192,12 @@
           "role": "mc",
           "text": "Ai bắt được hoa, nhớ mời cả phòng này đi ăn cưới đó!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 63.552,
+          "offset": 60.624,
           "at": 0.3,
-          "duration": 3.672
+          "duration": 3.288
         }
       ],
-      "duration": 4.092
+      "duration": 3.7079999999999997
     },
     {
       "lines": [
@@ -205,7 +205,7 @@
           "role": "bride",
           "text": "Ba, hai, một! Duyên tới thì mình đừng né nha!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 67.404,
+          "offset": 64.092,
           "at": 0.3,
           "duration": 4.488
         }
@@ -218,7 +218,7 @@
           "role": "groom",
           "text": "Bắt hoa bằng tay, đừng bắt bằng đầu nha cả nhà!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 72.072,
+          "offset": 68.76,
           "at": 0.3,
           "duration": 3.384
         }
@@ -231,12 +231,12 @@
           "role": "mc",
           "text": "Hoa đã lên đường. Tình yêu đang tìm địa chỉ giao hàng!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 75.636,
+          "offset": 72.324,
           "at": 0.3,
-          "duration": 4.224
+          "duration": 3.864
         }
       ],
-      "duration": 4.644
+      "duration": 4.284
     }
   ],
   "celebrate": [
@@ -246,12 +246,12 @@
           "role": "mc",
           "text": "Nhạc lên! Bàn nào vui nhất cho tôi thấy cánh tay nào!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 80.04,
+          "offset": 76.368,
           "at": 0.3,
-          "duration": 4.104
+          "duration": 3.744
         }
       ],
-      "duration": 4.524
+      "duration": 4.164000000000001
     },
     {
       "lines": [
@@ -259,12 +259,12 @@
           "role": "bride",
           "text": "Hôm nay vui quá, cô dâu xin phép quên luôn dáng dịu dàng!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 84.324,
+          "offset": 80.292,
           "at": 0.3,
           "duration": 3.72
         }
       ],
-      "duration": 4.14
+      "duration": 4.140000000000001
     },
     {
       "lines": [
@@ -272,7 +272,7 @@
           "role": "groom",
           "text": "Anh nhảy không đẹp. Nhưng được cái anh rất nhiệt tình!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 88.224,
+          "offset": 84.192,
           "at": 0.3,
           "duration": 4.152
         }
@@ -285,12 +285,12 @@
           "role": "mc",
           "text": "Ăn cưới phải vui! Cả nhà cùng lắc lư theo điệu nhạc!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 92.556,
+          "offset": 88.524,
           "at": 0.3,
-          "duration": 4.152
+          "duration": 3.792
         }
       ],
-      "duration": 4.572
+      "duration": 4.212
     },
     {
       "lines": [
@@ -298,7 +298,7 @@
           "role": "bride",
           "text": "Bên trái một chút, bên phải một chút. Đừng giẫm váy em nha!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 96.888,
+          "offset": 92.496,
           "at": 0.3,
           "duration": 4.752
         }
@@ -311,12 +311,12 @@
           "role": "mc",
           "text": "Xin dành một tràng pháo tay cho đội văn nghệ tự phát!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 101.82,
+          "offset": 97.428,
           "at": 0.3,
-          "duration": 3.24
+          "duration": 2.928
         }
       ],
-      "duration": 3.66
+      "duration": 3.348
     }
   ],
   "bedroom": [
@@ -326,12 +326,12 @@
           "role": "mc",
           "text": "Đôi trẻ xin phép nghỉ một chút. Khách quý ở ngoài dùng trà nha!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 105.24,
+          "offset": 100.536,
           "at": 0.3,
-          "duration": 4.608
+          "duration": 4.08
         }
       ],
-      "duration": 5.028
+      "duration": 4.5
     },
     {
       "lines": [
@@ -339,12 +339,12 @@
           "role": "bride",
           "text": "Mọi người đừng trêu nữa, em đỏ mặt rồi nè!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 110.028,
+          "offset": 104.796,
           "at": 0.3,
           "duration": 3.312
         }
       ],
-      "duration": 3.732
+      "duration": 3.7319999999999998
     },
     {
       "lines": [
@@ -352,7 +352,7 @@
           "role": "groom",
           "text": "Đóng cửa nhẹ thôi. Ngoài kia cả họ đang nghe đó!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 113.52,
+          "offset": 108.288,
           "at": 0.3,
           "duration": 4.272
         }
@@ -365,12 +365,12 @@
           "role": "mc",
           "text": "Phòng tân hôn đã sẵn sàng. Xin quý khách giữ khoảng cách với cửa phòng!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 117.972,
+          "offset": 112.74,
           "at": 0.3,
-          "duration": 4.944
+          "duration": 4.368
         }
       ],
-      "duration": 5.364
+      "duration": 4.788
     },
     {
       "lines": [
@@ -378,7 +378,7 @@
           "role": "bride",
           "text": "Khoan đã anh. Em còn chưa đếm xong phong bì!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 123.096,
+          "offset": 117.288,
           "at": 0.3,
           "duration": 3.864
         }
@@ -391,7 +391,7 @@
           "role": "groom",
           "text": "Hôm nay mình nghỉ sớm. Mai còn đi trả đồ cưới nữa em!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 127.14,
+          "offset": 121.332,
           "at": 0.3,
           "duration": 4.584
         }
@@ -406,12 +406,12 @@
           "role": "mc",
           "text": "Xin chào chú rể mới! Mời anh bước lên sân khấu nhận vai!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 131.904,
+          "offset": 126.096,
           "at": 0.3,
-          "duration": 4.8
+          "duration": 4.104
         }
       ],
-      "duration": 5.22
+      "duration": 4.524
     },
     {
       "lines": [
@@ -419,7 +419,7 @@
           "role": "groom",
           "text": "Anh tới hơi trễ. Nhưng thương em thì anh tới đúng giờ.",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 136.884,
+          "offset": 130.38,
           "at": 0.3,
           "duration": 4.44
         }
@@ -432,12 +432,12 @@
           "role": "mc",
           "text": "Ghế chú rể đã có chủ. Ai muốn tranh tài thì dùng quà đổi vai nha!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 141.504,
+          "offset": 135,
           "at": 0.3,
-          "duration": 5.064
+          "duration": 4.512
         }
       ],
-      "duration": 5.484
+      "duration": 4.9319999999999995
     },
     {
       "lines": [
@@ -445,7 +445,7 @@
           "role": "groom",
           "text": "Vest đã chỉnh, tóc đã vuốt. Giờ chỉ còn đợi em gật đầu.",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 146.748,
+          "offset": 139.692,
           "at": 0.3,
           "duration": 4.896
         }
@@ -458,12 +458,12 @@
           "role": "mc",
           "text": "Cả nhà cho chú rể mới một tràng vỗ tay thật giòn!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 151.824,
+          "offset": 144.768,
           "at": 0.3,
-          "duration": 3.168
+          "duration": 2.976
         }
       ],
-      "duration": 3.588
+      "duration": 3.396
     },
     {
       "lines": [
@@ -471,7 +471,7 @@
           "role": "groom",
           "text": "Xin chào cả họ. Hôm nay con xin nhận trách nhiệm rửa chén!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 155.172,
+          "offset": 147.924,
           "at": 0.3,
           "duration": 4.728
         }
@@ -486,12 +486,12 @@
           "role": "mc",
           "text": "Cô dâu của chúng ta đã tới! Xin mời em lên sân khấu!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 160.08,
+          "offset": 152.832,
           "at": 0.3,
-          "duration": 4.512
+          "duration": 4.008
         }
       ],
-      "duration": 4.932
+      "duration": 4.428
     },
     {
       "lines": [
@@ -499,7 +499,7 @@
           "role": "bride",
           "text": "Em tới rồi đây. Chú rể đứng thẳng lên cho em ngắm nào!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 164.772,
+          "offset": 157.02,
           "at": 0.3,
           "duration": 4.416
         }
@@ -512,12 +512,12 @@
           "role": "mc",
           "text": "Một cô dâu xinh đẹp vừa xuất hiện. Cả nhà thả tim chúc mừng nào!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 169.368,
+          "offset": 161.616,
           "at": 0.3,
-          "duration": 4.824
+          "duration": 4.344
         }
       ],
-      "duration": 5.244
+      "duration": 4.764
     },
     {
       "lines": [
@@ -525,7 +525,7 @@
           "role": "bride",
           "text": "Váy cưới em đã mặc. Giờ chờ anh thể hiện thôi nha!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 174.372,
+          "offset": 166.14,
           "at": 0.3,
           "duration": 4.392
         }
@@ -538,12 +538,12 @@
           "role": "mc",
           "text": "Xin dành lối đi giữa cho nhân vật chính của hôm nay!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 178.944,
+          "offset": 170.712,
           "at": 0.3,
-          "duration": 3.264
+          "duration": 2.952
         }
       ],
-      "duration": 3.684
+      "duration": 3.372
     },
     {
       "lines": [
@@ -551,7 +551,7 @@
           "role": "bride",
           "text": "Em không cần đám cưới đắt nhất. Em cần người thương em thật nhất!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 182.388,
+          "offset": 173.844,
           "at": 0.3,
           "duration": 4.584
         }
@@ -566,12 +566,12 @@
           "role": "mc",
           "text": "Có biến ở hàng ghế chú rể! Xin chào nhân vật mới của buổi tiệc!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 187.152,
+          "offset": 178.608,
           "at": 0.3,
-          "duration": 4.872
+          "duration": 4.32
         }
       ],
-      "duration": 5.292
+      "duration": 4.74
     },
     {
       "lines": [
@@ -579,7 +579,7 @@
           "role": "bride",
           "text": "Ủa, mới quay đi một chút mà chú rể đã đổi người rồi!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 192.204,
+          "offset": 183.108,
           "at": 0.3,
           "duration": 3.648
         }
@@ -592,7 +592,7 @@
           "role": "groom",
           "text": "Anh xin tiếp quản sân khấu. Nhạc cứ chạy, tình cứ tới!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 196.032,
+          "offset": 186.936,
           "at": 0.3,
           "duration": 4.872
         }
@@ -605,12 +605,12 @@
           "role": "mc",
           "text": "Chú rể đổi người, tiệc vẫn tiếp tục. Bếp đừng dọn nha!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 201.084,
+          "offset": 191.988,
           "at": 0.3,
-          "duration": 4.536
+          "duration": 3.984
         }
       ],
-      "duration": 4.956
+      "duration": 4.404
     },
     {
       "lines": [
@@ -618,9 +618,9 @@
           "role": "bride",
           "text": "Anh mới tới nhớ học thuộc tên em trước nha!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 205.8,
+          "offset": 196.152,
           "at": 0.3,
-          "duration": 3.0
+          "duration": 3
         }
       ],
       "duration": 3.42
@@ -631,12 +631,12 @@
           "role": "mc",
           "text": "Một màn đổi vai đầy bất ngờ! Cả nhà chào chú rể mới nào!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 208.98,
+          "offset": 199.332,
           "at": 0.3,
-          "duration": 4.512
+          "duration": 4.296
         }
       ],
-      "duration": 4.932
+      "duration": 4.716
     }
   ],
   "replaceBride": [
@@ -646,12 +646,12 @@
           "role": "mc",
           "text": "Xin chào cô dâu mới! Sân khấu hôm nay lại thêm rực rỡ!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 213.672,
+          "offset": 203.808,
           "at": 0.3,
-          "duration": 4.656
+          "duration": 4.152
         }
       ],
-      "duration": 5.076
+      "duration": 4.572
     },
     {
       "lines": [
@@ -659,7 +659,7 @@
           "role": "groom",
           "text": "Anh vẫn đứng đây. Mà sao tim lại đập như lần đầu gặp em vậy?",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 218.508,
+          "offset": 208.14,
           "at": 0.3,
           "duration": 4.824
         }
@@ -672,7 +672,7 @@
           "role": "bride",
           "text": "Em nhận vai rồi nha. Hoa cưới đưa đây em cầm cho!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 223.512,
+          "offset": 213.144,
           "at": 0.3,
           "duration": 4.416
         }
@@ -685,12 +685,12 @@
           "role": "mc",
           "text": "Cô dâu đổi người, nhạc không đổi nhịp. Cả nhà tiếp tục chung vui!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 228.108,
+          "offset": 217.74,
           "at": 0.3,
-          "duration": 4.92
+          "duration": 4.416
         }
       ],
-      "duration": 5.34
+      "duration": 4.836
     },
     {
       "lines": [
@@ -698,7 +698,7 @@
           "role": "bride",
           "text": "Chú rể nhìn em nè. Đừng nhìn bàn đồ ăn nữa!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 233.208,
+          "offset": 222.336,
           "at": 0.3,
           "duration": 4.2
         }
@@ -711,12 +711,12 @@
           "role": "mc",
           "text": "Xin mời cô dâu mới bước vào ánh đèn. Một tràng vỗ tay nào!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 237.588,
+          "offset": 226.716,
           "at": 0.3,
-          "duration": 4.776
+          "duration": 4.224
         }
       ],
-      "duration": 5.196
+      "duration": 4.644
     }
   ],
   "idle": [
@@ -726,12 +726,12 @@
           "role": "mc",
           "text": "Khách quý cứ ngồi tự nhiên nha. Hôm nay ăn cưới online, vui là chính!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 242.544,
+          "offset": 231.12,
           "at": 0,
-          "duration": 5.472
+          "duration": 4.824
         }
       ],
-      "duration": 5.592
+      "duration": 5.244
     },
     {
       "lines": [
@@ -739,12 +739,12 @@
           "role": "groom",
           "text": "Có ai muốn lên làm chú rể không? Anh nhường sân khấu, không nhường phong bì!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 248.196,
+          "offset": 236.124,
           "at": 0,
           "duration": 5.4
         }
       ],
-      "duration": 5.52
+      "duration": 5.82
     },
     {
       "lines": [
@@ -752,12 +752,12 @@
           "role": "bride",
           "text": "Ai lên làm cô dâu cùng em không? Váy đẹp đã chuẩn bị sẵn rồi nè!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 253.776,
+          "offset": 241.704,
           "at": 0,
           "duration": 5.016
         }
       ],
-      "duration": 5.136
+      "duration": 5.436
     },
     {
       "lines": [
@@ -765,12 +765,12 @@
           "role": "mc",
           "text": "Bàn bên trái đâu rồi? Bàn bên phải đâu rồi? Cho đôi trẻ nghe tiếng vỗ tay nào!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 258.972,
+          "offset": 246.9,
           "at": 0,
-          "duration": 6.336
+          "duration": 5.736
         }
       ],
-      "duration": 6.456
+      "duration": 6.156
     },
     {
       "lines": [
@@ -778,12 +778,12 @@
           "role": "groom",
           "text": "Anh đã có nhà, có xe. Chỉ thiếu một người nhắc anh đổ rác thôi!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 265.488,
+          "offset": 252.816,
           "at": 0,
           "duration": 4.944
         }
       ],
-      "duration": 5.064
+      "duration": 5.364
     },
     {
       "lines": [
@@ -791,12 +791,12 @@
           "role": "bride",
           "text": "Đi ăn cưới đừng chỉ nhìn cô dâu. Nhớ nhìn đường kẻo vấp nha!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 270.612,
+          "offset": 257.94,
           "at": 0,
           "duration": 4.704
         }
       ],
-      "duration": 4.824
+      "duration": 5.124
     },
     {
       "lines": [
@@ -804,12 +804,12 @@
           "role": "mc",
           "text": "Thích cảnh nào thì xem bảng quà bên dưới nha. Mỗi món quà là một tiết mục!",
           "src": "sounds/wedding/voices.mp3",
-          "offset": 275.496,
+          "offset": 262.824,
           "at": 0,
-          "duration": 5.256
+          "duration": 4.632
         }
       ],
-      "duration": 5.376
+      "duration": 5.052
     }
   ]
 }

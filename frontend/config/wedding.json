@@ -1,5 +1,5 @@
 {
- "roleDurationMs":180000,"bedroomDurationMs":180000,"weddingDurationMs":28000,"queueLimit":80,"byId":{},
+ "bedroomDurationMs":180000,"weddingDurationMs":28000,"queueLimit":80,"byId":{},
  "guide":[
  {"key":"kiss","gift":"Rose","label":"Hoa hồng","effect":"Nụ hôn hạnh phúc","icon":"rose"},
  {"key":"claimBride","gift":"Finger Heart","label":"Tim ngón tay","effect":"Làm cô dâu","icon":"finger_heart"},

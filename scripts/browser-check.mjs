@@ -114,6 +114,25 @@ try {
  await model.screenshot({path:'artifacts/model-walking.png'});
  assert.deepEqual(errors,[]);
  await model.close();
+ await page.request.post(origin+'/api/mode',{headers:{Origin:origin},data:{mode:'DEMO'}});
+ const room=await context.newPage();
+ room.on('pageerror',e=>errors.push(e.message));
+ await room.goto(origin+'/office-3d/index.html');
+ await room.waitForFunction(()=>window.__office3d?.state?.mode==='DEMO');
+ await room.locator('#join').click();
+ await room.waitForFunction(()=>__office3d.staff.size===12);
+ await room.waitForFunction(()=>[...__office3d.staff.values()].every(e=>e.phase==='working'),null,{timeout:25000});
+ await room.screenshot({path:'artifacts/office3d-employees.png'});
+ await page.request.post(origin+'/api/demo',{headers:{Origin:origin},data:{type:'gift',giftName:'Okay',viewer:1,name:'Nhân viên Minh'}});
+ await page.request.post(origin+'/api/demo',{headers:{Origin:origin},data:{type:'gift',giftName:'Finger Heart',viewer:2,name:'Nhân viên An'}});
+ await room.waitForFunction(()=>__office3d.staff.get('demo-1')?.role==='ceo'&&__office3d.staff.get('demo-2')?.role==='secretary',null,{timeout:25000});
+ assert.equal(await room.evaluate(()=>__office3d.staff.get('demo-1').holder.visible),false);
+ assert.equal(await room.evaluate(()=>__office3d.staff.size),12);
+ await room.locator('#focus').click();
+ await room.waitForTimeout(1800);
+ await room.screenshot({path:'artifacts/office3d-promoted.png'});
+ assert.deepEqual(errors,[]);
+ await room.close();
  console.log('Verified office gifts, names, recorded speech, scene queue, bedroom interrupt, firing/refill, audio upload/volume, LIVE isolation, Pages DEMO and fullscreen.');
 } finally {
  await browser?.close();

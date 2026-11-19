@@ -4,311 +4,1119 @@
       "lines": [
         {
           "role": "ceo",
-          "text": "Đứng yên. Đây là phúc lợi công ty.",
-          "src": "sounds/office/kiss-0-0.mp3",
-          "duration": 4.512,
-          "at": 1.15
+          "text": "Đứng yên. Đây là phúc lợi riêng của em.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 0.0,
+          "at": 0.75,
+          "duration": 4.488
         },
         {
           "role": "secretary",
-          "text": "Dạ, có tính thuế thu nhập không sếp?",
-          "src": "sounds/office/kiss-0-1.mp3",
-          "duration": 3.096,
-          "at": 6.111999999999999
+          "text": "Dạ. Phúc lợi này có được quy ra tiền không sếp?",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 4.668,
+          "at": 5.558,
+          "duration": 4.08
         }
       ],
-      "duration": 9.207999999999998
+      "duration": 9.958
     },
     {
       "lines": [
         {
           "role": "ceo",
-          "text": "Tôi cho phép em nghỉ ba giây.",
-          "src": "sounds/office/kiss-1-0.mp3",
-          "duration": 3.0,
-          "at": 1.15
+          "text": "Hợp đồng ghi rõ, em phải ở cạnh anh.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 8.928,
+          "at": 0.75,
+          "duration": 3.744
         },
         {
           "role": "secretary",
-          "text": "Để em chấm công trước đã.",
-          "src": "sounds/office/kiss-1-1.mp3",
-          "duration": 2.496,
-          "at": 4.6000000000000005
+          "text": "Em nhớ hợp đồng chỉ ghi tám tiếng một ngày mà!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 12.852,
+          "at": 4.814,
+          "duration": 3.24
         }
       ],
-      "duration": 7.096
+      "duration": 8.374
     },
     {
       "lines": [
         {
           "role": "ceo",
-          "text": "Em có biết em vừa làm gì không?",
-          "src": "sounds/office/kiss-2-0.mp3",
-          "duration": 3.072,
-          "at": 1.15
+          "text": "Em vừa được thưởng vì làm việc chăm chỉ.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 16.272,
+          "at": 0.75,
+          "duration": 3.408
         },
         {
           "role": "secretary",
-          "text": "Em mới in hai mặt, tiết kiệm giấy cho công ty.",
-          "src": "sounds/office/kiss-2-1.mp3",
-          "duration": 3.6,
-          "at": 4.672
+          "text": "Thưởng thì chuyển khoản đi anh. Sao anh lại tiến tới?",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 19.86,
+          "at": 4.478,
+          "duration": 4.272
         }
       ],
-      "duration": 8.272
+      "duration": 9.07
     },
     {
       "lines": [
         {
           "role": "ceo",
-          "text": "Lại đây. Tôi có chuyện muốn nói.",
-          "src": "sounds/office/kiss-3-0.mp3",
-          "duration": 4.224,
-          "at": 1.15
+          "text": "Cả công ty ra ngoài. Anh có chuyện riêng cần trao đổi.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 24.312,
+          "at": 0.75,
+          "duration": 5.088
         },
         {
           "role": "secretary",
-          "text": "Chuyện tăng lương hả sếp?",
-          "src": "sounds/office/kiss-3-1.mp3",
-          "duration": 2.16,
-          "at": 5.824000000000001
+          "text": "Anh ơi, cả công ty đang xem trực tiếp!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 29.58,
+          "at": 6.158,
+          "duration": 2.976
         }
       ],
-      "duration": 7.984000000000001
+      "duration": 9.454
+    },
+    {
+      "lines": [
+        {
+          "role": "ceo",
+          "text": "Trong công ty này, em chỉ cần nghe lời anh.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 32.736,
+          "at": 0.75,
+          "duration": 3.816
+        },
+        {
+          "role": "secretary",
+          "text": "Dạ. Nhưng lương tháng này, anh chuyển chưa?",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 36.732,
+          "at": 4.886,
+          "duration": 3.888
+        }
+      ],
+      "duration": 9.094
+    },
+    {
+      "lines": [
+        {
+          "role": "secretary",
+          "text": "Sếp gọi em có việc gì ạ?",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 40.8,
+          "at": 0.75,
+          "duration": 2.472
+        },
+        {
+          "role": "ceo",
+          "text": "Có. Anh đang thiếu một người đứng thật gần.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 43.452,
+          "at": 3.542,
+          "duration": 4.416
+        }
+      ],
+      "duration": 8.278
     }
   ],
   "wedding": [
     {
       "lines": [
         {
+          "role": "mc",
+          "text": "Thông báo! Công ty vừa sáp nhập hai trái tim.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 48.048,
+          "at": 0.75,
+          "duration": 4.008
+        },
+        {
           "role": "ceo",
-          "text": "Từ hôm nay, em được ký thay tôi.",
-          "src": "sounds/office/wedding-0-0.mp3",
-          "duration": 3.48,
-          "at": 1.15
+          "text": "Từ hôm nay, anh giao cả đời này cho em.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 52.236,
+          "at": 5.078,
+          "duration": 3.792
         },
         {
           "role": "secretary",
-          "text": "Giấy kết hôn hay lệnh chuyển tiền ạ?",
-          "src": "sounds/office/wedding-0-1.mp3",
-          "duration": 2.808,
-          "at": 5.08
+          "text": "Dạ. Mật khẩu tài khoản anh giao luôn nha.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 56.208,
+          "at": 9.19,
+          "duration": 3.84
         }
       ],
-      "duration": 7.888
+      "duration": 13.35
     },
     {
       "lines": [
         {
+          "role": "mc",
+          "text": "Họp khẩn! Tổng tài chuẩn bị ký hợp đồng trọn đời.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 60.228,
+          "at": 0.75,
+          "duration": 4.056
+        },
+        {
           "role": "ceo",
-          "text": "Tôi muốn giữ em lại cả đời.",
-          "src": "sounds/office/wedding-1-0.mp3",
-          "duration": 3.144,
-          "at": 1.15
+          "text": "Điều khoản duy nhất: em ở lại bên anh.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 64.464,
+          "at": 5.126,
+          "duration": 3.552
         },
         {
           "role": "secretary",
-          "text": "Vậy hợp đồng có bảo hiểm không anh?",
-          "src": "sounds/office/wedding-1-1.mp3",
-          "duration": 2.808,
-          "at": 4.744000000000001
+          "text": "Còn điều khoản của em: không được quên ngày kỷ niệm.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 68.196,
+          "at": 8.998,
+          "duration": 3.504
         }
       ],
-      "duration": 7.5520000000000005
+      "duration": 12.822
     },
     {
       "lines": [
         {
+          "role": "mc",
+          "text": "Xin mời phòng nhân sự chứng kiến buổi bổ nhiệm đặc biệt!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 71.88,
+          "at": 0.75,
+          "duration": 3.384
+        },
+        {
           "role": "ceo",
-          "text": "Chiếc nhẫn này, chỉ dành cho em.",
-          "src": "sounds/office/wedding-2-0.mp3",
-          "duration": 3.336,
-          "at": 1.15
+          "text": "Anh muốn em làm chủ cuộc đời anh.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 75.444,
+          "at": 4.454,
+          "duration": 3.192
         },
         {
           "role": "secretary",
-          "text": "Em giữ hóa đơn để quyết toán nha.",
-          "src": "sounds/office/wedding-2-1.mp3",
-          "duration": 2.88,
-          "at": 4.936
+          "text": "Vậy em xin nhận luôn quyền duyệt chi.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 78.816,
+          "at": 7.966,
+          "duration": 2.76
         }
       ],
-      "duration": 7.816
+      "duration": 11.046
     },
     {
       "lines": [
         {
+          "role": "mc",
+          "text": "Từ đồng nghiệp thành người một nhà. Xin một tràng pháo tay!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 81.756,
+          "at": 0.75,
+          "duration": 4.368
+        },
+        {
           "role": "ceo",
-          "text": "Gọi tôi là chồng.",
-          "src": "sounds/office/wedding-3-0.mp3",
-          "duration": 2.328,
-          "at": 1.15
+          "text": "Cuối cùng, em cũng thuộc về gia đình anh.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 86.304,
+          "at": 5.438,
+          "duration": 3.576
         },
         {
           "role": "secretary",
-          "text": "Dạ sếp. À, dạ chồng.",
-          "src": "sounds/office/wedding-3-1.mp3",
-          "duration": 3.432,
-          "at": 3.928
+          "text": "Nhưng việc nhà thì mình vẫn chia đôi nha.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 90.06,
+          "at": 9.334,
+          "duration": 2.88
         }
       ],
-      "duration": 7.359999999999999
-    }
-  ],
-  "bedroom": [
-    {
-      "lines": [
-        {
-          "role": "ceo",
-          "text": "Tối nay, chúng ta có chuyện cần giải quyết.",
-          "src": "sounds/office/bedroom-0-0.mp3",
-          "duration": 3.72,
-          "at": 1.15
-        },
-        {
-          "role": "secretary",
-          "text": "Anh mà lôi báo cáo quý ra là em về đó.",
-          "src": "sounds/office/bedroom-0-1.mp3",
-          "duration": 3.408,
-          "at": 5.32
-        }
-      ],
-      "duration": 8.728
+      "duration": 12.534
     },
     {
       "lines": [
         {
+          "role": "mc",
+          "text": "Hôm nay tổng tài thôi tuyển dụng, chuyển sang cầu hôn!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 93.12,
+          "at": 0.75,
+          "duration": 3.528
+        },
+        {
           "role": "ceo",
-          "text": "Cửa đã đóng. Em không thể trốn nữa.",
-          "src": "sounds/office/bedroom-1-0.mp3",
-          "duration": 4.584,
-          "at": 1.15
+          "text": "Anh đã tìm được người anh muốn giữ cả đời.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 96.828,
+          "at": 4.598,
+          "duration": 3.384
         },
         {
           "role": "secretary",
-          "text": "Em chỉ muốn biết mật khẩu Wi Fi thôi.",
-          "src": "sounds/office/bedroom-1-1.mp3",
-          "duration": 3.144,
-          "at": 6.184
+          "text": "Em đồng ý. Nhớ duyệt đơn nghỉ tuần trăng mật!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 100.392,
+          "at": 8.302,
+          "duration": 3.048
         }
       ],
-      "duration": 9.328
+      "duration": 11.67
     },
     {
       "lines": [
         {
+          "role": "mc",
+          "text": "Lễ ký kết hạnh phúc bắt đầu! Hai bên đều không được hủy ngang.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 103.62,
+          "at": 0.75,
+          "duration": 4.752
+        },
+        {
           "role": "ceo",
-          "text": "Đêm nay, tôi dành hết thời gian cho em.",
-          "src": "sounds/office/bedroom-2-0.mp3",
-          "duration": 3.648,
-          "at": 1.15
+          "text": "Anh hứa sẽ luôn chọn em.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 108.552,
+          "at": 5.822,
+          "duration": 2.64
         },
         {
           "role": "secretary",
-          "text": "Vậy anh cất điện thoại công việc đi.",
-          "src": "sounds/office/bedroom-2-1.mp3",
-          "duration": 2.856,
-          "at": 5.248
+          "text": "Em hứa sẽ nhắc anh chuyển tiền điện đúng hạn.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 111.372,
+          "at": 8.782,
+          "duration": 3.048
         }
       ],
-      "duration": 8.104
-    },
-    {
-      "lines": [
-        {
-          "role": "ceo",
-          "text": "Cuối cùng cũng chỉ còn hai chúng ta.",
-          "src": "sounds/office/bedroom-3-0.mp3",
-          "duration": 3.264,
-          "at": 1.15
-        },
-        {
-          "role": "secretary",
-          "text": "Mong kế toán đừng gọi vào lúc này.",
-          "src": "sounds/office/bedroom-3-1.mp3",
-          "duration": 2.88,
-          "at": 4.864
-        }
-      ],
-      "duration": 7.744
+      "duration": 12.15
     }
   ],
   "lieu": [
     {
       "lines": [
         {
+          "role": "mc",
+          "text": "Báo cáo! Có người bước vào với khí thế đòi kiểm tra nội bộ.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 114.6,
+          "at": 0.75,
+          "duration": 4.512
+        },
+        {
           "role": "lieu",
-          "text": "Anh từng nói chiếc ghế bên cạnh chỉ dành cho em!",
-          "src": "sounds/office/lieu-0-0.mp3",
-          "duration": 3.168,
-          "at": 1.15
+          "text": "Công ty tuyển thư ký, hay tuyển người yêu vậy?",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 119.292,
+          "at": 5.582,
+          "duration": 3.504
         },
         {
           "role": "secretary",
-          "text": "Chị bình tĩnh, ghế này mua theo cặp.",
-          "src": "sounds/office/lieu-0-1.mp3",
-          "duration": 3.024,
-          "at": 4.768
+          "text": "Dạ, em chỉ đang tăng ca thôi chị!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 122.976,
+          "at": 9.406,
+          "duration": 3.0
         }
       ],
-      "duration": 7.792
+      "duration": 12.726
     },
     {
       "lines": [
         {
+          "role": "mc",
+          "text": "Nhân vật mới vừa xuất hiện. Mùi drama đã tới trước người!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 126.156,
+          "at": 0.75,
+          "duration": 4.68
+        },
+        {
           "role": "lieu",
-          "text": "Cô nghĩ cô là ai mà đứng ở đây?",
-          "src": "sounds/office/lieu-1-0.mp3",
-          "duration": 2.76,
-          "at": 1.15
+          "text": "Tôi vừa đi một lát, cô đã đứng gần anh ấy vậy rồi?",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 131.016,
+          "at": 5.75,
+          "duration": 3.936
         },
         {
           "role": "secretary",
-          "text": "Dạ, người biết mật khẩu máy in.",
-          "src": "sounds/office/lieu-1-1.mp3",
-          "duration": 2.976,
-          "at": 4.359999999999999
+          "text": "Dạ, vì chỗ xa không nghe rõ chỉ đạo ạ.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 135.132,
+          "at": 10.006,
+          "duration": 3.48
         }
       ],
-      "duration": 7.335999999999999
+      "duration": 13.806
     },
     {
       "lines": [
         {
+          "role": "mc",
+          "text": "Phòng tiếp khách hôm nay có vẻ hơi nóng!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 138.792,
+          "at": 0.75,
+          "duration": 2.664
+        },
+        {
           "role": "lieu",
-          "text": "Anh thay đổi rồi. Ngày xưa anh đâu như vậy.",
-          "src": "sounds/office/lieu-2-0.mp3",
-          "duration": 3.912,
-          "at": 1.15
+          "text": "Cô biết vị trí bên cạnh anh ấy là của ai không?",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 141.636,
+          "at": 3.734,
+          "duration": 3.672
         },
         {
           "role": "secretary",
-          "text": "Dạ, nay anh cập nhật phần mềm rồi chị.",
-          "src": "sounds/office/lieu-2-1.mp3",
-          "duration": 3.48,
-          "at": 5.512
+          "text": "Dạ, sơ đồ công ty ghi chỗ này là chỗ thư ký.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 145.488,
+          "at": 7.726,
+          "duration": 3.864
         }
       ],
-      "duration": 8.991999999999999
+      "duration": 11.91
     },
     {
       "lines": [
         {
+          "role": "mc",
+          "text": "Cảnh báo! Bão sắp đổ bộ vào bàn tổng tài.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 149.532,
+          "at": 0.75,
+          "duration": 3.936
+        },
+        {
           "role": "lieu",
-          "text": "Tôi bỏ cuộc họp để đến tìm anh đó!",
-          "src": "sounds/office/lieu-3-0.mp3",
-          "duration": 2.76,
-          "at": 1.15
+          "text": "Cô tưởng đứng cạnh anh ấy là thành bà chủ sao?",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 153.648,
+          "at": 5.006,
+          "duration": 3.36
         },
         {
           "role": "secretary",
-          "text": "Chị có đặt lịch với em chưa?",
-          "src": "sounds/office/lieu-3-1.mp3",
-          "duration": 2.592,
-          "at": 4.359999999999999
+          "text": "Dạ không. Em vẫn đang chờ tăng lương thôi.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 157.188,
+          "at": 8.686,
+          "duration": 3.888
         }
       ],
-      "duration": 6.952
+      "duration": 12.894
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Bộ phận hóng chuyện xin phép làm thêm giờ!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 161.256,
+          "at": 0.75,
+          "duration": 2.856
+        },
+        {
+          "role": "lieu",
+          "text": "Cô tránh ra. Tôi có chuyện riêng với anh ấy.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 164.292,
+          "at": 3.926,
+          "duration": 4.368
+        },
+        {
+          "role": "secretary",
+          "text": "Dạ, chị đặt lịch chưa để em kiểm tra?",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 168.84,
+          "at": 8.614,
+          "duration": 3.192
+        }
+      ],
+      "duration": 12.126
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Có vị khách mang theo cả áp suất thấp vào công ty!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 172.212,
+          "at": 0.75,
+          "duration": 3.12
+        },
+        {
+          "role": "lieu",
+          "text": "Tôi nhớ mình chưa cho phép cô thân thiết như vậy.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 175.512,
+          "at": 4.19,
+          "duration": 3.288
+        },
+        {
+          "role": "secretary",
+          "text": "Dạ, quyền phê duyệt của chị nằm ở phòng nào ạ?",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 178.98,
+          "at": 7.798,
+          "duration": 3.528
+        }
+      ],
+      "duration": 11.646
+    }
+  ],
+  "replaceCeo": [
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Chú ý! Ghế nóng chuẩn bị đổi phong cách lãnh đạo.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 182.688,
+          "at": 0.75,
+          "duration": 4.032
+        },
+        {
+          "role": "ceo",
+          "text": "Tổng tài mới tới. Báo cáo ngắn, lương thưởng nói dài.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 186.9,
+          "at": 5.102,
+          "duration": 5.688
+        }
+      ],
+      "duration": 11.11
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Hội đồng quản trị vừa bấm nút thay đổi diện mạo!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 192.768,
+          "at": 0.75,
+          "duration": 3.072
+        },
+        {
+          "role": "ceo",
+          "text": "Tôi thay bộ vest. Còn khí chất thì không cần thay.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 196.02,
+          "at": 4.142,
+          "duration": 4.944
+        }
+      ],
+      "duration": 9.406
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Bản cập nhật tổng tài đã hoàn tất!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 201.144,
+          "at": 0.75,
+          "duration": 2.544
+        },
+        {
+          "role": "ceo",
+          "text": "Từ giờ, công ty này làm việc bằng thực lực. Và một chút đẹp trai.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 203.868,
+          "at": 3.614,
+          "duration": 5.952
+        }
+      ],
+      "duration": 9.886
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Lãnh đạo tái xuất với phong cách mới!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 210.0,
+          "at": 0.75,
+          "duration": 2.712
+        },
+        {
+          "role": "ceo",
+          "text": "Mọi người cứ bình tĩnh. Người nhiều tiền thường tới hơi muộn.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 212.892,
+          "at": 3.782,
+          "duration": 5.664
+        }
+      ],
+      "duration": 9.766
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Tổng tài đã trở lại. Phòng kế toán bắt đầu hồi hộp!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 218.736,
+          "at": 0.75,
+          "duration": 4.344
+        },
+        {
+          "role": "ceo",
+          "text": "Tôi đổi phong cách, không đổi lời hứa tăng lương. Để mai tính.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 223.26,
+          "at": 5.414,
+          "duration": 5.76
+        }
+      ],
+      "duration": 11.494
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Một diện mạo mới vừa bước lên ghế lãnh đạo!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 229.2,
+          "at": 0.75,
+          "duration": 3.12
+        },
+        {
+          "role": "ceo",
+          "text": "Ai gọi tôi lên? Báo trước, tôi không duyệt đơn nghỉ hóng chuyện.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 232.5,
+          "at": 4.19,
+          "duration": 5.76
+        }
+      ],
+      "duration": 10.27
+    }
+  ],
+  "replaceSecretary": [
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Phòng nhân sự thông báo: thư ký vừa đổi phong cách!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 238.44,
+          "at": 0.75,
+          "duration": 3.384
+        },
+        {
+          "role": "secretary",
+          "text": "Em mới tới. Hồ sơ, lịch họp và tin đồn em đều nắm rõ.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 242.004,
+          "at": 4.454,
+          "duration": 5.328
+        }
+      ],
+      "duration": 10.102
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Một diện mạo mới xuất hiện bên cạnh tổng tài!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 247.512,
+          "at": 0.75,
+          "duration": 3.072
+        },
+        {
+          "role": "secretary",
+          "text": "Em đổi trang phục thôi. Hóa đơn chưa thanh toán em vẫn nhớ.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 250.764,
+          "at": 4.142,
+          "duration": 4.68
+        }
+      ],
+      "duration": 9.142
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Thư ký đã sẵn sàng nhận bàn giao!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 255.624,
+          "at": 0.75,
+          "duration": 2.616
+        },
+        {
+          "role": "secretary",
+          "text": "Việc khó cứ giao em. Còn việc tăng lương, em giao sếp.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 258.42,
+          "at": 3.686,
+          "duration": 4.728
+        }
+      ],
+      "duration": 8.734
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Bộ phận điều hành vừa có bản cập nhật mới!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 263.328,
+          "at": 0.75,
+          "duration": 2.904
+        },
+        {
+          "role": "secretary",
+          "text": "Lịch hôm nay kín rồi. Chỉ còn trống lịch sếp chuyển lương.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 266.412,
+          "at": 3.974,
+          "duration": 4.392
+        }
+      ],
+      "duration": 8.686
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Xin chào thư ký với phong cách mới của công ty!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 270.984,
+          "at": 0.75,
+          "duration": 3.072
+        },
+        {
+          "role": "secretary",
+          "text": "Em làm việc rất chuyên nghiệp. Đặc biệt là lúc đúng giờ tan ca.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 274.236,
+          "at": 4.142,
+          "duration": 4.776
+        }
+      ],
+      "duration": 9.238
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Thư ký mới bước vào. Công ty bỗng gọn gàng hơn hẳn!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 279.192,
+          "at": 0.75,
+          "duration": 4.44
+        },
+        {
+          "role": "secretary",
+          "text": "Từ giờ, ai gặp sếp nhớ đặt lịch. Kể cả sếp muốn gặp em.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 283.812,
+          "at": 5.51,
+          "duration": 5.016
+        }
+      ],
+      "duration": 10.846
+    }
+  ],
+  "claimCeo": [
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Một nhân viên vừa bước lên nhận ghế tổng tài!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 289.008,
+          "at": 0.75,
+          "duration": 3.144
+        },
+        {
+          "role": "ceo",
+          "text": "Ai muốn ngồi ghế này thì bước lên đối đầu với tôi.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 292.332,
+          "at": 4.214,
+          "duration": 3.768
+        }
+      ],
+      "duration": 8.302
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Thang máy sự nghiệp vừa chạy thẳng lên tầng cao nhất!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 296.28,
+          "at": 0.75,
+          "duration": 3.144
+        },
+        {
+          "role": "ceo",
+          "text": "Từ nay, tôi là người ký giấy. Còn ai làm giấy thì tính sau.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 299.604,
+          "at": 4.214,
+          "duration": 5.928
+        }
+      ],
+      "duration": 10.462
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Cả công ty chào đón vị tổng tài vừa được bổ nhiệm!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 305.712,
+          "at": 0.75,
+          "duration": 3.216
+        },
+        {
+          "role": "ceo",
+          "text": "Tôi không thích nói nhiều. Ai rảnh thì pha giúp tôi ly cà phê.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 309.108,
+          "at": 4.286,
+          "duration": 5.64
+        }
+      ],
+      "duration": 10.246
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Chúc mừng nhân viên đã thăng chức thành tổng tài!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 314.928,
+          "at": 0.75,
+          "duration": 2.952
+        },
+        {
+          "role": "ceo",
+          "text": "Hồi nãy còn gõ báo cáo. Giờ tôi duyệt luôn báo cáo của mình.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 318.06,
+          "at": 4.022,
+          "duration": 5.808
+        }
+      ],
+      "duration": 10.15
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Ghế tổng tài chính thức có người nhận rồi!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 324.048,
+          "at": 0.75,
+          "duration": 2.736
+        },
+        {
+          "role": "ceo",
+          "text": "Trời lạnh rồi. Công ty mình phát áo ấm trước, chuyện bá đạo để sau.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 326.964,
+          "at": 3.806,
+          "duration": 6.336
+        }
+      ],
+      "duration": 10.462
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Quyết định bổ nhiệm đã có hiệu lực!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 333.48,
+          "at": 0.75,
+          "duration": 2.4
+        },
+        {
+          "role": "ceo",
+          "text": "Mục tiêu của tôi rất đơn giản: công ty phát triển, thư ký đừng nghỉ.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 336.06,
+          "at": 3.47,
+          "duration": 5.568
+        }
+      ],
+      "duration": 9.358
+    }
+  ],
+  "claimSecretary": [
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Một nhân viên đang bước lên nhận vị trí thư ký!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 341.808,
+          "at": 0.75,
+          "duration": 3.192
+        },
+        {
+          "role": "secretary",
+          "text": "Em xin nhận việc. Xin sếp đừng giao em cả việc yêu đương.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 345.18,
+          "at": 4.262,
+          "duration": 4.608
+        }
+      ],
+      "duration": 9.19
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Vị trí bên cạnh tổng tài vừa có người nhận!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 349.968,
+          "at": 0.75,
+          "duration": 3.072
+        },
+        {
+          "role": "secretary",
+          "text": "Em quản lịch họp, hồ sơ và cả lịch sếp nhớ chuyển lương.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 353.22,
+          "at": 4.142,
+          "duration": 3.888
+        }
+      ],
+      "duration": 8.35
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Thư ký của tổng tài đã có chủ nhân mới!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 357.288,
+          "at": 0.75,
+          "duration": 2.856
+        },
+        {
+          "role": "secretary",
+          "text": "Từ hôm nay, ai muốn gặp sếp xin đi qua em trước.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 360.324,
+          "at": 3.926,
+          "duration": 3.528
+        }
+      ],
+      "duration": 7.774
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Đơn xin thăng chức đã được duyệt!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 364.032,
+          "at": 0.75,
+          "duration": 2.4
+        },
+        {
+          "role": "secretary",
+          "text": "Em đã chuẩn bị sẵn báo cáo. Và đơn đề nghị tăng phụ cấp.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 366.612,
+          "at": 3.47,
+          "duration": 4.896
+        }
+      ],
+      "duration": 8.686
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Công ty chào đón người giữ lịch trình của tổng tài!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 371.688,
+          "at": 0.75,
+          "duration": 3.12
+        },
+        {
+          "role": "secretary",
+          "text": "Em nhận việc vì đam mê. Đam mê thấy tiền lương vào tài khoản.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 374.988,
+          "at": 4.19,
+          "duration": 4.944
+        }
+      ],
+      "duration": 9.454
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Nhân viên vừa đổi bàn. Sự nghiệp cũng đổi luôn!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 380.112,
+          "at": 0.75,
+          "duration": 4.032
+        },
+        {
+          "role": "secretary",
+          "text": "Sếp yên tâm, em rất kín miệng. Trừ những chuyện cả công ty đã biết.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 384.324,
+          "at": 5.102,
+          "duration": 5.232
+        }
+      ],
+      "duration": 10.654
+    }
+  ],
+  "bedroom": [
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Lịch họp kết thúc. Hai nhân vật chính xin phép nghỉ riêng một chút!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 389.736,
+          "at": 0.75,
+          "duration": 4.584
+        },
+        {
+          "role": "ceo",
+          "text": "Hôm nay không tiếp khách. Chuyện công ty để ngày mai.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 394.5,
+          "at": 5.654,
+          "duration": 4.872
+        }
+      ],
+      "duration": 10.846
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Chế độ riêng tư đã bật. Xin quý vị giữ khoảng cách với cánh cửa!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 399.552,
+          "at": 0.75,
+          "duration": 4.968
+        },
+        {
+          "role": "ceo",
+          "text": "Anh đã tắt điện thoại. Trừ số của kế toán, lỡ còn tiền về.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 404.7,
+          "at": 6.038,
+          "duration": 6.168
+        }
+      ],
+      "duration": 12.526
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Phòng riêng đang được sử dụng. Bộ phận hóng chuyện xin chờ bên ngoài!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 411.048,
+          "at": 0.75,
+          "duration": 4.824
+        },
+        {
+          "role": "ceo",
+          "text": "Không nhận lịch họp, không nhận báo cáo. Anh cần yên tĩnh.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 416.052,
+          "at": 5.894,
+          "duration": 5.664
+        }
+      ],
+      "duration": 11.878
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Hai người tạm rời văn phòng. Cửa đã khép, xin đừng làm phiền!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 421.896,
+          "at": 0.75,
+          "duration": 4.68
+        },
+        {
+          "role": "ceo",
+          "text": "Anh chỉ nghỉ một lát. Đừng ai tranh thủ đổi luôn ghế của anh.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 426.756,
+          "at": 5.75,
+          "duration": 5.568
+        }
+      ],
+      "duration": 11.638
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Thông báo nội bộ: cuộc họp riêng đã bắt đầu!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 432.504,
+          "at": 0.75,
+          "duration": 3.072
+        },
+        {
+          "role": "ceo",
+          "text": "Việc quan trọng nhất bây giờ là nghỉ ngơi. Mọi người giải tán.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 435.756,
+          "at": 4.142,
+          "duration": 5.712
+        }
+      ],
+      "duration": 10.174
+    },
+    {
+      "lines": [
+        {
+          "role": "mc",
+          "text": "Tổng tài đã chuyển sang chế độ không làm phiền!",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 441.648,
+          "at": 0.75,
+          "duration": 2.952
+        },
+        {
+          "role": "ceo",
+          "text": "Anh đặt biển ngoài cửa rồi. Ai gõ cửa nhớ có lý do thật thuyết phục.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 444.78,
+          "at": 4.022,
+          "duration": 5.88
+        }
+      ],
+      "duration": 10.222
     }
   ],
   "fire": [
@@ -317,212 +1125,318 @@
         {
           "role": "ceo",
           "text": "Cô bị sa thải.",
-          "src": "sounds/office/fire-0-0.mp3",
-          "duration": 2.4,
-          "at": 1.15
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 450.84,
+          "at": 0.75,
+          "duration": 2.304
         }
       ],
-      "duration": 3.55
+      "duration": 3.374
+    },
+    {
+      "lines": [
+        {
+          "role": "ceo",
+          "text": "Cô có thể nghỉ việc rồi.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 453.324,
+          "at": 0.75,
+          "duration": 2.52
+        }
+      ],
+      "duration": 3.59
+    },
+    {
+      "lines": [
+        {
+          "role": "ceo",
+          "text": "Từ hôm nay, cô không cần đến nữa.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 456.024,
+          "at": 0.75,
+          "duration": 3.432
+        }
+      ],
+      "duration": 4.502
+    },
+    {
+      "lines": [
+        {
+          "role": "ceo",
+          "text": "Bàn giao công việc rồi rời đi.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 459.636,
+          "at": 0.75,
+          "duration": 2.904
+        }
+      ],
+      "duration": 3.974
+    },
+    {
+      "lines": [
+        {
+          "role": "ceo",
+          "text": "Quyết định của tôi là chấm dứt hợp đồng.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 462.72,
+          "at": 0.75,
+          "duration": 3.216
+        }
+      ],
+      "duration": 4.286
+    },
+    {
+      "lines": [
+        {
+          "role": "ceo",
+          "text": "Cô ra ngoài đi. Hợp đồng kết thúc.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 466.116,
+          "at": 0.75,
+          "duration": 4.248
+        }
+      ],
+      "duration": 5.318
     }
   ],
-  "replaceCeo": [
+  "idleBoth": [
     {
       "lines": [
         {
           "role": "ceo",
-          "text": "Ai đang giữ mật khẩu Wi Fi?",
-          "src": "sounds/office/replaceCeo-0-0.mp3",
-          "duration": 3.192,
-          "at": 1.15
+          "text": "Ai muốn làm tổng tài thì bước lên đối đầu với ta. Đừng gửi mỗi ánh mắt.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 470.544,
+          "at": 0,
+          "duration": 6.24
         }
       ],
-      "duration": 4.3420000000000005
+      "duration": 6.56
     },
     {
       "lines": [
         {
           "role": "ceo",
-          "text": "Từ hôm nay, công ty này do tôi quản lý.",
-          "src": "sounds/office/replaceCeo-1-0.mp3",
-          "duration": 3.864,
-          "at": 1.15
+          "text": "Trời lạnh rồi. Ta định cho một tập đoàn phá sản. Nhưng nhớ ra mình chưa trả tiền điện.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 476.964,
+          "at": 0,
+          "duration": 8.136
         }
       ],
-      "duration": 5.013999999999999
+      "duration": 8.456
     },
     {
       "lines": [
         {
           "role": "ceo",
-          "text": "Tôi đã trở lại. Máy lạnh vẫn chưa sửa à?",
-          "src": "sounds/office/replaceCeo-2-0.mp3",
-          "duration": 5.088,
-          "at": 1.15
+          "text": "Ghế tổng tài còn trống, ghế thư ký cũng còn. Công ty đông thế mà chưa ai muốn thăng chức sao?",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 485.28,
+          "at": 0,
+          "duration": 7.92
         }
       ],
-      "duration": 6.2379999999999995
+      "duration": 8.24
     },
     {
       "lines": [
         {
           "role": "ceo",
-          "text": "Họp khẩn. Ai lấy cục sạc của tôi?",
-          "src": "sounds/office/replaceCeo-3-0.mp3",
-          "duration": 4.44,
-          "at": 1.15
+          "text": "Ta có tất cả, chỉ thiếu một thư ký chịu nhắc ta đi họp đúng giờ.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 493.38,
+          "at": 0,
+          "duration": 5.112
         }
       ],
-      "duration": 5.59
+      "duration": 5.432
+    },
+    {
+      "lines": [
+        {
+          "role": "ceo",
+          "text": "Thư ký đâu? Mang hợp đồng tới. Khoan, mang luôn bảng lương để ta biết công ty còn tiền không.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 498.672,
+          "at": 0,
+          "duration": 8.736
+        }
+      ],
+      "duration": 9.056
+    },
+    {
+      "lines": [
+        {
+          "role": "ceo",
+          "text": "Ta không thiếu tiền. Ta chỉ thiếu người dám ngồi vào cái ghế này.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 507.588,
+          "at": 0,
+          "duration": 5.664
+        }
+      ],
+      "duration": 5.984
     }
   ],
-  "replaceSecretary": [
+  "idleCeo": [
     {
       "lines": [
         {
-          "role": "secretary",
-          "text": "Em mới đến. Mong công ty trả lương đúng ngày.",
-          "src": "sounds/office/replaceSecretary-0-0.mp3",
-          "duration": 4.272,
-          "at": 1.15
+          "role": "ceo",
+          "text": "Thư ký đã có người rồi. Ai muốn làm tổng tài thì đừng để chiếc ghế này nguội.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 513.432,
+          "at": 0,
+          "duration": 6.264
         }
       ],
-      "duration": 5.422000000000001
+      "duration": 6.584
     },
     {
       "lines": [
         {
-          "role": "secretary",
-          "text": "Dạ sếp, hồ sơ và đơn xin tăng lương của em đây.",
-          "src": "sounds/office/replaceSecretary-1-0.mp3",
-          "duration": 3.888,
-          "at": 1.15
+          "role": "ceo",
+          "text": "Ghế tổng tài đang trống. Ai lên nhận đi, chứ ta tự duyệt báo cáo mãi cũng ngại.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 519.876,
+          "at": 0,
+          "duration": 7.056
         }
       ],
-      "duration": 5.038
+      "duration": 7.376
     },
     {
       "lines": [
         {
-          "role": "secretary",
-          "text": "Em biết pha cà phê, nhưng em không biết chịu đựng.",
-          "src": "sounds/office/replaceSecretary-2-0.mp3",
-          "duration": 3.672,
-          "at": 1.15
+          "role": "ceo",
+          "text": "Công ty cần người lãnh đạo. Đẹp trai là lợi thế, biết trả lương là ưu tiên.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 527.112,
+          "at": 0,
+          "duration": 6.792
         }
       ],
-      "duration": 4.822
+      "duration": 7.112
     },
     {
       "lines": [
         {
-          "role": "secretary",
-          "text": "Ngày đầu nhận việc, xin đừng giao em quản lý tình cũ.",
-          "src": "sounds/office/replaceSecretary-3-0.mp3",
-          "duration": 3.936,
-          "at": 1.15
+          "role": "ceo",
+          "text": "Ai dám thay ta điều hành công ty? Có thư ký hỗ trợ rồi, đừng sợ bảng tính.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 534.084,
+          "at": 0,
+          "duration": 6.696
         }
       ],
-      "duration": 5.086
+      "duration": 7.016
+    },
+    {
+      "lines": [
+        {
+          "role": "ceo",
+          "text": "Ta chờ một đối thủ xứng tầm. Còn ghế thì chờ một người chịu ngồi.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 540.96,
+          "at": 0,
+          "duration": 5.976
+        }
+      ],
+      "duration": 6.296
+    },
+    {
+      "lines": [
+        {
+          "role": "ceo",
+          "text": "Vị trí tổng tài còn trống. Ai lên trước thì được nghe thư ký nhắc lịch họp trước.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 547.116,
+          "at": 0,
+          "duration": 6.624
+        }
+      ],
+      "duration": 6.944
     }
   ],
-  "claimCeo": [
+  "idleSecretary": [
     {
       "lines": [
         {
           "role": "ceo",
-          "text": "Từ giờ, tôi là tổng tài ở đây.",
-          "src": "sounds/office/claimCeo-0-0.mp3",
-          "duration": 3.384,
-          "at": 1.15
+          "text": "Tổng tài đã có rồi. Ai muốn đứng cạnh anh thì lên nhận vị trí thư ký đi.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 553.92,
+          "at": 0,
+          "duration": 6.264
         }
       ],
-      "duration": 4.534
-    },
-    {
-      "lines": [
-        {
-          "role": "ceo",
-          "text": "Cuộc họp bắt đầu. Ai chưa ăn cơm thì ăn trước.",
-          "src": "sounds/office/claimCeo-1-0.mp3",
-          "duration": 5.016,
-          "at": 1.15
-        }
-      ],
-      "duration": 6.166
+      "duration": 6.584
     },
     {
       "lines": [
         {
           "role": "ceo",
-          "text": "Tôi đến để giải quyết mọi chuyện. Trừ lỗi máy in.",
-          "src": "sounds/office/claimCeo-2-0.mp3",
-          "duration": 5.328,
-          "at": 1.15
+          "text": "Anh cần một thư ký. Ưu tiên người biết nhắc anh ăn cơm, không chỉ nhắc thanh toán.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 560.364,
+          "at": 0,
+          "duration": 6.864
         }
       ],
-      "duration": 6.478
+      "duration": 7.184
     },
     {
       "lines": [
         {
           "role": "ceo",
-          "text": "Gọi tôi là sếp. Nhưng đừng gọi lúc tôi ngủ.",
-          "src": "sounds/office/claimCeo-3-0.mp3",
-          "duration": 5.136,
-          "at": 1.15
+          "text": "Ghế thư ký còn trống. Lương có thể thương lượng, còn độ bá đạo thì có sẵn.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 567.408,
+          "at": 0,
+          "duration": 6.816
         }
       ],
-      "duration": 6.286
-    }
-  ],
-  "claimSecretary": [
-    {
-      "lines": [
-        {
-          "role": "secretary",
-          "text": "Thư ký mới xin chào. Anh ký đơn tăng lương trước nha.",
-          "src": "sounds/office/claimSecretary-0-0.mp3",
-          "duration": 4.776,
-          "at": 1.15
-        }
-      ],
-      "duration": 5.926
+      "duration": 7.136
     },
     {
       "lines": [
         {
-          "role": "secretary",
-          "text": "Em nhận việc, chứ em chưa nhận tăng ca đâu nha.",
-          "src": "sounds/office/claimSecretary-1-0.mp3",
-          "duration": 3.576,
-          "at": 1.15
+          "role": "ceo",
+          "text": "Đứng cạnh anh không khó. Khó là giữ được bình tĩnh trước lịch họp của anh.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 574.404,
+          "at": 0,
+          "duration": 6.144
         }
       ],
-      "duration": 4.726
+      "duration": 6.464
     },
     {
       "lines": [
         {
-          "role": "secretary",
-          "text": "Sếp cần gì cứ nói. Ngoài giờ thì nhắn mai em trả lời.",
-          "src": "sounds/office/claimSecretary-2-0.mp3",
-          "duration": 5.04,
-          "at": 1.15
+          "role": "ceo",
+          "text": "Anh đã chuẩn bị bàn làm việc. Chỉ còn thiếu người tới quản luôn cả lịch của anh.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 580.728,
+          "at": 0,
+          "duration": 6.24
         }
       ],
-      "duration": 6.1899999999999995
+      "duration": 6.56
     },
     {
       "lines": [
         {
-          "role": "secretary",
-          "text": "Em có mặt rồi. Cà phê của sếp ít đường đúng không?",
-          "src": "sounds/office/claimSecretary-3-0.mp3",
-          "duration": 4.608,
-          "at": 1.15
+          "role": "ceo",
+          "text": "Thư ký tương lai đâu rồi? Anh hứa việc nhẹ. Nhẹ nhất là lời hứa này.",
+          "src": "sounds/office/voices-v3.mp3",
+          "offset": 587.148,
+          "at": 0,
+          "duration": 7.176
         }
       ],
-      "duration": 5.757999999999999
+      "duration": 7.496
     }
   ]
 }

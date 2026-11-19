@@ -1,6 +1,8 @@
 import config from '../config/office.json' with {type:'json'};
 import voices from '../config/voices.json' with {type:'json'};
 
+import {pickVariant} from './office-dialogue.js';
+
 export const officeConfig=config;
 const needsSecretary=new Set(['kiss','wedding','bedroom','lieu','fire']);
 const duration={fire:4200,wedding:14000,bedroom:180000,lieu:11000,replaceCeo:6500,replaceSecretary:6500,claimCeo:7200,claimSecretary:7200,kiss:10000};
@@ -56,8 +58,7 @@ export class Office {
     const gift=this.pending.splice(index,1)[0];
     if(gift.key==='replaceCeo')this.ceo.look=(this.ceo.look+1)%3;
     if(gift.key==='replaceSecretary'){this.secretary.look=(this.secretary.look+1)%3;this.secretary.present=true;}
-    const variant=this.variants[gift.key]??0;
-    this.variants[gift.key]=(variant+1)%4;
+    const variant=pickVariant(this.variants,gift.key,voices[gift.key]?.length??1);
     const spoken=voices[gift.key]?.[variant%voices[gift.key].length]?.duration??0;
     const length=gift.key==='bedroom'?config.bedroomDurationMs:Math.max(duration[gift.key],(spoken+2.5)*1000);
     this.active={...gift,started:now,end:now+length,variant,sequence:++this.sequence};

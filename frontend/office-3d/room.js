@@ -19,10 +19,11 @@ function sphere(r,m,x,y,z,parent=scene){const o=new T.Mesh(new T.SphereGeometry(
 box(15,.2,23,materials.floor,0,-.12,1);box(14.5,.3,5,materials.wood,0,.12,-5.4);box(15,7,.25,materials.black,0,3.3,-8);
 const glass=new T.MeshStandardMaterial({color:'#24496a',emissive:'#19344b',emissiveIntensity:.4,roughness:.3});
 for(let i=-2;i<=2;i++){box(2.55,4,.06,glass,i*2.8,3.65,-7.82);box(.06,4,.12,materials.metal,i*2.8-1.3,3.65,-7.75);for(let j=0;j<4;j++)box(.25,.16,.1,materials.screen,i*2.8-.8+j*.5,2+((i+j+4)%3)*.5,-7.7);}
-box(7,.14,1.4,materials.wood,0,1.12,-5.05);box(6.4,.9,.25,materials.wood,0,.64,-4.57);box(6.3,.025,.06,materials.metal,0,.98,-4.41);
-box(.8,.55,.06,materials.black,-1.3,1.47,-5.0);box(.5,.03,.3,materials.metal,-1.3,1.22,-5.0);
+box(7,.14,1.4,materials.wood,0,1.5,-5.05);box(6.4,1.25,.25,materials.wood,0,.83,-4.57);box(6.3,.025,.06,materials.metal,0,1.36,-4.41);
+box(.72,.30,.06,materials.black,-2.25,1.72,-5.0);box(.55,.03,.35,materials.metal,-2.25,1.59,-5.0);
 function chair(x,z,executive=false){const g=new T.Group();g.position.set(x,0,z);scene.add(g);box(executive?1.1:.7,.15,.7,materials.seat,0,.58,0,g);box(executive?1.1:.7,executive?1.15:.65,.1,materials.seat,0,executive?1.2:.93,.34,g);for(const a of [-1,1])box(.07,.55,.07,materials.black,a*.25,.28,0,g);return g;}
-chair(-1.35,-5.95,true).rotation.y=Math.PI;chair(1.4,-6.1,true).rotation.y=Math.PI;
+const throne=chair(-.75,-5.95,true);throne.rotation.y=Math.PI;throne.scale.setScalar(1.25);throne.position.y=.37;
+box(.65,.2,.45,materials.wood,-.75,.37,-5.1);
 const slots=[];
 for(let row=0;row<4;row++)for(const x of [-3.9,-1.7,1.7,3.9]){
  const z=-1+row*2.5;slots.push(new T.Vector3(x,0,z+.3));
@@ -35,8 +36,8 @@ const leaves=new T.MeshStandardMaterial({color:'#307f55'});
 for(const x of [-6.5,6.5])for(const z of [-6.5,1,7]){box(.6,.6,.6,materials.wood,x,.3,z);for(let i=0;i<5;i++){const o=sphere(.35,leaves,x+Math.sin(i*2)*.25,.9+i*.13,z+Math.cos(i*2)*.2);o.scale.y=1.5;}}
 const ceilingMat=new T.MeshStandardMaterial({color:'#fff0ce',emissive:'#ffe2aa',emissiveIntensity:2});for(const x of [-4,4])for(const z of [-4,2,7])box(1.3,.04,.35,ceilingMat,x,6.5,z);
 const ceo=person('ceo'),secretary=person('secretary'),lieu=person('lieu');
-for(const rig of [ceo,secretary,lieu]){scene.add(rig.holder);rig.holder.scale.multiplyScalar(.58);}
-const station={ceo:new T.Vector3(-1.35,.28,-5.95),secretary:new T.Vector3(1.35,.28,-6.4)};
+for(const rig of [ceo,secretary,lieu]){scene.add(rig.holder);rig.holder.scale.multiplyScalar(.78);}
+const station={ceo:new T.Vector3(-.75,.28,-5.95),secretary:new T.Vector3(.55,.28,-6.35)};
 ceo.holder.position.copy(station.ceo);secretary.holder.position.copy(station.secretary);lieu.holder.position.set(8,.28,-5.5);lieu.holder.visible=false;
 const labelRoot=$('names'),labels=[];
 function label(name,obj,height,vip=false){const el=document.createElement('div');el.className='label'+(vip?' vip':'');el.textContent=name;labelRoot.append(el);const item={el,obj,height,vip};labels.push(item);return item;}
@@ -85,6 +86,8 @@ function resize(){renderer.setSize(frame.clientWidth,frame.clientHeight);camera.
 const look=new T.Vector3(),destination=new T.Vector3(),v=new T.Vector3();camera.position.set(0,13,20);
 function update(){const dt=Math.min(.25,clock.getDelta());time+=dt;now=(state?.serverTime??Date.now())+Math.min(500,performance.now()-receivedAt);
  const active=state?.office?.active,key=active?.key,elapsed=active?(now-active.started)/1000:0;
+ const sceneLines=voices[key]?.[active?.variant%voices[key]?.length]?.lines??[];
+ const sceneAfter=sceneLines.length?sceneLines.at(-1).at+sceneLines.at(-1).duration:2;
  const targets={ceo:ceo,secretary:secretary};
  ceo.holder.position.copy(station.ceo);secretary.holder.position.copy(station.secretary);ceo.holder.rotation.set(0,0,0);secretary.holder.rotation.set(0,0,0);
  let ceoSit=1;
@@ -102,16 +105,17 @@ function update(){const dt=Math.min(.25,clock.getDelta());time+=dt;now=(state?.s
  }
  lieu.holder.visible=key==='lieu';
  if(key==='wedding'){ceoSit=0;ceo.holder.position.set(-.7,.28,-3.7);secretary.holder.position.set(.7,.28,-3.7);ceo.holder.rotation.y=.22;secretary.holder.rotation.y=-.22;}
- if(key==='kiss'){ceoSit=0;ceo.holder.position.x+=Math.min(1,elapsed/3)*1.15;ceo.holder.rotation.z=-.09;secretary.holder.rotation.z=.06;}
- if(key==='fire'){secretary.holder.position.set(1.35+Math.min(1,elapsed/4)*7,.28,-6.4);secretary.holder.rotation.y=Math.PI/2;}
+ if(key==='kiss'){ceoSit=0;ceo.holder.position.x+=Math.min(1,Math.max(0,(elapsed-sceneAfter)/1.3))*.85;ceo.holder.rotation.z=-.09;secretary.holder.rotation.z=.06;}
+ if(key==='fire'){secretary.holder.position.set(.55+Math.min(1,Math.max(0,(elapsed-sceneAfter)/1.6))*7,.28,-6.35);secretary.holder.rotation.y=Math.PI/2;}
  if(key==='bedroom'){ceo.holder.visible=false;secretary.holder.visible=false;}
- if(key==='lieu'){lieu.holder.position.set(7-Math.min(1,elapsed/3)*4.8,.28,-5.1);lieu.holder.rotation.y=-.4;lieuLabel.el.textContent='@'+active.name;}
+ if(key==='lieu'){lieu.holder.position.set(7-Math.min(1,elapsed/3)*5.5,.28,-5.1);lieu.holder.rotation.y=-.4;lieuLabel.el.textContent='@'+active.name;}
  pose(ceo,time,ceoSit,0);pose(secretary,time,0,key==='fire'?1:0);pose(lieu,time,0,elapsed<3?1:0);
- ceoLabel.height=(ceo.hip.position.y+2.11)*.58+.08;secretaryLabel.height=(secretary.hip.position.y+2.11)*.58+.08;lieuLabel.height=(lieu.hip.position.y+2.11)*.58+.08;
- const lines=voices[key]?.[active?.variant%voices[key]?.length]?.lines??[],cue=lines.find(l=>elapsed>=l.at&&elapsed<l.at+l.duration);
- $('subtitle').hidden=!cue;if(cue){$('subtitle').querySelector('strong').textContent={ceo:'Tổng tài',secretary:'Thư ký',lieu:'Liễu Như Yên'}[cue.role];$('subtitle').querySelector('span').textContent=cue.text;if(targets[cue.role])targets[cue.role].head.rotation.x=Math.sin(time*12)*.025;}
- const close=showClose||['kiss','lieu','fire','wedding','bedroom'].includes(key);destination.set(Math.sin(yaw)*(close?10:22),close?5.8:13,close?4:23);camera.position.lerp(destination,1-Math.exp(-dt*3));look.set(0,close?1.8:0,close?-5:-1);camera.lookAt(look);
+ if(key==='lieu'&&elapsed>sceneAfter&&elapsed<sceneAfter+.75){const swing=Math.sin((elapsed-sceneAfter)/.75*Math.PI);lieu.arms[0].rotation.z=-swing*1.4;lieu.arms[0].rotation.x=-swing*.8;secretary.holder.rotation.z=-swing*.12;}
+ ceoLabel.height=(ceo.hip.position.y+2.11)*.78+.08;secretaryLabel.height=(secretary.hip.position.y+2.11)*.78+.08;lieuLabel.height=(lieu.hip.position.y+2.11)*.78+.08;
+ const lines=voices[key]?.[active?.variant%voices[key]?.length]?.lines??[],cue=lines.find(l=>elapsed>=l.at&&elapsed<l.at+l.duration)??audio.idleCaption;
+ $('subtitle').hidden=!cue;if(cue){$('subtitle').querySelector('strong').textContent={ceo:'Tổng tài',secretary:'Thư ký',lieu:'Liễu Như Yên',mc:'MC công ty'}[cue.role];$('subtitle').querySelector('span').textContent=cue.text;if(targets[cue.role])targets[cue.role].head.rotation.x=Math.sin(time*12)*.025;}
+ const close=showClose||['kiss','lieu','fire','wedding','bedroom'].includes(key);destination.set(Math.sin(yaw)*(close?10:22),close?6.1:13,close?4:23);camera.position.lerp(destination,1-Math.exp(-dt*3));look.set(0,close?2.2:0,close?-5:-1);camera.lookAt(look);
  const used=[];for(const item of labels.sort((a,b)=>Number(b.vip)-Number(a.vip))){const {obj,el,height}=item;if(!obj.visible){el.hidden=true;continue;}v.copy(obj.position);v.y+=height;v.project(camera);const x=(v.x*.5+.5)*frame.clientWidth,y=(-v.y*.5+.5)*frame.clientHeight;const overlap=used.some(p=>Math.abs(p.x-x)<95&&Math.abs(p.y-y)<22);el.hidden=v.z>1||Math.abs(v.x)>1||y>frame.clientHeight*.76||overlap;if(!el.hidden){el.style.left=x+'px';el.style.top=y+'px';used.push({x,y});}}
  renderer.render(scene,camera);requestAnimationFrame(update);
 }
-window.__office3d={scene,staff,ceo,secretary,lieu,client,get state(){return state;}};update();window.addEventListener('pagehide',()=>{client.close();audio.close();renderer.dispose();},{once:true});
+window.__office3d={scene,staff,ceo,secretary,lieu,client,audio,get state(){return state;}};update();window.addEventListener('pagehide',()=>{client.close();audio.close();renderer.dispose();},{once:true});

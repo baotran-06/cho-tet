@@ -11,3 +11,5 @@ Lời thoại được viết riêng tại frontend/config/dialogue.json, tổng
 Font Be Vietnam Pro đi kèm giấy phép SIL Open Font License trong assets/fonts/OFL.txt.
 
 Phông sảnh cưới và cửa phòng tân hôn cũng được tạo mới bằng công cụ sinh ảnh; không lấy cảnh phim.
+
+Bản thoại hoạt náo bổ sung MC công ty. Thông số giọng giữ theo đoạn thử người dùng đã duyệt; tất cả nội dung được viết riêng. Lời mời chỉ nói về vai còn trống.

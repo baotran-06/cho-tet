@@ -38,7 +38,7 @@ Chỉnh Gift ID ở bảng điều khiển. ID được ưu tiên hơn tên, lư
 - Bấm Bật âm thanh trong chính cửa sổ đang phát game. Nếu game chạy trong OBS, dùng chuột phải nguồn Trình duyệt → Tương tác.
 - Điều khiển có âm lượng nhạc, lời thoại, hiệu ứng riêng; bật/tắt độc lập.
 - Chờ quà dùng nhạc chill, cưới dùng nhạc lễ cưới, Liễu/sa thải dùng nhạc căng, tân hôn dùng nhạc dịu. Nhạc hạ xuống khi có lời.
-- Lời thoại nam và nữ tiếng Việt tổng hợp được tạo sẵn. Mỗi sự kiện có 4 biến thể, sa thải chỉ có một câu. Dòng phụ đề và tiếng chạy theo cùng mốc cảnh.
+- Lời thoại nam và nữ tiếng Việt tổng hợp được tạo sẵn. Mỗi sự kiện có 6 biến thể, luân phiên không lặp liền nhau. Sa thải dùng một câu ngắn mỗi lượt. Dòng phụ đề và tiếng chạy theo cùng mốc cảnh.
 - Thêm MP3/WAV trong Điều khiển, tối đa 50 bài, 30 MB/bài. Nhạc được lưu ở .runtime/music trên máy. Chọn bài rồi phát/dừng, chuyển trước/sau hoặc xóa. Kết thúc bài sẽ chuyển tiếp trong playlist. Chỉ dùng bài bạn có quyền phát LIVE.
 - Bản GitHub Pages hỗ trợ DEMO và bộ nhạc có sẵn. Lưu playlist và nhận TikTok thật dùng bản Windows.
 - Giai điệu nhạc nền và hiệu ứng được tạo riêng cho dự án. Xem docs/OFFICE-ASSETS.md.
@@ -78,3 +78,9 @@ GitHub Actions kiểm tra bản build, browser, Windows START/STOP và triển k
 Mở /office-3d/index.html trên cùng máy chủ hoặc Pages. Bản này có tổng tài, thư ký, Liễu Như Yên dựng bằng hình học 3D và 16 vị trí nhân viên. Người xem nhận được sự kiện nguồn sẽ có nhân viên theo đúng ID; không thể xác định những tài khoản TikTok không cung cấp sự kiện. Trong DEMO bấm Thêm 12 nhân viên. Tặng Đồng ý hoặc Tim ngón tay để nhân viên đi từ bàn lên vai lãnh đạo; hết thời hạn sẽ đi về bàn. Một tài khoản chỉ giữ một vai cùng lúc. Tên được rút gọn, bảng tên chồng nhau được ẩn bớt. Giới hạn 16 nhân viên nhìn thấy giúp giữ hiệu suất.
 
 Đây là bản thử bố cục và hình học cách điệu, chưa thay màn hình chính. Chưa đạt độ chi tiết của hình render đã duyệt và chưa có facial rig/hoạt ảnh tiếp xúc hoàn chỉnh. Nhạc và thoại dùng lại hệ thống đã có; LIVE thật vẫn cần kiểm tra với tài khoản đang phát.
+
+### Thoại hoạt náo và mời nhận vai
+
+Bản thoại mới có 6 kịch bản cho mỗi hiệu ứng, cùng 18 câu chờ chia theo hai vai đang trống, trống tổng tài hoặc trống thư ký. Dùng giọng nam trầm, thư ký nữ nhẹ, Liễu sắc sảo và MC công ty như bản âm thanh thử đã duyệt. Sau khoảng chờ đầu 12–14 giây, lời mời cách nhau khoảng 28–38 giây. Khi cả hai vai đã có người, các lời mời tự dừng. Cảnh quà cắt ngay thoại chờ; nhạc giảm khi nói. Không chạy chồng hai câu thoại. Tắt âm lời thoại ở Điều khiển sẽ tắt cả lời mời.
+
+Cấu hình lời tại frontend/config/dialogue.json. File frontend/config/voices.json giữ thời điểm, thời lượng và vùng phát trong voices-v3.mp3; nhờ vậy trình duyệt tải chung một tệp thay vì hàng trăm tệp nhỏ. Công cụ scripts/generate-office-voices.py chỉ dùng khi biên soạn, cần edge-tts và ffmpeg, không cần chạy trên máy người dùng. Giọng vẫn là tiếng tổng hợp, không sao chép giọng người trong video mẫu.

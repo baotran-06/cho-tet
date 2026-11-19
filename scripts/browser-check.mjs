@@ -24,6 +24,11 @@ try {
  assert.equal(await game.locator('.gift').count(),9);
  await game.click('#audio-start');
  await mkdir('artifacts',{recursive:true});
+ clock+=13000;
+ await game.waitForFunction(()=>__office.audio.idleCaption&&!__office.audio.voice.paused);
+ const idleOffset=await game.evaluate(()=>__office.audio.idleCaption.offset);
+ await game.waitForFunction(offset=>__office.audio.voice.currentTime>offset+.05,idleOffset);
+ assert.ok((await game.locator('#spoken').textContent()).length>0);
  await game.screenshot({path:'artifacts/office-idle.png'});
  const trigger=async gift=>{
   const response=await page.request.post(origin+'/api/demo',{headers:{Origin:origin},data:{type:'gift',giftName:gift,name:'Khách kiểm thử',viewer:1,count:1}});
@@ -36,6 +41,7 @@ try {
  await trigger('Okay');
  await game.waitForFunction(()=>__office.state.office.active?.key==='claimCeo');
  assert.equal(await game.locator('#ceo-name').textContent(),'@Khách kiểm thử');
+ assert.equal(await game.evaluate(()=>__office.audio.idleCaption),null);
  clock=app.world.office.active.started+2000;
  await game.waitForFunction(()=>!document.querySelector('#subtitle').hidden);
  await game.waitForFunction(()=>__office.audio.voice.currentTime>.1);
@@ -119,6 +125,7 @@ try {
  room.on('pageerror',e=>errors.push(e.message));
  await room.goto(origin+'/office-3d/index.html');
  await room.waitForFunction(()=>window.__office3d?.state?.mode==='DEMO');
+ await room.locator('#audio').click();
  await room.locator('#join').click();
  await room.waitForFunction(()=>__office3d.staff.size===12);
  await room.screenshot({path:'artifacts/office3d-entering.png'});
@@ -129,6 +136,8 @@ try {
  await room.waitForFunction(()=>__office3d.staff.get('demo-1')?.role==='ceo'&&__office3d.staff.get('demo-2')?.role==='secretary',null,{timeout:45000});
  assert.equal(await room.evaluate(()=>__office3d.staff.get('demo-1').holder.visible),false);
  assert.equal(await room.evaluate(()=>__office3d.staff.size),12);
+ assert.ok(await room.evaluate(()=>Math.abs(__office3d.secretary.holder.position.x-__office3d.ceo.holder.position.x)<1.5));
+ assert.ok(await room.evaluate(()=>__office3d.ceo.holder.scale.y>.7));
  await room.locator('#focus').click();
  await room.waitForTimeout(1800);
  await room.screenshot({path:'artifacts/office3d-promoted.png'});

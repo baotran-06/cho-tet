@@ -5,7 +5,7 @@ import dialogue from '../config/voices.json' with {type:'json'};
 
 const $=id=>document.getElementById(id);
 const actors={ceo:$('ceo'),secretary:$('secretary'),lieu:$('lieu')};
-const names={ceo:'Tổng tài',secretary:'Thư ký',lieu:'Liễu Như Yên'};
+const names={ceo:'Tổng tài',secretary:'Thư ký',lieu:'Liễu Như Yên',mc:'MC công ty'};
 const audio=new OfficeAudio(message=>{$('audio-start').textContent=message;});
 let state=null,activeId=null,frame=0,scene=null,requesting=false;
 const cells=new Map();
@@ -79,7 +79,7 @@ function render(){
     const now=state.serverTime+Math.min(500,performance.now()-receivedAt);
     const key=scene?.key,seconds=scene?Math.max(0,(now-scene.started)/1000):0;
     const cues=dialogue[key]?.[scene?.variant%dialogue[key]?.length]?.lines??[];
-    const cue=cues.find(line=>seconds>=line.at&&seconds<line.at+line.duration);
+    const cue=cues.find(line=>seconds>=line.at&&seconds<line.at+line.duration)??audio.idleCaption;
     for(const [who,actor] of Object.entries(actors))actor.classList.toggle('talking',cue?.role===who);
     $('subtitle').hidden=!cue;
     if(cue){$('speaker').textContent=names[cue.role];$('spoken').textContent=cue.text;}
@@ -114,7 +114,7 @@ function render(){
       }else moving(actors.secretary,0);
     }else if(key==='fire'){
       cameraAt(seconds<2?30:72,seconds<2?46:49,1.5);
-      const leave=Math.min(1,Math.max(0,(seconds-2)/2));
+      const leave=Math.min(1,Math.max(0,(seconds-after)/1.6));
       moving(actors.ceo,0,seconds>1&&seconds<1.4?2:0);
       moving(actors.secretary,leave*170,Math.sin(seconds*12)*.5);
       actors.secretary.style.opacity=String(1-leave);

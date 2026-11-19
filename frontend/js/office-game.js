@@ -87,12 +87,12 @@ function render(){
     $('impact').textContent='';
     $('ring-exchange').style.display='none';
     const after=cues.length?cues.at(-1).at+cues.at(-1).duration:2;
-    if(!scene){cameraAt(50,58,1.3);}
+    if(!scene){cameraAt(50,58,1.5);}
     else if(key==='kiss'){
-      cameraAt(47,46,1.64);
+      cameraAt(47,46,1.8);
       const lean=Math.sin(Math.PI*Math.min(1,Math.max(0,(seconds-after)/1.7)));
-      moving(actors.ceo,lean*13,-lean*5,-lean*9);
-      moving(actors.secretary,-lean*9,lean*7,lean*8);
+      moving(actors.ceo,lean*13,0,-lean*9);
+      moving(actors.secretary,-lean*9,lean*13,lean*8);
       if(seconds>after+.45&&seconds<after+1.4)$('impact').textContent='♥';
     }else if(key==='wedding'){
       cameraAt(seconds>after?48:50,seconds>after?47:42,seconds>after?1.46:1.12);
@@ -107,9 +107,9 @@ function render(){
       cameraAt(seconds<2?76:60,43,seconds<2?1.5:1.42);
       const entry=Math.min(1,seconds/2);
       actors.lieu.style.opacity=String(entry);
-      moving(actors.lieu,-entry*95,Math.sin(seconds*9)*.35);
+      moving(actors.lieu,-entry*66,Math.sin(seconds*9)*.35);
       if(seconds>after&&seconds<after+.8){
-        moving(actors.lieu,-103,0,-9);moving(actors.secretary,-7,0,-10);
+        moving(actors.lieu,-74,0,-9);moving(actors.secretary,-7,0,-10);
         $('impact').textContent='BỐP!';
       }else moving(actors.secretary,0);
     }else if(key==='fire'){
@@ -126,7 +126,7 @@ function render(){
       moving(actors[who],entry*150,Math.sin(seconds*10)*entry*.7);
       actors[who].style.opacity=String(1-entry);
     }else{
-      cameraAt(key==='claimCeo'?32:66,43,1.52);
+      cameraAt(key==='claimCeo'?32:66,43,1.82);
     }
   }
   frame=requestAnimationFrame(render);

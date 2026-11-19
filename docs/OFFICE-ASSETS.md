@@ -9,3 +9,5 @@ Lời thoại được viết riêng tại frontend/config/dialogue.json, tổng
 Ảnh nhận diện quà được lấy từ danh mục công khai https://beetgames.com/vi/tiktok-gifts/vn/ và giữ tên nguồn. Đây là biểu tượng nhận diện quà TikTok, không tuyên bố quyền sở hữu độc quyền hay giấy phép CC0 đối với các biểu tượng đó.
 
 Font Be Vietnam Pro đi kèm giấy phép SIL Open Font License trong assets/fonts/OFL.txt.
+
+Phông sảnh cưới và cửa phòng tân hôn cũng được tạo mới bằng công cụ sinh ảnh; không lấy cảnh phim.

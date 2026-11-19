@@ -98,6 +98,22 @@ try {
  await page.locator('[data-gift="claimSecretary"]').click();
  await staticGame.waitForFunction(()=>__office.state.office.secretary.id!==null);
  await staticGame.close();
+ const model=await context.newPage();
+ model.on('pageerror',e=>errors.push(e.message));
+ await model.goto(origin+'/model-preview/index.html');
+ await model.waitForFunction(()=>window.__model?.renderer.info.render.triangles>1000);
+ await model.screenshot({path:'artifacts/model-standing.png'});
+ await model.locator('[data-action="sit"]').click();
+ await model.waitForFunction(()=>__model.sitting>.98);
+ await model.screenshot({path:'artifacts/model-sitting.png'});
+ await model.locator('[data-action="stand"]').click();
+ await model.waitForFunction(()=>__model.sitting<.02);
+ await model.locator('[data-action="walk"]').click();
+ const before=await model.evaluate(()=>__model.legs[0].rotation.x);
+ await model.waitForFunction(x=>Math.abs(__model.legs[0].rotation.x-x)>.1,before);
+ await model.screenshot({path:'artifacts/model-walking.png'});
+ assert.deepEqual(errors,[]);
+ await model.close();
  console.log('Verified office gifts, names, recorded speech, scene queue, bedroom interrupt, firing/refill, audio upload/volume, LIVE isolation, Pages DEMO and fullscreen.');
 } finally {
  await browser?.close();

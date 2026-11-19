@@ -8,7 +8,7 @@ Thay toàn bộ ứng dụng Văn phòng Tổng tài bằng một tiệc cưới
 2. Cài Node.js **22 LTS trở lên** kèm npm (nếu đã có thì bỏ qua).
 3. Nhấp đúp **START-DAM-CUOI.bat**. Lần đầu cần Internet để tự cài thư viện và chuẩn bị tài nguyên. Giữ cửa sổ START mở.
 4. Hai trang tự mở: điều khiển `http://127.0.0.1:3210/admin` và sân khấu `http://127.0.0.1:3210/`.
-5. Ở cửa sổ sân khấu, bấm **Bật âm thanh** một lần. Đây là yêu cầu của trình duyệt, không thể đảm bảo tự phát trước thao tác người dùng.
+5. Ở cửa sổ sân khấu, bấm **vào sân khấu để cho phép âm thanh** một lần. Đây là yêu cầu của trình duyệt, không thể đảm bảo tự phát trước thao tác người dùng.
 6. Khi dùng xong, nhấp **STOP-DAM-CUOI.bat** trong cùng thư mục. Script chỉ dừng phiên do thư mục này mở; không dùng `taskkill` để tắt mọi Node.
 
 Bấm START lần nữa không tạo server trùng. Lỗi cổng bận, thiếu Node, cài thư viện, HTTP/WebSocket đều có thông báo; nhật ký ở `.runtime/logs/latest.log`. Nút “Khởi động lại cầu nối” ngắt và khởi tạo lại phiên ứng dụng; STOP/START dùng khi cần khởi động lại tiến trình.
@@ -55,7 +55,7 @@ Phương án tách biệt khỏi màn hình desktop: **OBS Browser Source → OB
 
 1. Chạy BAT. Trong OBS đặt canvas dọc **1080×1920**, 30 FPS.
 2. Sources → **Browser**: URL `http://127.0.0.1:3210/`, Width **1080**, Height **1920**. Giữ nguồn hoạt động, không đặt chế độ đóng nguồn khi ẩn nếu muốn duy trì phiên. Đặt vừa khung (Fit to screen), không phóng zoom cắt một góc.
-3. Dùng chức năng tương tác nguồn trình duyệt trong OBS để bấm **Bật âm thanh**. Kiểm tra nhân vật chuyển động và cột âm lượng OBS nhảy. Chỉ để **một cửa sổ game phát tiếng** để tránh vọng.
+3. Dùng chức năng tương tác nguồn trình duyệt trong OBS để bấm **vào sân khấu để cho phép âm thanh**. Kiểm tra nhân vật chuyển động và cột âm lượng OBS nhảy. Chỉ để **một cửa sổ game phát tiếng** để tránh vọng.
 4. Start Virtual Camera; trong TikTok LIVE Studio thêm Camera → **OBS Virtual Camera**. Máy quay ảo truyền hình, **không tự truyền tiếng**.
 5. Để lấy tiếng: cấu hình OBS monitoring ra thiết bị âm thanh/virtual cable phù hợp rồi thêm đúng thiết bị đầu vào trong LIVE Studio; hoặc dùng capture âm thanh ứng dụng/desktop mà phiên bản LIVE Studio cung cấp. Nếu dùng virtual cable, phải cài từ nguồn chính thức. Tránh thu cùng một tiếng hai lần. Muốn giữ riêng tư âm thanh thông báo, ưu tiên đường âm thanh riêng thay vì thu mọi âm thanh desktop.
 6. **Ghi thử 15–30 giây** và nghe lại đoạn ghi để xác nhận cả giọng, nhạc, hiệu ứng. Xem NPC chuyển động trên preview và bản ghi; không dùng nguồn Hình ảnh hay ảnh chụp màn hình.
@@ -83,8 +83,10 @@ Mã nguồn: AGPL-3.0-only, giữ LICENSE gốc. Three.js: MIT (assets/vendor/TH
 
 Khi nhận vai chú rể, MC đọc “Tên đang tiến vào lễ đường!”. Đổi chú rể cũng đọc tên người nhận vai; thay người giữa lễ cưới không làm thoát cảnh. Khách mới có bảng tên trên đầu và được xếp lời chào “Chào Tên đến chung vui!”. Tên lấy từ payload TikTok (hoặc tên DEMO khi thử), không tự đặt tên trong LIVE. Ký tự trang trí/emoji bỏ khỏi phần đọc, bảng tên vẫn giữ tên hiển thị gốc.
 
-Trên bản chạy bằng BAT, cầu nối ưu tiên tạo MP3 giọng Hoài My tiếng Việt, tốc độ +25%, phát qua cùng kênh audio của game. Dịch vụ Edge TTS không chính thức qua node-edge-tts 1.2.12, cần Internet, có thể bị giới hạn/ngừng hoạt động; không cần nhập mật khẩu hoặc khóa API. Tối đa 2 lượt tạo tiếng đồng thời, cache bộ nhớ 32 clip/10 phút, không ghi file tên người xem xuống đĩa. Khi nguồn này lỗi hoặc ở GitHub Pages, dự phòng bằng Web Speech API với giọng vi-VN mà trình duyệt/Windows cung cấp, tốc độ 1.25. Cần bấm Bật âm thanh ở game. Nếu cả nguồn cầu nối và giọng tiếng Việt trình duyệt đều không khả dụng, game báo rõ; thoại MP3 có sẵn vẫn chạy, không coi đó là đã đọc được tên. OBS Browser Source có thể có bộ giọng khác Chrome/Edge; cần thử trong chính nguồn đang phát. Tiếng đọc tên có thể cần đường capture âm thanh hệ thống/ứng dụng riêng, phải kiểm tra bản ghi thử trên LIVE Studio. Không tuyên bố giọng theo tên đã được kiểm chứng trên laptop của người dùng.
+Trên bản chạy bằng BAT, cầu nối ưu tiên tạo MP3 giọng Hoài My tiếng Việt, tốc độ +25%, phát qua cùng kênh audio của game. Dịch vụ Edge TTS không chính thức qua node-edge-tts 1.2.12, cần Internet, có thể bị giới hạn/ngừng hoạt động; không cần nhập mật khẩu hoặc khóa API. Tối đa 2 lượt tạo tiếng đồng thời, cache bộ nhớ 32 clip/10 phút, không ghi file tên người xem xuống đĩa. Khi nguồn này lỗi hoặc ở GitHub Pages, dự phòng bằng Web Speech API với giọng vi-VN mà trình duyệt/Windows cung cấp, tốc độ 1.25. Cần bấm vào sân khấu để cho phép âm thanh ở game. Nếu cả nguồn cầu nối và giọng tiếng Việt trình duyệt đều không khả dụng, game báo rõ; thoại MP3 có sẵn vẫn chạy, không coi đó là đã đọc được tên. OBS Browser Source có thể có bộ giọng khác Chrome/Edge; cần thử trong chính nguồn đang phát. Tiếng đọc tên có thể cần đường capture âm thanh hệ thống/ứng dụng riêng, phải kiểm tra bản ghi thử trên LIVE Studio. Không tuyên bố giọng theo tên đã được kiểm chứng trên laptop của người dùng.
 
 Tên chú rể ưu tiên hơn chào khách; nhạc hạ khi đọc, không chồng hai giọng. Lời chào khách có hàng đợi tối đa 8, gộp tối đa 2 tên/lượt, bỏ lời chào quá 15 giây hoặc khi khách đã rời. Chỉ chào lúc sân khấu rảnh, không đọc mọi người dồn dập. Khi mở lại game không đọc lại toàn bộ khách cũ. Tắt Giọng thoại ở admin cũng tắt đọc tên.
 
 MC dùng giọng nữ Hoài My, tốc độ +25%; giọng vẫn được tổng hợp, không phải người thu thật. Bảng quà nhỏ ở mép phải, không phủ ngang hàng khách.
+
+Giao diện chính chỉ ghi HỶ SỰ, bảng quà thu nhỏ thêm 20%. Hai nút âm thanh và điều khiển được bỏ khỏi game; dùng trang admin.html (hoặc /admin khi chạy BAT) để chỉnh nhạc/thoại/hiệu ứng. Nếu bị chặn autoplay, bấm vào sân khấu hoặc nhấn Enter khi sân khấu có focus một lần.

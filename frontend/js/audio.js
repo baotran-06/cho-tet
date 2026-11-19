@@ -12,7 +12,7 @@ export class WeddingAudio{
  endVoice(){this.voice.pause();this.line=null;this.subtitle.replaceChildren();this.nextIdle=Date.now()+3500+Math.random()*1500;}
  async say(key,variant){const v=voices[key]?.[variant??pickVariant(this.bags,key,voices[key]?.length||1)];if(!v)return;this.stopVoice();const generation=this.generation;const line=v.lines[0];this.line=line;const b=document.createElement('b');b.textContent=speaker[line.role]+': ';this.subtitle.append(b,document.createTextNode(line.text));
  if(!this.state?.wedding.audio.voiceEnabled){this.line=null;return;}
- this.voice.volume=this.state.wedding.audio.voiceVolume;this.voice.playbackRate=line.role==='mc'?1:1.12;this.voice.preservesPitch=true;try{if(this.voice.readyState<1)await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Tải thoại quá lâu')),8000);this.voice.addEventListener('loadedmetadata',()=>{clearTimeout(timer);resolve();},{once:true});});if(generation!==this.generation)return;this.voice.currentTime=line.offset;this.lineEnd=line.offset+line.duration;await this.voice.play();}catch{this.onError('Trình duyệt chưa phát được thoại. Bấm Bật âm thanh lần nữa.');this.endVoice();}}
+ this.voice.volume=this.state.wedding.audio.voiceVolume;this.voice.playbackRate=line.role==='mc'?1:1.12;this.voice.preservesPitch=true;try{if(this.voice.readyState<1)await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(Error('Tải thoại quá lâu')),8000);this.voice.addEventListener('loadedmetadata',()=>{clearTimeout(timer);resolve();},{once:true});});if(generation!==this.generation)return;this.voice.currentTime=line.offset;this.lineEnd=line.offset+line.duration;await this.voice.play();}catch{this.onError('Trình duyệt chưa phát được thoại. Bấm lại vào sân khấu để cho phép phát tiếng.');this.endVoice();}}
  async backendName(after,ids){
  if(location.hostname!=='127.0.0.1'||!this.state.liveEvidence)return 'unavailable';
  const audio=new Audio();this.nameAudio=audio;let url;const abort=new AbortController();this.nameAbort=abort;const timer=setTimeout(()=>abort.abort(),12000);
@@ -48,7 +48,7 @@ export class WeddingAudio{
  if(custom&&desired===custom.id){if(custom.local){const track=await library('get',custom.id);if(!track){this.onError('File nhạc chưa có trên trình duyệt này.');return;}url=URL.createObjectURL(track.blob);}else url='/api/music/'+custom.id;}else url=new URL('../sounds/wedding/'+sceneMusic+'.mp3',import.meta.url).href;
  if(this.musicGeneration!==generation){if(url.startsWith('blob:'))URL.revokeObjectURL(url);return;}this.music.pause();if(this.blobUrl)URL.revokeObjectURL(this.blobUrl);this.blobUrl=url.startsWith('blob:')?url:null;this.music.src=url;this.music.loop=!(custom&&desired===custom.id);}
  this.music.volume=settings.musicVolume*((this.line||this.nameBusy)&&settings.voiceEnabled ? .25 : 1);
- if(settings.paused||!settings.musicEnabled)this.music.pause();else if(this.music.paused)this.music.play().catch(()=>this.onError('Nhạc bị chặn. Bấm Bật âm thanh để cho phép phát.'));
+ if(settings.paused||!settings.musicEnabled)this.music.pause();else if(this.music.paused)this.music.play().catch(()=>this.onError('Nhạc bị chặn. Bấm một lần vào sân khấu để cho phép phát.'));
  }
  close(){this.stopVoice();this.music.pause();if(this.blobUrl)URL.revokeObjectURL(this.blobUrl);this.ctx?.close();}
 }

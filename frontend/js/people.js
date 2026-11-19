@@ -1,133 +1,55 @@
 import * as T from '../assets/vendor/three.module.js';
-const mat=(color,roughness=.65,metalness=0)=>new T.MeshStandardMaterial({color,roughness,metalness});
-const skin=mat('#dfac8c',.58),skinShade=mat('#b77c63'),hair=mat('#16131a',.4),hairHi=mat('#30252b',.42),jacket=mat('#171d29',.75),lapel=mat('#222c3b',.5),pants=mat('#1a1d26'),shirt=mat('#ddd6cb'),tie=mat('#671d31',.48),shoe=mat('#0c111b',.27),eye=mat('#ebe5dc',.3),iris=mat('#332222',.3),black=mat('#141015'),gold=mat('#caa46b',.3,.75),lip=mat('#995e55');
-function mesh(geo,material,parent,x=0,y=0,z=0){const m=new T.Mesh(geo,material);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
-function ell(parent,material,x,y,z,sx,sy,sz){const m=mesh(new T.SphereGeometry(1,28,20),material,parent,x,y,z);m.scale.set(sx,sy,sz);return m;}
-function box(parent,material,x,y,z,w,h,d){return mesh(new T.BoxGeometry(w,h,d),material,parent,x,y,z);}
-function joint(parent,x,y,z){const g=new T.Group();g.position.set(x,y,z);parent.add(g);return g;}
-function tube(parent,material,pts,r=.02){const curve=new T.CatmullRomCurve3(pts.map(p=>new T.Vector3(...p)));return mesh(new T.TubeGeometry(curve,24,r,8,false),material,parent);}
-function shape(parent,material,pts,z,depth=.035){const s=new T.Shape();pts.forEach((p,i)=>i?s.lineTo(...p):s.moveTo(...p));s.closePath();return mesh(new T.ExtrudeGeometry(s,{depth,bevelEnabled:true,bevelSize:.015,bevelThickness:.015,bevelSegments:2,steps:1}),material,parent,0,0,z);}
-
+const material=(color,roughness=.55,metalness=0)=>new T.MeshStandardMaterial({color,roughness,metalness});
+const skin=material('#f0bc9e'),cheek=material('#ed9b91'),hair=material('#281b22',.32),hairLight=material('#493039',.4),white=material('#fff6e8',.38),black=material('#151522',.4),gold=material('#edbd67',.25,.65),lip=material('#b56868'),eye=material('#fffdf4',.2),iris=material('#4b2b26',.2);
+const sphere=new T.SphereGeometry(1,24,18);
+function ell(p,m,x,y,z,sx,sy,sz){const o=new T.Mesh(sphere,m);o.position.set(x,y,z);o.scale.set(sx,sy,sz);o.castShadow=true;o.receiveShadow=true;p.add(o);return o;}
+function joint(p,x,y,z){const g=new T.Group();g.position.set(x,y,z);p.add(g);return g;}
+function cyl(p,m,x,y,z,r1,r2,h){const o=new T.Mesh(new T.CylinderGeometry(r1,r2,h,24),m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;p.add(o);return o;}
+function curve(p,m,points,r=.012){const c=new T.CatmullRomCurve3(points.map(a=>new T.Vector3(...a)));const o=new T.Mesh(new T.TubeGeometry(c,20,r,8,false),m);o.castShadow=true;p.add(o);return o;}
+function panel(p,m,points,z){const s=new T.Shape();points.forEach(([x,y],i)=>i?s.lineTo(x,y):s.moveTo(x,y));s.closePath();const o=new T.Mesh(new T.ShapeGeometry(s),m);o.position.z=z;p.add(o);return o;}
 export function person(kind='groom'){
-const holder=new T.Group();
-const jacket=mat(kind==='bride'?'#e8dcc4':kind==='guest'?'#76233e':'#171d29');
-const lapel=mat(kind==='bride'?'#d5c8b1':kind==='guest'?'#6a213b':'#222c3b');
-const tie=mat(kind==='groom'?'#671d31':kind==='bride'?'#dfcfa9':'#34202b');
-const root=joint(holder,0,0,0),hip=joint(root,0,1.94,0),torso=joint(hip,0,.02,0);
-const dailyWear=joint(torso,0,0,0),normalExtras=[];
-// Tailored torso with a tapered waist and broad shoulders.
-const body=mesh(new T.CylinderGeometry(.51,.37,1.25,12),jacket,dailyWear,0,.65,0);body.scale.z=.57;
-ell(dailyWear,jacket,-.43,1.11,0,.25,.21,.25);ell(dailyWear,jacket,.43,1.11,0,.25,.21,.25);
-shape(dailyWear,shirt,[[-.22,1.26],[.22,1.26],[.16,.45],[-.12,.45]],.28);
-shape(dailyWear,tie,[[-.065,1.16],[.065,1.16],[.09,.62],[0,.52],[-.09,.62]],.316);
-shape(dailyWear,tie,[[-.075,1.25],[.075,1.25],[.05,1.12],[-.05,1.12]],.327);
-shape(dailyWear,lapel,[[-.45,1.28],[-.16,1.24],[-.06,.51],[-.35,.92],[-.27,1.03]],.32);
-shape(dailyWear,lapel,[[.45,1.28],[.16,1.24],[.06,.51],[.35,.92],[.27,1.03]],.32);
-shape(dailyWear,shirt,[[-.17,1.3],[0,1.22],[-.11,1.1],[-.24,1.24]],.34);shape(dailyWear,shirt,[[.17,1.3],[0,1.22],[.11,1.1],[.24,1.24]],.34);
-for(let y=.22;y<.55;y+=.18)ell(dailyWear,gold,.065,y,.302,.032,.032,.018);
-box(dailyWear,lapel,.3,.91,.334,.16,.025,.04);shape(dailyWear,tie,[[.24,.94],[.32,1.01],[.37,.94]],.35);
-// Coat draped across the shoulders, separate mesh with brass details.
-const coat=joint(dailyWear,0,1.17,-.16);const c=mesh(new T.CylinderGeometry(.57,.61,1.65,12,1,true),jacket,coat,0,-.62,-.18);c.scale.z=.48;c.rotation.x=-.08;
-for(const x of [-.58,.58]){const sleeve=mesh(new T.CylinderGeometry(.19,.13,1.22,14),lapel,coat,x,-.5,-.04);sleeve.rotation.z=x<0?-.1:.1;ell(coat,gold,x,-.1,.1,.028,.028,.015);}
-mesh(new T.CylinderGeometry(.13,.14,.25,20),skin,torso,0,1.35,0);
-const head=joint(torso,0,1.69,.005);
-// Custom jaw profile rather than an unmodified spherical head.
-const profile=[[0,-.36],[.15,-.33],[.25,-.22],[.29,-.03],[.28,.17],[.22,.3],[0,.34]].map(([x,y])=>new T.Vector2(x,y));
-const face=mesh(new T.LatheGeometry(profile,48),skin,head);face.scale.z=.83;
-for(const x of [-.29,.29]){ell(head,skin,x,-.015,0,.06,.105,.05);ell(head,skinShade,x*1.015,-.02,.033,.025,.06,.018);}
-// Eyes set under angled brows; narrow lids and catchlights.
-for(const side of [-1,1]){
- const x=side*.123;ell(head,eye,x,.026,.226,.078,.044,.024);ell(head,iris,x,.023,.249,.026,.029,.009);ell(head,black,x,.023,.258,.012,.021,.005);ell(head,eye,x-.008,.033,.263,.006,.007,.003);
- tube(head,skinShade,[[x-.072,.039,.235],[x,.061,.25],[x+.072,.037,.235]],.013);
- tube(head,hair,[[x-.077,.09+(side===-1?.02:0),.235],[x,.102,.247],[x+.075,.09+(side===1?.02:0),.23]],.024);
-}
-ell(head,skin,.002,-.046,.251,.043,.075,.045);ell(head,skinShade,0,-.098,.268,.04,.012,.018);
-tube(head,lip,[[-.08,-.15,.212],[0,-.185,.233],[.08,-.15,.211]],.009);
-tube(head,skinShade,[[-.075,-.19,.205],[0,-.202,.219],[.065,-.186,.207]],.005);
-// Swept sculptural hair locks with fine ridges, not a helmet sphere.
-ell(head,hair,0,.22,-.018,.302,.2,.253);
-for(let i=0;i<14;i++){
- const x=-.26+i*.037;
- tube(head,i%3?hair:hairHi,[[x,.16,.16],[x-.045,.28,.23],[x+.04,.39,.13],[x+.17,.29,-.095]],.045+(i%3)*.005);
-}
-for(const side of [-1,1])ell(head,hair,side*.269,.105,-.03,.035,.14,.16);
-const arms=[],legs=[];
-for(const side of [-1,1]){
- const arm=joint(torso,side*.56,1.08,0);arms.push(arm);
- const upper=mesh(new T.CylinderGeometry(.16,.135,.64,18),jacket,arm,0,-.29,0);
- const elbow=joint(arm,0,-.6,0);const fore=mesh(new T.CylinderGeometry(.13,.10,.57,18),jacket,elbow,0,-.265,0);arm.userData.elbow=elbow;
- mesh(new T.CylinderGeometry(.104,.104,.06,18),shirt,elbow,0,-.535,0);
- ell(elbow,kind==='groom'?shoe:skin,0,-.63,.015,.11,.14,.075);
- for(let f=0;f<4;f++)ell(elbow,kind==='groom'?shoe:skin,-.065+f*.043,-.735,.015,.023,.075,.04);
- ell(elbow,kind==='groom'?shoe:skin,side*.10,-.65,.043,.034,.08,.04);
- ell(arm,gold,side*.11,-.46,.055,.015,.018,.012);
- const thigh=joint(hip,side*.215,-.03,0);legs.push(thigh);mesh(new T.CylinderGeometry(.20,.155,.89,18),pants,thigh,0,-.43,0);
- const knee=joint(thigh,0,-.86,0);thigh.userData.knee=knee;mesh(new T.CylinderGeometry(.15,.105,.91,18),pants,knee,0,-.43,0);
- ell(knee,shoe,0,-.93,.12,.15,.115,.30);box(knee,black,0,-1.015,.12,.27,.035,.49);
- tube(thigh,lapel,[[0,-.07,.19],[0,-.4,.18],[0,-.8,.15]],.006);
-}
-
-if(kind!=='groom'){
- coat.visible=false;holder.scale.x=.88;
- // Skirt, stockings and heels; a fitted blouse rather than the man's trousers.
- const skirt=mesh(new T.CylinderGeometry(.38,.49,.72,28),jacket,hip,0,-.33,0);skirt.scale.z=.65;normalExtras.push(skirt);
- for(const leg of legs){
-  leg.children[0].visible=false;
-  leg.userData.knee.children[0].material=skin;
-  leg.userData.knee.children[0].scale.set(.78,1,.78);
+ const bride=kind==='bride',holder=new T.Group(),root=joint(holder,0,0,0),hip=joint(root,0,1.65,0),torso=joint(hip,0,0,0),head=joint(torso,0,1.52,0),weddingWear=joint(torso,0,0,0),dailyWear=joint(torso,0,0,0),weddingHead=joint(head,0,0,0),jacket=material(bride?'#fff2e4':'#172238',.4),arms=[],legs=[];
+ const body=cyl(weddingWear,jacket,0,.59,0,.42,.28,1.02);body.scale.z=.64;
+ for(const x of [-.33,.33])ell(weddingWear,jacket,x,.94,0,.18,.16,.22);
+ cyl(torso,skin,0,1.13,0,.12,.13,.27);
+ // Soft sculpted head and large glassy eyes, with blush and raised smiling cheeks.
+ ell(head,skin,0,0,0,.43,.48,.37);ell(head,skin,0,-.21,.06,.32,.25,.29);
+ for(const side of [-1,1]){
+  ell(head,skin,side*.42,-.02,0,.065,.11,.06);
+  ell(head,eye,side*.175,.04,.315,.118,.133,.045);ell(head,iris,side*.175,.035,.351,.073,.095,.023);ell(head,black,side*.174,.035,.37,.037,.067,.009);ell(head,eye,side*.159,.078,.38,.022,.028,.005);ell(head,eye,side*.19,.012,.381,.009,.012,.004);
+  curve(head,hair,[[side*.175-.115,.14,.34],[side*.175,.177,.361],[side*.175+.115,.14,.34]],bride?.012:.019);
+  curve(head,hair,[[side*.175-.09,.24,.30],[side*.175,.266,.318],[side*.175+.09,.24,.30]],.02);
+  ell(head,cheek,side*.285,-.12,.3,.065,.031,.008);
  }
- // Long dark hair behind the face and swept side locks.
- ell(head,hair,0,-.15,-.12,.33,.43,.16);
- for(const side of [-1,1])tube(head,hair,[[side*.26,.17,.04],[side*.30,-.05,.06],[side*.29,-.35,.02],[side*.34,-.53,-.02]],.065);
- if(kind==='guest'){
-  ell(head,hair,0,.18,-.30,.13,.15,.13);
-  tube(head,hair,[[0,.19,-.32],[.04,-.12,-.40],[.12,-.56,-.33]],.12);
+ ell(head,skin,0,-.035,.365,.047,.06,.051);curve(head,lip,[[-.09,-.19,.315],[0,-.228,.344],[.09,-.19,.315]],.015);curve(head,white,[[-.067,-.195,.327],[0,-.208,.35],[.067,-.195,.327]],.011);
+ // Rounded locks follow the scalp; separate swept strands create a shaped silhouette.
+ ell(head,hair,0,.285,-.07,.445,.26,.345);
+ if(!bride){for(let i=0;i<8;i++){const x=-.34+i*.085;const lock=ell(head,i%3?hair:hairLight,x,.32+Math.sin(i*.5)*.05,.18,.105,.22,.14);lock.rotation.z=-.45;}for(const x of [-.39,.39])ell(head,hair,x,.14,-.03,.07,.23,.22);
+  panel(weddingWear,white,[[-.22,1.03],[.22,1.03],[.14,.24],[-.14,.24]],.28);
+  for(const side of [-1,1]){panel(weddingWear,black,[[side*.37,1.04],[side*.17,1.04],[side*.055,.35],[side*.29,.73]],.3);ell(weddingWear,black,side*.08,.91,.33,.095,.05,.025);}
+  for(const y of [.39,.56,.73])ell(weddingWear,gold,0,y,.294,.018,.018,.012);
+  ell(weddingWear,material('#c94c75'),.27,.83,.29,.065,.065,.03);curve(weddingWear,gold,[[.27,.79,.29],[.27,.67,.29]],.008);
  }else{
-  for(const x of [-.07,.07])ell(head,shirt,x,.25,-.28,.10,.06,.025);
-  ell(torso,shirt,-.1,1.17,.36,.1,.045,.03);ell(torso,shirt,.1,1.17,.36,.1,.045,.03);
+  ell(head,hair,0,-.06,-.24,.46,.47,.17);ell(head,hair,0,.43,-.25,.24,.22,.22);
+  for(const side of [-1,1])for(let i=0;i<4;i++){const x=side*(.19+i*.067);const lock=ell(head,i%2?hair:hairLight,x,.25-i*.045,.24-i*.026,.12,.20,.1);lock.rotation.z=side*-.65;}
+  for(const side of [-1,1]){curve(head,hair,[[side*.36,.2,.15],[side*.43,-.05,.17],[side*.36,-.28,.12],[side*.39,-.43,.07]],.065);ell(head,gold,side*.42,-.12,.08,.022,.065,.022);}
+  // Smooth flared skirt with a train, pearl details, sweetheart neckline and sheer veil.
+  const dress=cyl(weddingWear,white,0,-.75,0,.27,1.02,1.65);dress.scale.z=.83;
+  ell(weddingWear,white,0,-1.54,-.67,.98,.065,1.25);
+  for(const x of [-.15,.15])ell(weddingWear,white,x,.83,.2,.22,.20,.14);
+  const belt=new T.Mesh(new T.TorusGeometry(.285,.025,8,40),gold);belt.rotation.x=Math.PI/2;belt.position.y=.07;weddingWear.add(belt);
+  for(let i=0;i<13;i++){const a=i/13*Math.PI*2;ell(weddingWear,gold,Math.sin(a)*.282,.08,Math.cos(a)*.19,.018,.018,.018);}
+  const veil=new T.Mesh(new T.PlaneGeometry(1.05,1.65,6,8),new T.MeshStandardMaterial({color:'#fff8ed',transparent:true,opacity:.4,side:T.DoubleSide,depthWrite:false}));veil.position.set(0,-.28,-.4);veil.rotation.x=-.16;weddingHead.add(veil);
+  const points=[];for(let i=0;i<9;i++){const x=-.32+i*.08,y=.36+Math.sin(i/8*Math.PI)*.14;points.push([x,y,.15]);ell(weddingHead,white,x,y+.026,.17,.025,.038,.025);}curve(weddingHead,gold,points,.014);
  }
+ for(const side of [-1,1]){
+  const arm=joint(torso,side*.43,.89,0);arms.push(arm);const sleeve=bride?white:jacket;
+  ell(arm,sleeve,0,-.08,0,.15,.20,.15);cyl(arm,bride?skin:jacket,0,-.26,0,.115,.095,.45);const elbow=joint(arm,0,-.49,0);arm.userData.elbow=elbow;cyl(elbow,bride?skin:jacket,0,-.22,0,.095,.073,.44);if(!bride)cyl(elbow,white,0,-.43,0,.076,.078,.06);ell(elbow,skin,0,-.51,.015,.09,.12,.065);
+  for(let i=0;i<4;i++)ell(elbow,skin,-.054+i*.035,-.593,.025,.018,.052,.027);ell(elbow,skin,side*.075,-.5,.05,.027,.06,.03);
+  const leg=joint(hip,side*.16,-.03,0);legs.push(leg);cyl(leg,black,0,-.37,0,.145,.115,.75);const knee=joint(leg,0,-.74,0);leg.userData.knee=knee;cyl(knee,black,0,-.36,0,.115,.08,.72);ell(knee,black,0,-.76,.11,.13,.085,.25);
+ }
+ const bouquet=joint(arms[1].userData.elbow,0,-.56,.18),rose=material('#e786a6');for(let i=0;i<11;i++){const a=i*2.4,r=Math.sqrt(i)*.05;ell(bouquet,i%2?rose:white,Math.sin(a)*r,.09+i%3*.035,Math.cos(a)*r,.065,.065,.065);}cyl(bouquet,material('#4d7359'),0,-.06,0,.035,.035,.24);bouquet.visible=bride;dailyWear.visible=false;
+ return {holder,root,hip,torso,head,arms,legs,kind,jacket,weddingWear,weddingHead,dailyWear,normalExtras:[],bouquet};
 }
-
-const weddingWear=joint(hip,0,.02,0),weddingHead=joint(head,0,0,0);
-const ivory=mat('#fff4e6',.4),satin=mat('#10131d',.36),rose=mat('#cf688a',.5);
-if(kind==='groom'){
- const tux=mesh(new T.CylinderGeometry(.51,.37,1.25,16),satin,weddingWear,0,.65,0);tux.scale.z=.57;
- shape(weddingWear,ivory,[[-.23,1.26],[.23,1.26],[.15,.35],[-.15,.35]],.3);
- shape(weddingWear,satin,[[-.45,1.26],[-.19,1.24],[-.04,.5],[-.35,.91]],.34);
- shape(weddingWear,satin,[[.45,1.26],[.19,1.24],[.04,.5],[.35,.91]],.34);
- for(const x of [-.095,.095])ell(weddingWear,tie,x,1.1,.37,.10,.055,.03);
- ell(weddingWear,gold,0,1.1,.4,.025,.025,.02);
- for(const y of [.42,.65,.85])ell(weddingWear,gold,0,y,.34,.022,.022,.016);
- ell(weddingWear,rose,.31,.97,.38,.075,.075,.04);
-}else{
- const bodice=mesh(new T.CylinderGeometry(.46,.31,1.19,28),ivory,weddingWear,0,.6,0);bodice.scale.z=.64;
- const dress=mesh(new T.CylinderGeometry(.31,1.05,1.92,48,6),ivory,weddingWear,0,-.92,0);dress.scale.z=.83;
- const train=ell(weddingWear,ivory,0,-1.84,-.77,1.02,.065,1.48);
- mesh(new T.TorusGeometry(.34,.026,8,48),gold,weddingWear,0,.03,0).rotation.x=Math.PI/2;
- for(let i=0;i<16;i++){const a=i*Math.PI*2/16;ell(weddingWear,ivory,Math.sin(a)*1.045,-1.85,Math.cos(a)*.87,.055,.04,.05);}
- const veilMaterial=new T.MeshStandardMaterial({color:'#fff9f2',transparent:true,opacity:.42,side:T.DoubleSide,depthWrite:false,roughness:.8});
- const veil=mesh(new T.PlaneGeometry(.82,1.6,6,10),veilMaterial,weddingHead,0,-.4,-.29);veil.rotation.x=-.1;veil.castShadow=false;
- const crownPoints=[];for(let i=0;i<9;i++){const x=-.28+i*.07;const y=.31+Math.sin(i/8*Math.PI)*.14;crownPoints.push([x,y,.12]);ell(weddingHead,ivory,x,y+.025,.13,.026,.038,.022);}tube(weddingHead,gold,crownPoints,.012);
-}
-const bouquet=joint(arms[1].userData.elbow,0,-.7,.2);
-for(let i=0;i<9;i++){const a=i*2.4,r=i?Math.sqrt(i)*.052:0;ell(bouquet,i%2?ivory:rose,Math.sin(a)*r,.10+i%3*.04,Math.cos(a)*r,.07,.07,.07);}
-mesh(new T.CylinderGeometry(.045,.035,.28,10),mat('#447451'),bouquet,0,-.05,0);
-bouquet.visible=false;weddingWear.visible=false;weddingHead.visible=false;
-head.scale.setScalar(1.2);
-return {holder,root,hip,torso,head,arms,legs,kind,jacket,dailyWear,normalExtras,weddingWear,weddingHead,bouquet};
-}
-
-export function pose(rig,t,sit=0,walk=0){
- rig.hip.position.y=1.94-sit*.66+Math.abs(Math.sin(t*5))*walk*.04;
- rig.torso.rotation.x=sit*.035;
- rig.head.rotation.y=Math.sin(t*.55)*.06;
- rig.torso.scale.y=1+Math.sin(t*1.6)*.004;
- rig.legs.forEach((l,i)=>{const s=i?1:-1;l.rotation.x=-sit*Math.PI/2+Math.sin(t*5)*walk*s*.45;l.userData.knee.rotation.x=sit*Math.PI/2+Math.max(0,-Math.sin(t*5)*s)*walk*.65;});
- rig.arms.forEach((a,i)=>{a.rotation.x=-sit*.4-Math.sin(t*5)*walk*(i?1:-1)*.3;a.rotation.z=(i?1:-1)*.06;a.userData.elbow.rotation.x=-.12-sit*.85;});
-}
-
-export function weddingOutfit(rig,on){
- rig.dailyWear.visible=!on;for(const item of rig.normalExtras)item.visible=!on;
- rig.weddingWear.visible=on;rig.weddingHead.visible=on;rig.bouquet.visible=on&&rig.kind==='bride';
- if(on)rig.jacket.color.set(rig.kind==='groom'?'#10131d':'#fff4e6');
-}
+export function weddingOutfit(rig,on){rig.weddingWear.visible=on;rig.weddingHead.visible=on;rig.bouquet.visible=on&&rig.kind==='bride';}
+export function pose(rig,t,sit=0,walk=0){rig.hip.position.y=1.65-sit*.5+Math.abs(Math.sin(t*5))*walk*.035;rig.head.rotation.y=Math.sin(t*.55)*.055;rig.torso.scale.y=1+Math.sin(t*1.5)*.006;rig.legs.forEach((l,i)=>{const side=i?1:-1;l.rotation.x=-sit*1.3+Math.sin(t*5)*walk*side*.4;l.userData.knee.rotation.x=sit*1.3+Math.max(0,-Math.sin(t*5)*side)*walk*.55;});rig.arms.forEach((a,i)=>{a.rotation.x=-.12-Math.sin(t*5)*walk*(i?1:-1)*.25;a.rotation.z=(i?1:-1)*.1;a.userData.elbow.rotation.x=-.12;});}

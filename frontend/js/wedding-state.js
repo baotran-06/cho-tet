@@ -23,7 +23,7 @@ export class Wedding {
  }
  finish(now,interrupted=false){if(!this.active)return;this.recent.unshift({...this.active,finished:now,interrupted});this.recent.length=Math.min(12,this.recent.length);this.total++;this.active=null;}
  tick(now){this.expire(now);if(this.active&&now>=this.active.end)this.finish(now);if(this.active||!this.pending.length)return;
- this.pending=this.pending.filter(g=>!g.key.startsWith('claim')||(g.key==='claimGroom'?this.groom:this.bride).id===g.userId);if(!this.pending.length)return;
+ this.pending=this.pending.filter(g=>!/(?:Groom|Bride)$/.test(g.key)||(/Groom$/.test(g.key)?this.groom:this.bride).id===g.userId);if(!this.pending.length)return;
  const g=this.pending.shift(),variant=pickVariant(this.variants,g.key,voices[g.key]?.length||1),spoken=voices[g.key]?.[variant]?.duration||5;
  const length=g.key==='bedroom'?config.bedroomDurationMs:g.key==='wedding'?config.weddingDurationMs:Math.max(g.key==='bouquet'?11000:8000,(spoken+1)*1000);
  this.active={...g,variant,sequence:++this.sequence,started:now,end:now+length};}

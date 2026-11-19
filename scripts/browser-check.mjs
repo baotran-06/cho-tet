@@ -132,6 +132,9 @@ try {
  await room.waitForTimeout(1800);
  await room.screenshot({path:'artifacts/office3d-promoted.png'});
  assert.deepEqual(errors,[]);
+ clock+=180001;
+ await room.waitForFunction(()=>__office3d.state.office.ceo.id===null&&[...__office3d.staff.values()].every(e=>!e.role&&e.phase==='working'),null,{timeout:25000});
+ await room.screenshot({path:'artifacts/office3d-returned.png'});
  await room.close();
  console.log('Verified office gifts, names, recorded speech, scene queue, bedroom interrupt, firing/refill, audio upload/volume, LIVE isolation, Pages DEMO and fullscreen.');
 } finally {

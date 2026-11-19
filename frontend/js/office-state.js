@@ -26,6 +26,8 @@ export class Office {
     // Role grants use receipt time and remain available during long scenes.
     if(key==='claimCeo'||key==='claimSecretary') {
       const actor=key==='claimCeo'?this.ceo:this.secretary;
+      const other=key==='claimCeo'?this.secretary:this.ceo;
+      if(other.id===gift.userId)Object.assign(other,{name:key==='claimCeo'?'Thư ký':'Tổng tài',id:null,until:0});
       Object.assign(actor,{name:gift.name,id:gift.userId,until:now+config.roleDurationMs,present:true});
     }
     const interrupt=(key==='replaceCeo'||key==='fire')&&this.active?.key==='bedroom';

@@ -56,18 +56,15 @@ const audio=new OfficeAudio(message=>$('audio').textContent=message);
 const client=new Client(s=>{
  state=s;receivedAt=performance.now();if(!s.office)return;
  $('status').textContent=(s.mode==='DEMO'?'DEMO · Nhân viên mô phỏng':s.liveEvidence?.verified?'LIVE · Đã nhận sự kiện thật':'LIVE · Chờ sự kiện thật')+' · '+Math.min(16,s.users.filter(u=>!u.departedAt).length)+' nhân viên';
- const valid=s.users.filter(u=>u.seat!==null).slice(0,16),ids=new Set(valid.map(u=>u.id));
+ const roleIds=new Set([s.office.ceo.id,s.office.secretary.id]);const valid=s.users.filter(u=>u.seat!==null||roleIds.has(u.id)).sort((a,b)=>Number(roleIds.has(b.id))-Number(roleIds.has(a.id))).slice(0,16),ids=new Set(valid.map(u=>u.id));
  for(const [id,e] of staff)if(!ids.has(id)){scene.remove(e.holder);e.holder.traverse(o=>{if(o.isMesh)o.geometry.dispose();});e.label.el.remove();labels.splice(labels.indexOf(e.label),1);staff.delete(id);}
- for(const user of valid){let e=staff.get(user.id);if(!e){e=employee(user,Math.min(15,Math.max(0,user.seat)));staff.set(user.id,e);routeTo(e,slots[e.index]);}e.name=user.name;e.label.el.textContent=user.name;
+ for(const user of valid){let e=staff.get(user.id);if(!e){const occupied=new Set([...staff.values()].map(e=>e.index));e=employee(user,slots.findIndex((_,i)=>!occupied.has(i)));staff.set(user.id,e);routeTo(e,slots[e.index]);}e.name=user.name;e.label.el.textContent=user.name;
   if(user.departedAt&&!['leaving','gone'].includes(e.phase)){e.phase='leaving';e.route=[new T.Vector3(0,0,e.holder.position.z+.5),new T.Vector3(0,0,12)];e.targetRole=null;e.role=null;}
  }
- for(const role of ['ceo','secretary']){
-  const assigned=s.office[role],desired=assigned.present?assigned.id:null;
-  if(previousRoles[role]!==desired){
-   const old=staff.get(previousRoles[role]);if(old){old.targetRole=null;old.role=null;old.holder.visible=true;routeTo(old,slots[old.index]);}
-   const next=staff.get(desired);if(next&&!s.users.find(u=>u.id===desired)?.departedAt){next.targetRole=role;next.role=null;next.holder.visible=true;routeTo(next,station[role],true);}
-   previousRoles[role]=desired;
-  }
+ for(const e of staff.values()){
+  if(['leaving','gone'].includes(e.phase))continue;
+  const desired=s.office.ceo.id===e.id?'ceo':s.office.secretary.id===e.id&&s.office.secretary.present?'secretary':null;
+  if(e.targetRole!==desired){e.targetRole=desired;e.role=null;e.holder.visible=true;routeTo(e,desired?station[desired]:slots[e.index],Boolean(desired));}
  }
  const active=s.office.active;if(active?.id!==activeKey){activeKey=active?.id??null;if(active){const g=config.guide.find(g=>g.key===active.key);$('toast').textContent=active.name+' · '+g.effect;$('toast').hidden=false;}else $('toast').hidden=true;}
  audio.update(s);

@@ -128,7 +128,7 @@ export function createApp(options={}) {
     const path=resolve(frontend,page);if(!path.startsWith(frontend+sep)){res.writeHead(403);res.end();return;}
     try {
       const data=await readFile(path);
-      if(page==='admin.html'||page==='index.html')res.setHeader('Set-Cookie',`xom_control=${controlToken}; HttpOnly; SameSite=Strict; Path=/api; Max-Age=43200`);
+      if(page==='admin.html'||page==='index.html'||page==='office-3d/index.html')res.setHeader('Set-Cookie',`xom_control=${controlToken}; HttpOnly; SameSite=Strict; Path=/api; Max-Age=43200`);
       res.writeHead(200,{'Content-Type':mime[extname(path)]||'application/octet-stream','Cache-Control':'no-cache'});res.end(req.method==='HEAD'?undefined:data);
     }catch{res.writeHead(404);res.end('Không tìm thấy tài nguyên');}
   });

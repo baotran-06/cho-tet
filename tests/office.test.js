@@ -41,3 +41,12 @@ test('queue stays bounded under gift bursts, unknown gifts have no effect',()=>{
   assert.equal(office.pending.length,120);assert.equal(office.dropped,4880);
   office.accept(event('not a gift'),1000);assert.equal(office.unmapped,1);
 });
+
+test('one viewer can hold only one leadership role, switching releases the other role',()=>{
+ const office=new Office();office.accept(event('Okay','Minh'),1000);
+ office.accept(event('Finger Heart','Minh'),2000);
+ assert.equal(office.ceo.id,null);assert.equal(office.secretary.id,'Minh');
+ office.accept(event('Okay','Minh'),3000);
+ assert.equal(office.ceo.id,'Minh');assert.equal(office.secretary.id,null);
+ assert.equal(office.ceo.until,183000);
+});

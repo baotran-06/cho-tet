@@ -72,3 +72,9 @@ Bản này sử dụng nhân vật và bối cảnh render sẵn theo mẫu đã
 - bridge/ nhận nguồn TikTok, xác thực lệnh local và phát trạng thái qua WebSocket.
 
 GitHub Actions kiểm tra bản build, browser, Windows START/STOP và triển khai Pages bằng workflow hiện có.
+
+## Bản thử văn phòng 3D có nhân viên
+
+Mở /office-3d/index.html trên cùng máy chủ hoặc Pages. Bản này có tổng tài, thư ký, Liễu Như Yên dựng bằng hình học 3D và 16 vị trí nhân viên. Người xem nhận được sự kiện nguồn sẽ có nhân viên theo đúng ID; không thể xác định những tài khoản TikTok không cung cấp sự kiện. Trong DEMO bấm Thêm 12 nhân viên. Tặng Đồng ý hoặc Tim ngón tay để nhân viên đi từ bàn lên vai lãnh đạo; hết thời hạn sẽ đi về bàn. Một tài khoản chỉ giữ một vai cùng lúc. Tên được rút gọn, bảng tên chồng nhau được ẩn bớt. Giới hạn 16 nhân viên nhìn thấy giúp giữ hiệu suất.
+
+Đây là bản thử bố cục và hình học cách điệu, chưa thay màn hình chính. Chưa đạt độ chi tiết của hình render đã duyệt và chưa có facial rig/hoạt ảnh tiếp xúc hoàn chỉnh. Nhạc và thoại dùng lại hệ thống đã có; LIVE thật vẫn cần kiểm tra với tài khoản đang phát.

@@ -75,9 +75,9 @@ Tên mục có thể khác theo phiên bản OBS/LIVE Studio. Chưa thể xác n
 
 Mã nguồn: AGPL-3.0-only, giữ LICENSE gốc. Three.js: MIT (assets/vendor/THREE-LICENSE.txt). Font Be Vietnam Pro: OFL (assets/fonts/OFL.txt). Nhạc nguyên bản: CC0, xem `frontend/sounds/wedding/LICENSE.md`. Icon quà là tài sản nhận diện TikTok, không tuyên bố CC0 hoặc sở hữu độc quyền; cần tuân thủ điều khoản nền tảng. Giọng dựng bằng dịch vụ TTS được ghi nguồn trong giấy phép âm thanh, không lấy giọng người trong video tham khảo.
 
-## Bản áo dài đỏ đang thử
+## Nhân vật và bố cục hiện tại
 
-Theo lựa chọn tiếp tục của người dùng, cặp nhân vật được thay bằng bản GLB áo dài đỏ dựng từ MakeHuman CC0. Đây là bản tạo hình thô, chưa giống đầy đủ concept đã duyệt. Các clip Idle/Walk/Wave/Cheer/Sit được phát bằng AnimationMixer; các cảnh cặp đôi dùng vị trí, hướng và clip nền, chưa có diễn hoạt cặp đôi chuyên dụng hoặc mô phỏng vải. Có thể còn xuyên áo hoặc dáng cứng. Không coi bản này là model mỹ thuật hoàn thiện. Xem `frontend/models/ao-dai/README.md` và giấy phép cùng thư mục.
+Đã khôi phục cặp nhân vật hoạt hình 3D ban đầu: chú rể mặc vest, cô dâu váy cưới. Bản GLB áo dài thử nghiệm không còn được tải trong game. Các bàn, ghế và vị trí khách cùng dùng bố cục thu gọn về giữa màn hình dọc; giữ nguyên giọng MC mới, vai không hết hạn và bảng quà nhỏ bên phải.
 
 ## MC đọc tên người xem
 

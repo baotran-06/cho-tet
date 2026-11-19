@@ -45,7 +45,7 @@ export class Office {
     if(key==='claimCeo'&&this.ceo.id){
       this.rejected++;this.lastRejected={id:gift.id,key,name:gift.name,at:now,sequence:++this.sequence,reason:'ceo-occupied',message:'Ghế tổng tài đã có người. Dùng quà Đổi tổng tài để thay người.'};return false;
     }
-    const weddingSwap=key==='replaceCeo'&&this.active?.key==='wedding';
+    const weddingSwap=(key==='replaceCeo'||key==='claimCeo')&&this.active?.key==='wedding';
     if(!weddingSwap&&this.pending.length>=config.queueLimit){this.dropped++;return false;}
     if(key==='claimCeo'||key==='replaceCeo')this.grantCeo(gift,now);
     if(key==='claimSecretary'){
@@ -54,8 +54,8 @@ export class Office {
     }
     this.notice={...gift,sequence:++this.sequence,at:now};
     if(weddingSwap){
-      const prior=this.active;this.ceo.look=(this.ceo.look+1)%3;
-      this.startScene({...gift,key:'wedding',id:gift.id+':wedding'},now,{weddingId:prior.weddingId??prior.id,restartCount:(prior.restartCount??0)+1,cause:'replaceCeo'});
+      const prior=this.active;if(key==='replaceCeo')this.ceo.look=(this.ceo.look+1)%3;
+      this.startScene({...gift,key:'wedding',id:gift.id+':wedding'},now,{weddingId:prior.weddingId??prior.id,restartCount:(prior.restartCount??0)+1,cause:key});
       return true;
     }
     const interrupt=(key==='replaceCeo'||key==='fire')&&this.active?.key==='bedroom';
@@ -74,6 +74,8 @@ export class Office {
     this.expireRoles(now);
     if(this.active&&now>=this.active.end)this.finish(now);
     if(this.active)return;
+    // Never announce an old CEO claim after that viewer has been replaced or expired.
+    this.pending=this.pending.filter(gift=>gift.key!=='claimCeo'||this.ceo.id===gift.userId);
     // A vacant secretary slot must not prevent a later refill gift executing.
     const index=this.pending.findIndex(gift=>this.secretary.present||!needsSecretary.has(gift.key));
     if(index<0)return;

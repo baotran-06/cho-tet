@@ -79,3 +79,18 @@ test('duplicate replacement events cannot restart a wedding twice or renew the n
  const replacement=event('Shamrock','Minh');now=2000;world.enqueue(replacement);world.tick();const started=world.office.active.started,until=world.office.ceo.until;
  now=3000;world.enqueue(replacement);world.tick();assert.equal(world.office.active.started,started);assert.equal(world.office.ceo.until,until);assert.equal(world.office.active.restartCount,1);
 });
+
+test('a valid vacant-role claim during a wedding joins the ceremony instead of queuing an office intro',()=>{
+ const office=new Office();office.accept(event('Bouquet Flower'),1000);office.tick(1000);
+ office.accept(event('Okay','An'),2000);
+ assert.equal(office.ceo.id,'An');assert.equal(office.active.key,'wedding');assert.equal(office.active.started,2000);assert.equal(office.pending.length,0);
+ office.accept(event('Shamrock','Minh'),3000);const end=office.active.end;
+ office.tick(end);assert.equal(office.active,null);assert.equal(office.ceo.id,'Minh');assert.equal(office.pending.length,0);
+});
+test('a replaced viewer cannot announce a stale queued CEO claim after a long scene',()=>{
+ const office=new Office();office.accept(event('Doughnut'),1000);office.tick(1000);
+ office.accept(event('Okay','An'),2000);
+ office.accept(event('Shamrock','Minh'),3000);office.tick(3000);
+ assert.equal(office.ceo.id,'Minh');assert.equal(office.active.key,'replaceCeo');
+ office.finish(4000);office.tick(4000);assert.equal(office.active,null);assert.equal(office.pending.length,0);
+});

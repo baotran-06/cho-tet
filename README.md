@@ -59,7 +59,7 @@ Mật khẩu TikTok không được nhập vào ứng dụng. Thư viện TikTok
 
 ## Mức độ đồ họa
 
-Bản này sử dụng nhân vật và bối cảnh render sẵn theo mẫu đã duyệt, ghép lớp 2.5D với chuyển động, camera và hiệu ứng bằng trình duyệt. Diện mạo thay đổi bằng bảng màu trang phục. Biểu cảm miệng là hiệu ứng đơn giản. Nhân vật chưa phải mesh 3D có bộ xương và facial rig; hoạt ảnh hôn, đánh, trao nhẫn là các đoạn dàn cảnh bằng lớp ảnh. Muốn chất lượng chuyển động như video tham chiếu cần dựng rig và clip hoạt ảnh riêng.
+Màn hình chính hiện là văn phòng WebGL 3D với nhân vật hình học, khớp tay chân và các bàn nhân viên. Không dùng ảnh nhân vật ghép lớp làm màn hình chính; không có hoạt ảnh nhép miệng. Tạo hình vẫn là bản cách điệu dựng bằng code, chưa tinh xảo như ảnh render đã duyệt.
 
 ## Phát triển và kiểm thử
 
@@ -67,7 +67,7 @@ Bản này sử dụng nhân vật và bối cảnh render sẵn theo mẫu đã
 - npm run check, npm test, npm run build
 - XOM_TEST_CHROMIUM=/path/to/chrome node scripts/browser-check.mjs
 - frontend/js/office-state.js quản lý vai, thời gian, quà, hàng đợi.
-- frontend/js/office-game.js, office.css quản lý diễn cảnh, focus và tên.
+- frontend/office-3d/room.js, people.js quản lý diễn cảnh, focus và tên.
 - frontend/js/office-audio.js, frontend/config/voices.json quản lý nhạc/thoại.
 - bridge/ nhận nguồn TikTok, xác thực lệnh local và phát trạng thái qua WebSocket.
 
@@ -75,12 +75,12 @@ GitHub Actions kiểm tra bản build, browser, Windows START/STOP và triển k
 
 ## Bản thử văn phòng 3D có nhân viên
 
-Mở /office-3d/index.html trên cùng máy chủ hoặc Pages. Bản này có tổng tài, thư ký, Liễu Như Yên dựng bằng hình học 3D và 16 vị trí nhân viên. Người xem nhận được sự kiện nguồn sẽ có nhân viên theo đúng ID; không thể xác định những tài khoản TikTok không cung cấp sự kiện. Trong DEMO bấm Thêm 12 nhân viên. Tặng Đồng ý hoặc Tim ngón tay để nhân viên đi từ bàn lên vai lãnh đạo; hết thời hạn sẽ đi về bàn. Một tài khoản chỉ giữ một vai cùng lúc. Tên được rút gọn, bảng tên chồng nhau được ẩn bớt. Giới hạn 16 nhân viên nhìn thấy giúp giữ hiệu suất.
+START tự mở /office-3d/index.html. Đường dẫn gốc của máy chủ và Pages cũng tự chuyển sang trang này. Bản này có tổng tài, thư ký, Liễu Như Yên dựng bằng hình học 3D và 16 vị trí nhân viên. Người xem nhận được sự kiện nguồn sẽ có nhân viên theo đúng ID; không thể xác định những tài khoản TikTok không cung cấp sự kiện. Trong DEMO bấm Thêm 12 nhân viên. Tặng Đồng ý hoặc Tim ngón tay để nhân viên đi từ bàn lên vai lãnh đạo; hết thời hạn sẽ đi về bàn. Một tài khoản chỉ giữ một vai cùng lúc. Tên được rút gọn, bảng tên chồng nhau được ẩn bớt. Giới hạn 16 nhân viên nhìn thấy giúp giữ hiệu suất.
 
-Đây là bản thử bố cục và hình học cách điệu, chưa thay màn hình chính. Chưa đạt độ chi tiết của hình render đã duyệt và chưa có facial rig/hoạt ảnh tiếp xúc hoàn chỉnh. Nhạc và thoại dùng lại hệ thống đã có; LIVE thật vẫn cần kiểm tra với tài khoản đang phát.
+Đây là bản hình học cách điệu và đã được đặt làm màn hình chính. Chưa đạt độ chi tiết của hình render đã duyệt và chưa có facial rig/hoạt ảnh tiếp xúc hoàn chỉnh. Nhạc và thoại dùng lại hệ thống đã có; LIVE thật vẫn cần kiểm tra với tài khoản đang phát.
 
 ### Thoại hoạt náo và mời nhận vai
 
-Bản thoại mới có 6 kịch bản cho mỗi hiệu ứng, cùng 18 câu chờ chia theo hai vai đang trống, trống tổng tài hoặc trống thư ký. Dùng giọng nam trầm, thư ký nữ nhẹ, Liễu sắc sảo và MC công ty như bản âm thanh thử đã duyệt. Sau khoảng chờ đầu 12–14 giây, lời mời cách nhau khoảng 28–38 giây. Khi cả hai vai đã có người, các lời mời tự dừng. Cảnh quà cắt ngay thoại chờ; nhạc giảm khi nói. Không chạy chồng hai câu thoại. Tắt âm lời thoại ở Điều khiển sẽ tắt cả lời mời.
+Bản thoại mới có 6 kịch bản cho mỗi hiệu ứng, cùng 18 câu chờ chia theo hai vai đang trống, trống tổng tài hoặc trống thư ký. Dùng giọng nam trầm, thư ký nữ nhẹ, Liễu sắc sảo và MC công ty như bản âm thanh thử đã duyệt. Sau khoảng chờ đầu 2,5 giây, các câu chờ nghỉ 3–5 giây sau khi câu trước kết thúc. Các lượt đáp trong cảnh cách nhau khoảng 0,12 giây. Khi cả hai vai đã có người, các lời mời tự dừng. Cảnh quà cắt ngay thoại chờ; nhạc giảm khi nói. Không chạy chồng hai câu thoại. Tắt âm lời thoại ở Điều khiển sẽ tắt cả lời mời.
 
 Cấu hình lời tại frontend/config/dialogue.json. File frontend/config/voices.json giữ thời điểm, thời lượng và vùng phát trong voices-v3.mp3; nhờ vậy trình duyệt tải chung một tệp thay vì hàng trăm tệp nhỏ. Công cụ scripts/generate-office-voices.py chỉ dùng khi biên soạn, cần edge-tts và ffmpeg, không cần chạy trên máy người dùng. Giọng vẫn là tiếng tổng hợp, không sao chép giọng người trong video mẫu.

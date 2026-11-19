@@ -38,10 +38,15 @@ test('idle speech waits, a real effect interrupts it, and both occupied roles si
   audio=new OfficeAudio(()=>{});audio.enabled=true;
   const office={ceo:{id:null},secretary:{id:null},active:null,audio:{sfxEnabled:false}};
   audio.update({office,serverTime:1000});assert.equal(audio.idleCaption,null);
-  audio.update({office,serverTime:13001});await Promise.resolve();
+  audio.update({office,serverTime:3501});await Promise.resolve();
   assert.ok(audio.idleCaption);assert.equal(audio.voice.paused,false);
-  office.active={id:'gift',key:'kiss',variant:0,started:14000};
-  audio.update({office,serverTime:14000});assert.equal(audio.idleCaption,null);assert.equal(audio.voice.paused,true);
+  const first=audio.idleCaption.text;
+  audio.voice.currentTime=audio.clipEnd;audio.voice.ontimeupdate();
+  assert.ok(audio.nextIdleAt-3501>=3000&&audio.nextIdleAt-3501<=5000);
+  audio.update({office,serverTime:audio.nextIdleAt+1});await Promise.resolve();
+  assert.notEqual(audio.idleCaption.text,first);
+  office.active={id:'gift',key:'kiss',variant:0,started:4000};
+  audio.update({office,serverTime:4000});assert.equal(audio.idleCaption,null);assert.equal(audio.voice.paused,true);
   office.active=null;office.ceo.id='a';office.secretary.id='b';
   audio.update({office,serverTime:100000});assert.equal(audio.idleCaption,null);
   await audio.playSpeech(voices.kiss[0].lines[0]);

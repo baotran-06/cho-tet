@@ -1,4 +1,5 @@
 import voices from '../config/voices.json' with {type:'json'};
+import config from '../config/office.json' with {type:'json'};
 import {pickVariant,idleCategory} from './office-dialogue.js';
 
 export class OfficeAudio {
@@ -52,7 +53,7 @@ export class OfficeAudio {
     const music=key==='wedding'?'wedding':key==='bedroom'?'night':key==='lieu'||key==='fire'?'tension':'chill';
     void this.musicFor(music,music==='chill'?this.preferences.trackId:null);
     if(this.sceneId!==active?.id){
-      this.sceneId=active?.id;this.played.clear();this.stopSpeech();this.nextIdleAt=now+14000;
+      this.sceneId=active?.id;this.played.clear();this.stopSpeech();this.nextIdleAt=now+config.speech.afterSceneDelayMs;
     }
     if(!active){
       this.updateIdle(office,now);
@@ -82,6 +83,7 @@ export class OfficeAudio {
     }
   }
   stopSpeech(){
+    if(this.idlePlaying)this.nextIdleAt=(this.state?.serverTime??Date.now())+config.speech.minPauseMs+Math.random()*(config.speech.maxPauseMs-config.speech.minPauseMs);
     this.clipToken++;clearTimeout(this.clipTimer);this.voice.pause();this.clipEnd=0;this.idlePlaying=null;this.duck(false);
   }
   async playSpeech(line,elapsed=0,idle=null){
@@ -112,14 +114,14 @@ export class OfficeAudio {
   updateIdle(office,now){
     const category=idleCategory(office);
     if(this.idlePlaying&&this.idlePlaying.category!==category)this.stopSpeech();
-    if(category!==this.idleLastCategory){this.idleLastCategory=category;this.nextIdleAt=now+12000;}
-    if(!category||!this.preferences.voiceEnabled){this.nextIdleAt=now+12000;return;}
-    this.nextIdleAt??=now+12000;
+    if(category!==this.idleLastCategory){this.idleLastCategory=category;this.nextIdleAt=now+config.speech.initialDelayMs;}
+    if(!category||!this.preferences.voiceEnabled){this.nextIdleAt=now+config.speech.initialDelayMs;return;}
+    this.nextIdleAt??=now+config.speech.initialDelayMs;
     if(now<this.nextIdleAt||!this.voice.paused)return;
     const variants=this.voices[category]??[];
     if(!variants.length)return;
     const variant=pickVariant(this.idleBags,category,variants.length);
-    this.nextIdleAt=now+28000+Math.random()*10000;
+    this.nextIdleAt=now+variants[variant].lines[0].duration*1000+config.speech.minPauseMs+Math.random()*(config.speech.maxPauseMs-config.speech.minPauseMs);
     void this.playSpeech(variants[variant].lines[0],0,category);
   }
   get idleCaption(){return this.idlePlaying&&!this.voice.paused?this.idlePlaying:null;}

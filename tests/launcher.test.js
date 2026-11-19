@@ -25,7 +25,7 @@ test('STOP requested during setup waits for the current step then prevents serve
 
 test('browser opens admin and game, and still attempts game when admin launch fails',async()=>{
  const urls=[];await openDashboard('http://127.0.0.1:3210',{disabled:false,launch:async url=>{urls.push(url);}});
- assert.deepEqual(urls,['http://127.0.0.1:3210/admin','http://127.0.0.1:3210/']);
+ assert.deepEqual(urls,['http://127.0.0.1:3210/admin','http://127.0.0.1:3210/office-3d/index.html']);
  const attempts=[];await assert.rejects(openDashboard('http://127.0.0.1:3210',{disabled:false,launch:async url=>{attempts.push(url);if(url.endsWith('/admin'))throw Error('fixture browser failure');}}),/quan tri\/game/);
  assert.equal(attempts.length,2);
  const disabled=[];await openDashboard('http://127.0.0.1:3210',{disabled:true,launch:async url=>disabled.push(url)});assert.deepEqual(disabled,[]);

@@ -7,7 +7,7 @@
           "text": "Đứng yên. Đây là phúc lợi riêng của em.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 0.0,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.488
         },
         {
@@ -15,11 +15,11 @@
           "text": "Dạ. Phúc lợi này có được quy ra tiền không sếp?",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 4.668,
-          "at": 5.558,
+          "at": 4.908,
           "duration": 4.08
         }
       ],
-      "duration": 9.958
+      "duration": 9.108
     },
     {
       "lines": [
@@ -28,7 +28,7 @@
           "text": "Hợp đồng ghi rõ, em phải ở cạnh anh.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 8.928,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.744
         },
         {
@@ -36,11 +36,11 @@
           "text": "Em nhớ hợp đồng chỉ ghi tám tiếng một ngày mà!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 12.852,
-          "at": 4.814,
+          "at": 4.164,
           "duration": 3.24
         }
       ],
-      "duration": 8.374
+      "duration": 7.524
     },
     {
       "lines": [
@@ -49,7 +49,7 @@
           "text": "Em vừa được thưởng vì làm việc chăm chỉ.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 16.272,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.408
         },
         {
@@ -57,11 +57,11 @@
           "text": "Thưởng thì chuyển khoản đi anh. Sao anh lại tiến tới?",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 19.86,
-          "at": 4.478,
+          "at": 3.828,
           "duration": 4.272
         }
       ],
-      "duration": 9.07
+      "duration": 8.22
     },
     {
       "lines": [
@@ -70,7 +70,7 @@
           "text": "Cả công ty ra ngoài. Anh có chuyện riêng cần trao đổi.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 24.312,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 5.088
         },
         {
@@ -78,11 +78,11 @@
           "text": "Anh ơi, cả công ty đang xem trực tiếp!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 29.58,
-          "at": 6.158,
+          "at": 5.508,
           "duration": 2.976
         }
       ],
-      "duration": 9.454
+      "duration": 8.604
     },
     {
       "lines": [
@@ -91,7 +91,7 @@
           "text": "Trong công ty này, em chỉ cần nghe lời anh.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 32.736,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.816
         },
         {
@@ -99,11 +99,11 @@
           "text": "Dạ. Nhưng lương tháng này, anh chuyển chưa?",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 36.732,
-          "at": 4.886,
+          "at": 4.236,
           "duration": 3.888
         }
       ],
-      "duration": 9.094
+      "duration": 8.244
     },
     {
       "lines": [
@@ -112,7 +112,7 @@
           "text": "Sếp gọi em có việc gì ạ?",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 40.8,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.472
         },
         {
@@ -120,11 +120,11 @@
           "text": "Có. Anh đang thiếu một người đứng thật gần.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 43.452,
-          "at": 3.542,
+          "at": 2.892,
           "duration": 4.416
         }
       ],
-      "duration": 8.278
+      "duration": 7.428
     }
   ],
   "wedding": [
@@ -135,7 +135,7 @@
           "text": "Thông báo! Công ty vừa sáp nhập hai trái tim.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 48.048,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.008
         },
         {
@@ -143,7 +143,7 @@
           "text": "Từ hôm nay, anh giao cả đời này cho em.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 52.236,
-          "at": 5.078,
+          "at": 4.428,
           "duration": 3.792
         },
         {
@@ -151,11 +151,11 @@
           "text": "Dạ. Mật khẩu tài khoản anh giao luôn nha.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 56.208,
-          "at": 9.19,
+          "at": 8.34,
           "duration": 3.84
         }
       ],
-      "duration": 13.35
+      "duration": 12.3
     },
     {
       "lines": [
@@ -164,7 +164,7 @@
           "text": "Họp khẩn! Tổng tài chuẩn bị ký hợp đồng trọn đời.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 60.228,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.056
         },
         {
@@ -172,7 +172,7 @@
           "text": "Điều khoản duy nhất: em ở lại bên anh.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 64.464,
-          "at": 5.126,
+          "at": 4.476,
           "duration": 3.552
         },
         {
@@ -180,11 +180,11 @@
           "text": "Còn điều khoản của em: không được quên ngày kỷ niệm.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 68.196,
-          "at": 8.998,
+          "at": 8.148,
           "duration": 3.504
         }
       ],
-      "duration": 12.822
+      "duration": 11.772
     },
     {
       "lines": [
@@ -193,7 +193,7 @@
           "text": "Xin mời phòng nhân sự chứng kiến buổi bổ nhiệm đặc biệt!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 71.88,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.384
         },
         {
@@ -201,7 +201,7 @@
           "text": "Anh muốn em làm chủ cuộc đời anh.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 75.444,
-          "at": 4.454,
+          "at": 3.804,
           "duration": 3.192
         },
         {
@@ -209,11 +209,11 @@
           "text": "Vậy em xin nhận luôn quyền duyệt chi.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 78.816,
-          "at": 7.966,
+          "at": 7.116,
           "duration": 2.76
         }
       ],
-      "duration": 11.046
+      "duration": 9.996
     },
     {
       "lines": [
@@ -222,7 +222,7 @@
           "text": "Từ đồng nghiệp thành người một nhà. Xin một tràng pháo tay!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 81.756,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.368
         },
         {
@@ -230,7 +230,7 @@
           "text": "Cuối cùng, em cũng thuộc về gia đình anh.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 86.304,
-          "at": 5.438,
+          "at": 4.788,
           "duration": 3.576
         },
         {
@@ -238,11 +238,11 @@
           "text": "Nhưng việc nhà thì mình vẫn chia đôi nha.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 90.06,
-          "at": 9.334,
+          "at": 8.484,
           "duration": 2.88
         }
       ],
-      "duration": 12.534
+      "duration": 11.484
     },
     {
       "lines": [
@@ -251,7 +251,7 @@
           "text": "Hôm nay tổng tài thôi tuyển dụng, chuyển sang cầu hôn!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 93.12,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.528
         },
         {
@@ -259,7 +259,7 @@
           "text": "Anh đã tìm được người anh muốn giữ cả đời.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 96.828,
-          "at": 4.598,
+          "at": 3.948,
           "duration": 3.384
         },
         {
@@ -267,11 +267,11 @@
           "text": "Em đồng ý. Nhớ duyệt đơn nghỉ tuần trăng mật!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 100.392,
-          "at": 8.302,
+          "at": 7.452,
           "duration": 3.048
         }
       ],
-      "duration": 11.67
+      "duration": 10.62
     },
     {
       "lines": [
@@ -280,7 +280,7 @@
           "text": "Lễ ký kết hạnh phúc bắt đầu! Hai bên đều không được hủy ngang.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 103.62,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.752
         },
         {
@@ -288,7 +288,7 @@
           "text": "Anh hứa sẽ luôn chọn em.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 108.552,
-          "at": 5.822,
+          "at": 5.172,
           "duration": 2.64
         },
         {
@@ -296,11 +296,11 @@
           "text": "Em hứa sẽ nhắc anh chuyển tiền điện đúng hạn.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 111.372,
-          "at": 8.782,
+          "at": 7.932,
           "duration": 3.048
         }
       ],
-      "duration": 12.15
+      "duration": 11.1
     }
   ],
   "lieu": [
@@ -311,7 +311,7 @@
           "text": "Báo cáo! Có người bước vào với khí thế đòi kiểm tra nội bộ.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 114.6,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.512
         },
         {
@@ -319,7 +319,7 @@
           "text": "Công ty tuyển thư ký, hay tuyển người yêu vậy?",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 119.292,
-          "at": 5.582,
+          "at": 4.932,
           "duration": 3.504
         },
         {
@@ -327,11 +327,11 @@
           "text": "Dạ, em chỉ đang tăng ca thôi chị!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 122.976,
-          "at": 9.406,
+          "at": 8.556,
           "duration": 3.0
         }
       ],
-      "duration": 12.726
+      "duration": 11.676
     },
     {
       "lines": [
@@ -340,7 +340,7 @@
           "text": "Nhân vật mới vừa xuất hiện. Mùi drama đã tới trước người!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 126.156,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.68
         },
         {
@@ -348,7 +348,7 @@
           "text": "Tôi vừa đi một lát, cô đã đứng gần anh ấy vậy rồi?",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 131.016,
-          "at": 5.75,
+          "at": 5.1,
           "duration": 3.936
         },
         {
@@ -356,11 +356,11 @@
           "text": "Dạ, vì chỗ xa không nghe rõ chỉ đạo ạ.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 135.132,
-          "at": 10.006,
+          "at": 9.156,
           "duration": 3.48
         }
       ],
-      "duration": 13.806
+      "duration": 12.756
     },
     {
       "lines": [
@@ -369,7 +369,7 @@
           "text": "Phòng tiếp khách hôm nay có vẻ hơi nóng!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 138.792,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.664
         },
         {
@@ -377,7 +377,7 @@
           "text": "Cô biết vị trí bên cạnh anh ấy là của ai không?",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 141.636,
-          "at": 3.734,
+          "at": 3.084,
           "duration": 3.672
         },
         {
@@ -385,11 +385,11 @@
           "text": "Dạ, sơ đồ công ty ghi chỗ này là chỗ thư ký.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 145.488,
-          "at": 7.726,
+          "at": 6.876,
           "duration": 3.864
         }
       ],
-      "duration": 11.91
+      "duration": 10.86
     },
     {
       "lines": [
@@ -398,7 +398,7 @@
           "text": "Cảnh báo! Bão sắp đổ bộ vào bàn tổng tài.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 149.532,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.936
         },
         {
@@ -406,7 +406,7 @@
           "text": "Cô tưởng đứng cạnh anh ấy là thành bà chủ sao?",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 153.648,
-          "at": 5.006,
+          "at": 4.356,
           "duration": 3.36
         },
         {
@@ -414,11 +414,11 @@
           "text": "Dạ không. Em vẫn đang chờ tăng lương thôi.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 157.188,
-          "at": 8.686,
+          "at": 7.836,
           "duration": 3.888
         }
       ],
-      "duration": 12.894
+      "duration": 11.844
     },
     {
       "lines": [
@@ -427,7 +427,7 @@
           "text": "Bộ phận hóng chuyện xin phép làm thêm giờ!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 161.256,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.856
         },
         {
@@ -435,7 +435,7 @@
           "text": "Cô tránh ra. Tôi có chuyện riêng với anh ấy.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 164.292,
-          "at": 3.926,
+          "at": 3.276,
           "duration": 4.368
         },
         {
@@ -443,11 +443,11 @@
           "text": "Dạ, chị đặt lịch chưa để em kiểm tra?",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 168.84,
-          "at": 8.614,
+          "at": 7.764,
           "duration": 3.192
         }
       ],
-      "duration": 12.126
+      "duration": 11.076
     },
     {
       "lines": [
@@ -456,7 +456,7 @@
           "text": "Có vị khách mang theo cả áp suất thấp vào công ty!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 172.212,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.12
         },
         {
@@ -464,7 +464,7 @@
           "text": "Tôi nhớ mình chưa cho phép cô thân thiết như vậy.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 175.512,
-          "at": 4.19,
+          "at": 3.54,
           "duration": 3.288
         },
         {
@@ -472,11 +472,11 @@
           "text": "Dạ, quyền phê duyệt của chị nằm ở phòng nào ạ?",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 178.98,
-          "at": 7.798,
+          "at": 6.948,
           "duration": 3.528
         }
       ],
-      "duration": 11.646
+      "duration": 10.596
     }
   ],
   "replaceCeo": [
@@ -487,7 +487,7 @@
           "text": "Chú ý! Ghế nóng chuẩn bị đổi phong cách lãnh đạo.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 182.688,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.032
         },
         {
@@ -495,11 +495,11 @@
           "text": "Tổng tài mới tới. Báo cáo ngắn, lương thưởng nói dài.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 186.9,
-          "at": 5.102,
+          "at": 4.452,
           "duration": 5.688
         }
       ],
-      "duration": 11.11
+      "duration": 10.26
     },
     {
       "lines": [
@@ -508,7 +508,7 @@
           "text": "Hội đồng quản trị vừa bấm nút thay đổi diện mạo!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 192.768,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.072
         },
         {
@@ -516,11 +516,11 @@
           "text": "Tôi thay bộ vest. Còn khí chất thì không cần thay.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 196.02,
-          "at": 4.142,
+          "at": 3.492,
           "duration": 4.944
         }
       ],
-      "duration": 9.406
+      "duration": 8.556
     },
     {
       "lines": [
@@ -529,7 +529,7 @@
           "text": "Bản cập nhật tổng tài đã hoàn tất!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 201.144,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.544
         },
         {
@@ -537,11 +537,11 @@
           "text": "Từ giờ, công ty này làm việc bằng thực lực. Và một chút đẹp trai.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 203.868,
-          "at": 3.614,
+          "at": 2.964,
           "duration": 5.952
         }
       ],
-      "duration": 9.886
+      "duration": 9.036
     },
     {
       "lines": [
@@ -550,7 +550,7 @@
           "text": "Lãnh đạo tái xuất với phong cách mới!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 210.0,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.712
         },
         {
@@ -558,11 +558,11 @@
           "text": "Mọi người cứ bình tĩnh. Người nhiều tiền thường tới hơi muộn.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 212.892,
-          "at": 3.782,
+          "at": 3.132,
           "duration": 5.664
         }
       ],
-      "duration": 9.766
+      "duration": 8.916
     },
     {
       "lines": [
@@ -571,7 +571,7 @@
           "text": "Tổng tài đã trở lại. Phòng kế toán bắt đầu hồi hộp!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 218.736,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.344
         },
         {
@@ -579,11 +579,11 @@
           "text": "Tôi đổi phong cách, không đổi lời hứa tăng lương. Để mai tính.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 223.26,
-          "at": 5.414,
+          "at": 4.764,
           "duration": 5.76
         }
       ],
-      "duration": 11.494
+      "duration": 10.644
     },
     {
       "lines": [
@@ -592,7 +592,7 @@
           "text": "Một diện mạo mới vừa bước lên ghế lãnh đạo!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 229.2,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.12
         },
         {
@@ -600,11 +600,11 @@
           "text": "Ai gọi tôi lên? Báo trước, tôi không duyệt đơn nghỉ hóng chuyện.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 232.5,
-          "at": 4.19,
+          "at": 3.54,
           "duration": 5.76
         }
       ],
-      "duration": 10.27
+      "duration": 9.42
     }
   ],
   "replaceSecretary": [
@@ -615,7 +615,7 @@
           "text": "Phòng nhân sự thông báo: thư ký vừa đổi phong cách!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 238.44,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.384
         },
         {
@@ -623,11 +623,11 @@
           "text": "Em mới tới. Hồ sơ, lịch họp và tin đồn em đều nắm rõ.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 242.004,
-          "at": 4.454,
+          "at": 3.804,
           "duration": 5.328
         }
       ],
-      "duration": 10.102
+      "duration": 9.252
     },
     {
       "lines": [
@@ -636,7 +636,7 @@
           "text": "Một diện mạo mới xuất hiện bên cạnh tổng tài!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 247.512,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.072
         },
         {
@@ -644,11 +644,11 @@
           "text": "Em đổi trang phục thôi. Hóa đơn chưa thanh toán em vẫn nhớ.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 250.764,
-          "at": 4.142,
+          "at": 3.492,
           "duration": 4.68
         }
       ],
-      "duration": 9.142
+      "duration": 8.292
     },
     {
       "lines": [
@@ -657,7 +657,7 @@
           "text": "Thư ký đã sẵn sàng nhận bàn giao!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 255.624,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.616
         },
         {
@@ -665,11 +665,11 @@
           "text": "Việc khó cứ giao em. Còn việc tăng lương, em giao sếp.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 258.42,
-          "at": 3.686,
+          "at": 3.036,
           "duration": 4.728
         }
       ],
-      "duration": 8.734
+      "duration": 7.884
     },
     {
       "lines": [
@@ -678,7 +678,7 @@
           "text": "Bộ phận điều hành vừa có bản cập nhật mới!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 263.328,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.904
         },
         {
@@ -686,11 +686,11 @@
           "text": "Lịch hôm nay kín rồi. Chỉ còn trống lịch sếp chuyển lương.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 266.412,
-          "at": 3.974,
+          "at": 3.324,
           "duration": 4.392
         }
       ],
-      "duration": 8.686
+      "duration": 7.836
     },
     {
       "lines": [
@@ -699,7 +699,7 @@
           "text": "Xin chào thư ký với phong cách mới của công ty!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 270.984,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.072
         },
         {
@@ -707,11 +707,11 @@
           "text": "Em làm việc rất chuyên nghiệp. Đặc biệt là lúc đúng giờ tan ca.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 274.236,
-          "at": 4.142,
+          "at": 3.492,
           "duration": 4.776
         }
       ],
-      "duration": 9.238
+      "duration": 8.388
     },
     {
       "lines": [
@@ -720,7 +720,7 @@
           "text": "Thư ký mới bước vào. Công ty bỗng gọn gàng hơn hẳn!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 279.192,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.44
         },
         {
@@ -728,11 +728,11 @@
           "text": "Từ giờ, ai gặp sếp nhớ đặt lịch. Kể cả sếp muốn gặp em.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 283.812,
-          "at": 5.51,
+          "at": 4.86,
           "duration": 5.016
         }
       ],
-      "duration": 10.846
+      "duration": 9.996
     }
   ],
   "claimCeo": [
@@ -743,7 +743,7 @@
           "text": "Một nhân viên vừa bước lên nhận ghế tổng tài!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 289.008,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.144
         },
         {
@@ -751,11 +751,11 @@
           "text": "Ai muốn ngồi ghế này thì bước lên đối đầu với tôi.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 292.332,
-          "at": 4.214,
+          "at": 3.564,
           "duration": 3.768
         }
       ],
-      "duration": 8.302
+      "duration": 7.452
     },
     {
       "lines": [
@@ -764,7 +764,7 @@
           "text": "Thang máy sự nghiệp vừa chạy thẳng lên tầng cao nhất!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 296.28,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.144
         },
         {
@@ -772,11 +772,11 @@
           "text": "Từ nay, tôi là người ký giấy. Còn ai làm giấy thì tính sau.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 299.604,
-          "at": 4.214,
+          "at": 3.564,
           "duration": 5.928
         }
       ],
-      "duration": 10.462
+      "duration": 9.612
     },
     {
       "lines": [
@@ -785,7 +785,7 @@
           "text": "Cả công ty chào đón vị tổng tài vừa được bổ nhiệm!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 305.712,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.216
         },
         {
@@ -793,11 +793,11 @@
           "text": "Tôi không thích nói nhiều. Ai rảnh thì pha giúp tôi ly cà phê.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 309.108,
-          "at": 4.286,
+          "at": 3.636,
           "duration": 5.64
         }
       ],
-      "duration": 10.246
+      "duration": 9.396
     },
     {
       "lines": [
@@ -806,7 +806,7 @@
           "text": "Chúc mừng nhân viên đã thăng chức thành tổng tài!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 314.928,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.952
         },
         {
@@ -814,11 +814,11 @@
           "text": "Hồi nãy còn gõ báo cáo. Giờ tôi duyệt luôn báo cáo của mình.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 318.06,
-          "at": 4.022,
+          "at": 3.372,
           "duration": 5.808
         }
       ],
-      "duration": 10.15
+      "duration": 9.3
     },
     {
       "lines": [
@@ -827,7 +827,7 @@
           "text": "Ghế tổng tài chính thức có người nhận rồi!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 324.048,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.736
         },
         {
@@ -835,11 +835,11 @@
           "text": "Trời lạnh rồi. Công ty mình phát áo ấm trước, chuyện bá đạo để sau.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 326.964,
-          "at": 3.806,
+          "at": 3.156,
           "duration": 6.336
         }
       ],
-      "duration": 10.462
+      "duration": 9.612
     },
     {
       "lines": [
@@ -848,7 +848,7 @@
           "text": "Quyết định bổ nhiệm đã có hiệu lực!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 333.48,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.4
         },
         {
@@ -856,11 +856,11 @@
           "text": "Mục tiêu của tôi rất đơn giản: công ty phát triển, thư ký đừng nghỉ.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 336.06,
-          "at": 3.47,
+          "at": 2.82,
           "duration": 5.568
         }
       ],
-      "duration": 9.358
+      "duration": 8.508
     }
   ],
   "claimSecretary": [
@@ -871,7 +871,7 @@
           "text": "Một nhân viên đang bước lên nhận vị trí thư ký!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 341.808,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.192
         },
         {
@@ -879,11 +879,11 @@
           "text": "Em xin nhận việc. Xin sếp đừng giao em cả việc yêu đương.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 345.18,
-          "at": 4.262,
+          "at": 3.612,
           "duration": 4.608
         }
       ],
-      "duration": 9.19
+      "duration": 8.34
     },
     {
       "lines": [
@@ -892,7 +892,7 @@
           "text": "Vị trí bên cạnh tổng tài vừa có người nhận!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 349.968,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.072
         },
         {
@@ -900,11 +900,11 @@
           "text": "Em quản lịch họp, hồ sơ và cả lịch sếp nhớ chuyển lương.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 353.22,
-          "at": 4.142,
+          "at": 3.492,
           "duration": 3.888
         }
       ],
-      "duration": 8.35
+      "duration": 7.5
     },
     {
       "lines": [
@@ -913,7 +913,7 @@
           "text": "Thư ký của tổng tài đã có chủ nhân mới!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 357.288,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.856
         },
         {
@@ -921,11 +921,11 @@
           "text": "Từ hôm nay, ai muốn gặp sếp xin đi qua em trước.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 360.324,
-          "at": 3.926,
+          "at": 3.276,
           "duration": 3.528
         }
       ],
-      "duration": 7.774
+      "duration": 6.924
     },
     {
       "lines": [
@@ -934,7 +934,7 @@
           "text": "Đơn xin thăng chức đã được duyệt!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 364.032,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.4
         },
         {
@@ -942,11 +942,11 @@
           "text": "Em đã chuẩn bị sẵn báo cáo. Và đơn đề nghị tăng phụ cấp.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 366.612,
-          "at": 3.47,
+          "at": 2.82,
           "duration": 4.896
         }
       ],
-      "duration": 8.686
+      "duration": 7.836
     },
     {
       "lines": [
@@ -955,7 +955,7 @@
           "text": "Công ty chào đón người giữ lịch trình của tổng tài!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 371.688,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.12
         },
         {
@@ -963,11 +963,11 @@
           "text": "Em nhận việc vì đam mê. Đam mê thấy tiền lương vào tài khoản.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 374.988,
-          "at": 4.19,
+          "at": 3.54,
           "duration": 4.944
         }
       ],
-      "duration": 9.454
+      "duration": 8.604
     },
     {
       "lines": [
@@ -976,7 +976,7 @@
           "text": "Nhân viên vừa đổi bàn. Sự nghiệp cũng đổi luôn!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 380.112,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.032
         },
         {
@@ -984,11 +984,11 @@
           "text": "Sếp yên tâm, em rất kín miệng. Trừ những chuyện cả công ty đã biết.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 384.324,
-          "at": 5.102,
+          "at": 4.452,
           "duration": 5.232
         }
       ],
-      "duration": 10.654
+      "duration": 9.804
     }
   ],
   "bedroom": [
@@ -999,7 +999,7 @@
           "text": "Lịch họp kết thúc. Hai nhân vật chính xin phép nghỉ riêng một chút!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 389.736,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.584
         },
         {
@@ -1007,11 +1007,11 @@
           "text": "Hôm nay không tiếp khách. Chuyện công ty để ngày mai.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 394.5,
-          "at": 5.654,
+          "at": 5.004,
           "duration": 4.872
         }
       ],
-      "duration": 10.846
+      "duration": 9.996
     },
     {
       "lines": [
@@ -1020,7 +1020,7 @@
           "text": "Chế độ riêng tư đã bật. Xin quý vị giữ khoảng cách với cánh cửa!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 399.552,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.968
         },
         {
@@ -1028,11 +1028,11 @@
           "text": "Anh đã tắt điện thoại. Trừ số của kế toán, lỡ còn tiền về.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 404.7,
-          "at": 6.038,
+          "at": 5.388,
           "duration": 6.168
         }
       ],
-      "duration": 12.526
+      "duration": 11.676
     },
     {
       "lines": [
@@ -1041,7 +1041,7 @@
           "text": "Phòng riêng đang được sử dụng. Bộ phận hóng chuyện xin chờ bên ngoài!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 411.048,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.824
         },
         {
@@ -1049,11 +1049,11 @@
           "text": "Không nhận lịch họp, không nhận báo cáo. Anh cần yên tĩnh.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 416.052,
-          "at": 5.894,
+          "at": 5.244,
           "duration": 5.664
         }
       ],
-      "duration": 11.878
+      "duration": 11.028
     },
     {
       "lines": [
@@ -1062,7 +1062,7 @@
           "text": "Hai người tạm rời văn phòng. Cửa đã khép, xin đừng làm phiền!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 421.896,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.68
         },
         {
@@ -1070,11 +1070,11 @@
           "text": "Anh chỉ nghỉ một lát. Đừng ai tranh thủ đổi luôn ghế của anh.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 426.756,
-          "at": 5.75,
+          "at": 5.1,
           "duration": 5.568
         }
       ],
-      "duration": 11.638
+      "duration": 10.788
     },
     {
       "lines": [
@@ -1083,7 +1083,7 @@
           "text": "Thông báo nội bộ: cuộc họp riêng đã bắt đầu!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 432.504,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.072
         },
         {
@@ -1091,11 +1091,11 @@
           "text": "Việc quan trọng nhất bây giờ là nghỉ ngơi. Mọi người giải tán.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 435.756,
-          "at": 4.142,
+          "at": 3.492,
           "duration": 5.712
         }
       ],
-      "duration": 10.174
+      "duration": 9.324
     },
     {
       "lines": [
@@ -1104,7 +1104,7 @@
           "text": "Tổng tài đã chuyển sang chế độ không làm phiền!",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 441.648,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.952
         },
         {
@@ -1112,11 +1112,11 @@
           "text": "Anh đặt biển ngoài cửa rồi. Ai gõ cửa nhớ có lý do thật thuyết phục.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 444.78,
-          "at": 4.022,
+          "at": 3.372,
           "duration": 5.88
         }
       ],
-      "duration": 10.222
+      "duration": 9.372
     }
   ],
   "fire": [
@@ -1127,11 +1127,11 @@
           "text": "Cô bị sa thải.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 450.84,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.304
         }
       ],
-      "duration": 3.374
+      "duration": 2.724
     },
     {
       "lines": [
@@ -1140,11 +1140,11 @@
           "text": "Cô có thể nghỉ việc rồi.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 453.324,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.52
         }
       ],
-      "duration": 3.59
+      "duration": 2.94
     },
     {
       "lines": [
@@ -1153,11 +1153,11 @@
           "text": "Từ hôm nay, cô không cần đến nữa.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 456.024,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.432
         }
       ],
-      "duration": 4.502
+      "duration": 3.852
     },
     {
       "lines": [
@@ -1166,11 +1166,11 @@
           "text": "Bàn giao công việc rồi rời đi.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 459.636,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 2.904
         }
       ],
-      "duration": 3.974
+      "duration": 3.324
     },
     {
       "lines": [
@@ -1179,11 +1179,11 @@
           "text": "Quyết định của tôi là chấm dứt hợp đồng.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 462.72,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 3.216
         }
       ],
-      "duration": 4.286
+      "duration": 3.636
     },
     {
       "lines": [
@@ -1192,11 +1192,11 @@
           "text": "Cô ra ngoài đi. Hợp đồng kết thúc.",
           "src": "sounds/office/voices-v3.mp3",
           "offset": 466.116,
-          "at": 0.75,
+          "at": 0.3,
           "duration": 4.248
         }
       ],
-      "duration": 5.318
+      "duration": 4.668
     }
   ],
   "idleBoth": [
@@ -1211,7 +1211,7 @@
           "duration": 6.24
         }
       ],
-      "duration": 6.56
+      "duration": 6.36
     },
     {
       "lines": [
@@ -1224,7 +1224,7 @@
           "duration": 8.136
         }
       ],
-      "duration": 8.456
+      "duration": 8.256
     },
     {
       "lines": [
@@ -1237,7 +1237,7 @@
           "duration": 7.92
         }
       ],
-      "duration": 8.24
+      "duration": 8.04
     },
     {
       "lines": [
@@ -1250,7 +1250,7 @@
           "duration": 5.112
         }
       ],
-      "duration": 5.432
+      "duration": 5.232
     },
     {
       "lines": [
@@ -1263,7 +1263,7 @@
           "duration": 8.736
         }
       ],
-      "duration": 9.056
+      "duration": 8.856
     },
     {
       "lines": [
@@ -1276,7 +1276,7 @@
           "duration": 5.664
         }
       ],
-      "duration": 5.984
+      "duration": 5.784
     }
   ],
   "idleCeo": [
@@ -1291,7 +1291,7 @@
           "duration": 6.264
         }
       ],
-      "duration": 6.584
+      "duration": 6.384
     },
     {
       "lines": [
@@ -1304,7 +1304,7 @@
           "duration": 7.056
         }
       ],
-      "duration": 7.376
+      "duration": 7.176
     },
     {
       "lines": [
@@ -1317,7 +1317,7 @@
           "duration": 6.792
         }
       ],
-      "duration": 7.112
+      "duration": 6.912
     },
     {
       "lines": [
@@ -1330,7 +1330,7 @@
           "duration": 6.696
         }
       ],
-      "duration": 7.016
+      "duration": 6.816
     },
     {
       "lines": [
@@ -1343,7 +1343,7 @@
           "duration": 5.976
         }
       ],
-      "duration": 6.296
+      "duration": 6.096
     },
     {
       "lines": [
@@ -1356,7 +1356,7 @@
           "duration": 6.624
         }
       ],
-      "duration": 6.944
+      "duration": 6.744
     }
   ],
   "idleSecretary": [
@@ -1371,7 +1371,7 @@
           "duration": 6.264
         }
       ],
-      "duration": 6.584
+      "duration": 6.384
     },
     {
       "lines": [
@@ -1384,7 +1384,7 @@
           "duration": 6.864
         }
       ],
-      "duration": 7.184
+      "duration": 6.984
     },
     {
       "lines": [
@@ -1397,7 +1397,7 @@
           "duration": 6.816
         }
       ],
-      "duration": 7.136
+      "duration": 6.936
     },
     {
       "lines": [
@@ -1410,7 +1410,7 @@
           "duration": 6.144
         }
       ],
-      "duration": 6.464
+      "duration": 6.264
     },
     {
       "lines": [
@@ -1423,7 +1423,7 @@
           "duration": 6.24
         }
       ],
-      "duration": 6.56
+      "duration": 6.36
     },
     {
       "lines": [
@@ -1436,7 +1436,7 @@
           "duration": 7.176
         }
       ],
-      "duration": 7.496
+      "duration": 7.296
     }
   ]
 }

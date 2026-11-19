@@ -10,6 +10,7 @@ if extra and Path(extra).is_file():
 import edge_tts
 root=Path(__file__).resolve().parents[1]
 source=json.loads((root/'frontend/config/dialogue.json').read_text())
+timing=json.loads((root/'frontend/config/office.json').read_text()).get('speech',{})
 cache=root/'.runtime/voice-build';cache.mkdir(parents=True,exist_ok=True)
 profiles={'ceo':('vi-VN-NamMinhNeural','-8%','-18Hz'),'secretary':('vi-VN-HoaiMyNeural','+8%','+6Hz'),'lieu':('vi-VN-HoaiMyNeural','+2%','-5Hz'),'mc':('vi-VN-NamMinhNeural','+12%','+8Hz')}
 jobs=[]
@@ -38,13 +39,13 @@ rate=24000;chunks=[];cursor=0;silence=b'\0\0'*int(rate*.18);index=0;voices={}
 for key,variants in source.items():
  voices[key]=[]
  for variant in variants:
-  at=0 if key.startswith('idle') else .75;lines=[]
+  at=0 if key.startswith('idle') else timing.get('sceneLeadSeconds',.3);lines=[]
   for line in variant['lines']:
    _,_,path=jobs[index];index+=1
    pcm=subprocess.check_output(['ffmpeg','-v','error','-i',str(path),'-f','s16le','-ac','1','-ar',str(rate),'-'])
    duration=len(pcm)/(2*rate)
    lines.append({**line,'src':'sounds/office/voices-v3.mp3','offset':round(cursor/rate,5),'at':round(at,3),'duration':round(duration,4)})
-   chunks.extend([pcm,silence]);cursor+=len(pcm)//2+len(silence)//2;at+=duration+.32
+   chunks.extend([pcm,silence]);cursor+=len(pcm)//2+len(silence)//2;at+=duration+timing.get('turnGapSeconds',.12)
   voices[key].append({'lines':lines,'duration':round(at,3)})
 output=root/'frontend/sounds/office/voices-v3.mp3';wav=cache/'combined.wav'
 with wave.open(str(wav),'wb') as f:f.setnchannels(1);f.setsampwidth(2);f.setframerate(rate);f.writeframes(b''.join(chunks))

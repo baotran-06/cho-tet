@@ -13,3 +13,5 @@ Font Be Vietnam Pro đi kèm giấy phép SIL Open Font License trong assets/fon
 Phông sảnh cưới và cửa phòng tân hôn cũng được tạo mới bằng công cụ sinh ảnh; không lấy cảnh phim.
 
 Bản thoại hoạt náo bổ sung MC công ty. Thông số giọng giữ theo đoạn thử người dùng đã duyệt; tất cả nội dung được viết riêng. Lời mời chỉ nói về vai còn trống.
+
+Màn hình chính đã chuyển sang nhân vật và văn phòng hình học 3D dựng bằng code. Các ảnh render 2.5D cũ không còn được dùng làm màn hình chính. Không có hoạt ảnh nhép miệng; lời thoại phát riêng với phụ đề và hiệu ứng cảnh.

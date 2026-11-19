@@ -19,7 +19,7 @@ export async function probe(origin,expected={}) {
     const finish=(error)=>{clearTimeout(timer);socket.close();error?reject(error):resolve();};
     socket.addEventListener('error',()=>finish(Error('WebSocket khong san sang')),{once:true});socket.addEventListener('message',e=>{try{const s=JSON.parse(e.data);if(!Array.isArray(s.users))throw Error();finish();}catch{finish(Error('WebSocket payload khong hop le'));}},{once:true});
   });
-  for(const path of ['/admin','/','/js/game.js','/assets/vendor/three.module.js']){const r=await fetch(origin+path,{method:'HEAD',signal:AbortSignal.timeout(2500)});if(!r.ok)throw Error('Thieu frontend '+path+' (HTTP '+r.status+')');}
+  for(const path of ['/admin','/office-3d/index.html','/office-3d/room.js','/office-3d/people.js','/assets/vendor/three.module.js']){const r=await fetch(origin+path,{method:'HEAD',signal:AbortSignal.timeout(2500)});if(!r.ok)throw Error('Thieu frontend '+path+' (HTTP '+r.status+')');}
   return health;
 }
 async function portFree(port){await new Promise((resolve,reject)=>{const server=net.createServer();server.once('error',()=>reject(Error('Cong '+port+' dang ban. Khong tat tien trinh khac; dong phien cu hoac dung STOP-XOM.bat trong dung thu muc.')));server.listen(port,'127.0.0.1',()=>server.close(resolve));});}
@@ -50,7 +50,7 @@ import {statSync} from 'node:fs';
 function requireSize(path){return statSync(path).size;}
 async function acquire(root,instanceId){const path=join(root,'.runtime','start.lock');for(let i=0;i<2;i++){try{const f=await open(path,'wx',0o600);await f.writeFile(JSON.stringify({pid:process.pid,instanceId}));await f.close();return;}catch(e){if(e.code!=='EEXIST')throw e;const lock=await readJSON(path);if(lock&&alive(lock.pid))throw Error('Tong Tai dang khoi dong hoac da chay. Hay doi, hoac dung STOP-TONG-TAI.bat trong thu muc nay.');try{const age=Date.now()-(await stat(path)).mtimeMs;if(!lock&&age<5000)throw Error('Tong Tai vua bat dau khoi dong; hay doi vai giay.');await unlink(path);}catch(e){if(e.code!=='ENOENT')throw e;}}}throw Error('Khong tao duoc khoa khoi dong.');}
 async function removeOwned(path,instanceId){const data=await readJSON(path);if(data?.instanceId===instanceId)await unlink(path).catch(()=>{});}
-export function dashboardUrls(origin){return [origin+'/admin',origin+'/'];}
+export function dashboardUrls(origin){return [origin+'/admin',origin+'/office-3d/index.html'];}
 async function launchUrl(url){
  if(process.platform==='win32')await new Promise((resolve,reject)=>{const c=spawn(process.env.ComSpec||'cmd.exe',['/d','/s','/c','start "" "'+url+'"'],{windowsHide:true,windowsVerbatimArguments:true,stdio:'ignore'});c.once('error',reject);c.once('exit',code=>code===0?resolve():reject(Error('Khong mo duoc trinh duyet.')));});
  else {const child=spawn(process.platform==='darwin'?'open':'xdg-open',[url],{stdio:'ignore',detached:true});child.on('error',()=>{});child.unref();}

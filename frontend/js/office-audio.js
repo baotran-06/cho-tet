@@ -26,7 +26,7 @@ export class OfficeAudio {
     this.music.volume=this.preferences.musicEnabled?this.preferences.musicVolume*(talking?.22:1):0;
   }
   async musicFor(kind,track) {
-    const source=track?'/api/music/'+track:'sounds/office/'+kind+'.mp3';
+    const source=track?'/api/music/'+track:new URL('../sounds/office/'+kind+'.mp3',import.meta.url).href;
     const identity=track||kind;
     this.music.loop=!track;
     if(this.musicKind!==identity){this.musicKind=identity;this.music.src=source;}
@@ -66,7 +66,7 @@ export class OfficeAudio {
     if(line){
       const index=lines.indexOf(line);this.played.add('voice'+index);
       if(this.preferences.voiceEnabled){
-        this.voice.src=line.src;this.voice.volume=this.preferences.voiceVolume;
+        this.voice.src=new URL('../'+line.src,import.meta.url).href;this.voice.volume=this.preferences.voiceVolume;
         this.voice.currentTime=Math.max(0,elapsed-line.at);
         void this.voice.play().catch(()=>this.onStatus('Bấm Bật âm thanh để nghe lời thoại.'));
       }

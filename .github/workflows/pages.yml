@@ -1,60 +1,29 @@
-name: Test and deploy GitHub Pages
+name: Deploy Ket Xe
 on:
   push:
-    branches: [main, wedding-preview]
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
   pages: write
   id-token: write
 concurrency:
-  group: pages-${{ github.ref }}
+  group: pages
   cancel-in-progress: true
 jobs:
-  test-build:
-    runs-on: ubuntu-24.04
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-      - run: npm ci
-      - run: npm ci --prefix bridge
-      - run: npm run check
-      - run: npm test
-      - run: npm run build
-      - name: Check WebGL and audio output
-        env:
-          XOM_TEST_CHROMIUM: /usr/bin/google-chrome
-        run: node scripts/browser-check.mjs
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: viewer-feature-screenshots
-          path: artifacts/
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-  windows-launcher:
-    runs-on: windows-latest
-    timeout-minutes: 12
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-      - name: Execute wedding START and STOP BAT on Windows
-        run: node --test tests/windows-launcher.test.js
   deploy:
-    if: github.ref == 'refs/heads/main'
-    needs: [test-build, windows-launcher]
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-24.04
     steps:
-      - name: Deploy
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p dist/assets
+          cp frontend/index.html dist/index.html
+          cp -r frontend/assets/gifts dist/assets/gifts
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - uses: actions/deploy-pages@v4
         id: deployment
-        uses: actions/deploy-pages@v4

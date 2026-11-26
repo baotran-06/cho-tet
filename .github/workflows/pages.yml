@@ -21,6 +21,7 @@ jobs:
       - run: |
           mkdir -p dist/assets
           cp frontend/index.html dist/index.html
+          cp frontend/admin.html dist/admin.html
           cp -r frontend/assets/gifts dist/assets/gifts
       - uses: actions/upload-pages-artifact@v3
         with:
